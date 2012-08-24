@@ -48,7 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AudioVSTToolbox\CommonUtils\BinaryFile.cs">
+    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\BinaryFile.cs">
       <Link>BinaryFile.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
