@@ -13,7 +13,7 @@ namespace StereoToQuadJoiner
 {
 	class Program
 	{
-		static string _version = "1.0.1";
+		static string _version = "1.0.2";
 		
 		[STAThread]
 		public static void Main(string[] args)
@@ -34,14 +34,15 @@ namespace StereoToQuadJoiner
 				return;
 			}
 			
+			PrintUsage();
+			Console.WriteLine();
+
 			// make sure that the directory exists...
 			if (directoryPath == null || directoryPath.Length <= 0) {
 				directoryPath = GUIUtils.PromptForPath("C:\\", "Choose directory to process");
 			}
 			if (directoryPath == null || directoryPath.Length <= 0) {
 				Console.Out.WriteLine("No input directory. Script canceled.");
-				Console.WriteLine();
-				PrintUsage();
 				return;
 			} else {
 				Console.Out.WriteLine("Directory {0} selected.", directoryPath);
