@@ -1,35 +1,73 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 
+using NAudio;
+using NAudio.Wave;
+
 using CommonUtils.Audio.NAudio;
+using CommonUtils.GUI;
+using CommonUtils;
 
 namespace StereoToQuadJoiner
 {
 	class Program
 	{
+		static string _version = "1.0.1";
+		
+		[STAThread]
 		public static void Main(string[] args)
 		{
-			// choose directory to process
-			string directoryPath = @"F:\SAMPLES\IMPULSE RESPONSES\PER IVAR IR SAMPLES\ALTIVERB-OUTPUT-QUAD";
-		
+			string directoryPath = "";
+			
+			// Command line parsing
+			Arguments CommandLine = new Arguments(args);
+			if(CommandLine["dir"] != null) {
+				directoryPath = CommandLine["dir"];
+			}
+			if(CommandLine["?"] != null) {
+				PrintUsage();
+				return;
+			}
+			if(CommandLine["help"] != null) {
+				PrintUsage();
+				return;
+			}
+			
+			// make sure that the directory exists...
+			if (directoryPath == null || directoryPath.Length <= 0) {
+				directoryPath = GUIUtils.PromptForPath("C:\\", "Choose directory to process");
+			}
+			if (directoryPath == null || directoryPath.Length <= 0) {
+				Console.Out.WriteLine("No input directory. Script canceled.");
+				Console.WriteLine();
+				PrintUsage();
+				return;
+			} else {
+				Console.Out.WriteLine("Directory {0} selected.", directoryPath);
+			}
+
 			SearchDirAndJoin(directoryPath);
+		}
+		
+		public static void PrintUsage() {
+			Console.WriteLine("StereoToQuadJoiner. Version {0}.", _version);
+			Console.WriteLine("Copyright (C) 2009-2012 Per Ivar Nerseth.");
+			Console.WriteLine();
+			Console.WriteLine("Usage: StereoToQuadJoiner.exe <Arguments>");
+			Console.WriteLine("Choose a directory and this utility will join all the files");
+			Console.WriteLine("with the same name that ends with '_L.wav' and '_R.wav'");
+			Console.WriteLine();
+			Console.WriteLine("Optional Arguments:");
+			Console.WriteLine("\t-dir=<path to where the *_L.wav and *_R.wav files are stored>");
+			Console.WriteLine("\t-? or -help=show this usage helå>");
+			
+			Console.WriteLine("");
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
 		}
 		
 		private static void SearchDirAndJoin(string directoryPath) {
-
-			// make sure that the directory exists...
-			if (directoryPath == null || directoryPath.Length <= 0) {
-				directoryPath = PromptForPath("C:\\", "Choose directory to process");
-				Console.Out.WriteLine("Directory {0} selected.", directoryPath);
-			}
-			if (directoryPath == null || directoryPath.Length <= 0) {
-				Console.Out.WriteLine("No input directory. Script canceled.");
-				return;
-			}
 
 			// locate all left files (and then match pairwise afterwards
 			DirectoryInfo di = new DirectoryInfo(directoryPath);
@@ -54,7 +92,7 @@ namespace StereoToQuadJoiner
 					string combinedFileNamePath = Path.Combine(directoryPath, combinedFileName);
 					if (!File.Exists(combinedFileNamePath)) {
 						// Open the files
-						if (CombineStereoToQuad(fi.FullName, filePathRightFull, combinedFileNamePath)) {
+						if (AudioUtilsNAudio.CombineStereoToQuad(fi.FullName, filePathRightFull, combinedFileNamePath)) {
 							Console.Out.WriteLine("Sucessfully combined the stereo files to quad.");
 							Console.Out.WriteLine("----------------------");
 						} else {
@@ -70,65 +108,6 @@ namespace StereoToQuadJoiner
 					continue;
 				}
 			}
-		}
-		
-		private static bool CombineStereoToQuad(string filePathLeft, string filePathRight, string combinedFileNamePath) {
-			return false;
-		}
-		
-		public static string PromptForPath(string directoryPath, string szDescription) {
-
-			FolderBrowserDialog dlg = new FolderBrowserDialog();
-			if (null != directoryPath && "" != directoryPath) {
-				dlg.SelectedPath = directoryPath;
-			} else {
-				dlg.SelectedPath = @"C:\";
-			}
-
-			if (null != szDescription && "" != szDescription) {
-				dlg.Description = szDescription;
-			} else {
-				dlg.Description = "Select a folder";
-			}
-			
-			dlg.ShowNewFolderButton = true;
-			DialogResult res = dlg.ShowDialog();
-			if (res == DialogResult.OK) {
-				return dlg.SelectedPath;
-			}
-			
-			return null;
-		}
-
-		/*
-	Prompt for a file and return a string
-	szFilter can be like this: "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-		 */
-		public static string PromptForFile(string directoryPath, string szDescription, string szFilter) {
-
-			OpenFileDialog dlg = new OpenFileDialog();
-			if (null != directoryPath && "" != directoryPath) {
-				dlg.InitialDirectory = directoryPath;
-			} else {
-				dlg.InitialDirectory = @"C:\";
-			}
-
-			if (null != szDescription && "" != szDescription) {
-				dlg.Title = szDescription;
-			} else {
-				dlg.Title = "Select a file";
-			}
-
-			if (null != szFilter && "" != szFilter) {
-				dlg.Filter = szFilter;
-			}
-
-			DialogResult res = dlg.ShowDialog();
-			if (res == DialogResult.OK) {
-				return dlg.FileName;
-			}
-			
-			return null;
 		}
 	}
 }

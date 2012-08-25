@@ -10,6 +10,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <StartArguments>-dir="F:\SAMPLES\IMPULSE RESPONSES\PER IVAR IR SAMPLES\ALTIVERB-QUAD-IMPULSE-RESPONSES2"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -21,6 +22,7 @@
     <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <StartAction>Project</StartAction>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -61,8 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\Arguments.cs">
+      <Link>Arguments.cs</Link>
+    </Compile>
     <Compile Include="..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\AudioUtilsNAudio.cs">
       <Link>AudioUtilsNAudio.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\GUI\GUIUtils.cs">
+      <Link>GUIUtils.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
