@@ -13,7 +13,7 @@ namespace StereoToQuadJoiner
 {
 	class Program
 	{
-		static string _version = "1.0.2";
+		static string _version = "1.0.3";
 		
 		[STAThread]
 		public static void Main(string[] args)
@@ -48,7 +48,13 @@ namespace StereoToQuadJoiner
 				Console.Out.WriteLine("Directory {0} selected.", directoryPath);
 			}
 
-			SearchDirAndJoin(directoryPath);
+			if (!SearchDirAndJoin(directoryPath)) {
+				Console.Out.WriteLine("Joining Stereo files failed!");
+				Console.WriteLine("");
+				Console.Write("Press any key to continue . . . ");
+				Console.ReadKey(true);
+				return;
+			}
 		}
 		
 		public static void PrintUsage() {
@@ -68,10 +74,15 @@ namespace StereoToQuadJoiner
 			Console.ReadKey(true);
 		}
 		
-		private static void SearchDirAndJoin(string directoryPath) {
+		private static bool SearchDirAndJoin(string directoryPath) {
 
 			// locate all left files (and then match pairwise afterwards
 			DirectoryInfo di = new DirectoryInfo(directoryPath);
+			if (!di.Exists) {
+				Console.Out.WriteLine("Input directory does not exist! Script canceled.");
+				return false;
+			}
+			
 			FileInfo[] leftFiles = di.GetFiles("*_L.wav");
 			foreach(FileInfo fi in leftFiles)
 			{
@@ -98,7 +109,7 @@ namespace StereoToQuadJoiner
 							Console.Out.WriteLine("----------------------");
 						} else {
 							Console.Out.WriteLine("Could not combine the stereo files to quad. Script canceled.");
-							return;
+							return false;
 						}
 					} else {
 						Console.Out.WriteLine("{0} already exist. Skipping file.", combinedFileNamePath);
@@ -109,6 +120,7 @@ namespace StereoToQuadJoiner
 					continue;
 				}
 			}
+			return true;
 		}
 	}
 }
