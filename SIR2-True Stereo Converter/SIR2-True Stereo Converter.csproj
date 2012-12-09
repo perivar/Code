@@ -31,20 +31,8 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LibFlac">
-      <HintPath>..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\LibFlac.dll</HintPath>
-    </Reference>
     <Reference Include="NAudio">
-      <HintPath>..\AudioVSTToolbox\CommonUtils\Audio\NAudio\NAudio.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio.WindowsMediaFormat">
-      <HintPath>..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\NAudio.WindowsMediaFormat.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudioFLAC">
-      <HintPath>..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\NAudioFLAC.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudioOggVorbis">
-      <HintPath>..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\NAudioOggVorbis.dll</HintPath>
+      <HintPath>..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
