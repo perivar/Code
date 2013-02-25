@@ -26,12 +26,12 @@ using Comirva.Audio.Util.Maths;
 
 namespace Comirva.Audio.Extraction
 {
-	public class MfccTest
+	public class MfccMirage
 	{
-		Matrix filterWeights;
-		Matrix dct;
+		public Matrix filterWeights;
+		public Matrix dct;
 		
-		public MfccTest(int winsize, int srate, int filters, int cc)
+		public MfccMirage(int winsize, int srate, int filters, int cc)
 		{
 			double[] mel = new double[srate/2 - 19];
 			double[] freq = new double[srate/2 - 19];
@@ -89,7 +89,7 @@ namespace Comirva.Audio.Extraction
 				}
 			}
 			#if DEBUG
-			filterWeights.DrawMatrixImage("filterweights-mirage.png");
+			filterWeights.DrawMatrixImage("melfilters-mirage-orig.png");
 			#endif
 			
 			// Compute the DCT
@@ -105,7 +105,7 @@ namespace Comirva.Audio.Extraction
 				}
 			}
 			#if DEBUG
-			dct.DrawMatrixImage("dct-mirage.png");
+			dct.DrawMatrixImage("dct-mirage-orig.png");
 			#endif
 		}
 		
@@ -154,7 +154,6 @@ namespace Comirva.Audio.Extraction
 			Matrix mfcc = dct.Multiply(mel);
 			
 			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop() + "ms");
-			
 			return mfcc;
 		}
 	}

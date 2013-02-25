@@ -22,7 +22,6 @@
 
 using System;
 using System.Diagnostics;
-
 using Comirva.Audio.Util.Maths;
 
 namespace Comirva.Audio.Extraction {
@@ -30,7 +29,7 @@ namespace Comirva.Audio.Extraction {
 	/// <summary>
 	/// Class to perform a Short Time Fourier Transformation
 	/// </summary>
-	public class StftTest
+	public class StftMirage
 	{
 		int winsize;
 		int hopsize;
@@ -41,9 +40,8 @@ namespace Comirva.Audio.Extraction {
 		/// </summary>
 		/// <param name="winsize">FFT window size</param>
 		/// <param name="hopsize">Value to hop on to the next window</param>
-		/// <param name="window">Window function to apply to every window
-		///     processed</param>
-		public StftTest(int winsize, int hopsize, Mirage.IWindowFunction window)
+		/// <param name="window">Window function to apply to every window processed</param>
+		public StftMirage(int winsize, int hopsize, Mirage.IWindowFunction window)
 		{
 			this.winsize = winsize;
 			this.hopsize = hopsize;
@@ -71,7 +69,6 @@ namespace Comirva.Audio.Extraction {
 			}
 			
 			Mirage.Dbg.WriteLine("Stft Execution Time: " + t.Stop() + "ms");
-			
 			return stft;
 		}
 	}
