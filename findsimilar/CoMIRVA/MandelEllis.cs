@@ -8,7 +8,10 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 using Comirva.Audio.Util.Maths;
+
 using CommonUtils;
+
+using NDtw;
 
 namespace Comirva.Audio.Feature
 {
@@ -35,22 +38,7 @@ namespace Comirva.Audio.Feature
 			// the inverted covarMatrix, stored for computational efficiency
 			internal Matrix covarMatrixInv;
 			
-			public GmmMe(Matrix mean, Matrix covarMatrix)
-			{
-				this.mean = mean;
-				this.covarMatrix = covarMatrix;
-
-				// Inverse Covariance
-				try {
-					this.covarMatrixInv = covarMatrix.Inverse();
-				} catch (Exception) {
-					Console.Error.WriteLine("MatrixSingularException");
-					return;
-				}
-			}
-			
 			public GmmMe(Matrix mean, Matrix covarMatrix, Matrix covarMatrixInv) {
-				
 				this.mean = mean;
 				this.covarMatrix = covarMatrix;
 				this.covarMatrixInv = covarMatrixInv;
@@ -78,6 +66,82 @@ namespace Comirva.Audio.Feature
 		{
 		}
 
+		/// <summary>Get Distance</summary>
+		/// <seealso cref="">comirva.audio.feature.AudioFeature#GetDistance(comirva.audio.feature.AudioFeature)</seealso>
+		public override double GetDistance(AudioFeature f)
+		{
+			if(!(f is MandelEllis))
+			{
+				new Exception("Can only handle AudioFeatures of type Mandel Ellis, not of: "+f);
+				return -1;
+			}
+			MandelEllis other = (MandelEllis)f;
+			return KullbackLeibler(this.gmmMe, other.gmmMe) + KullbackLeibler(other.gmmMe, this.gmmMe);
+		}
+
+		/// <summary>Get Distance</summary>
+		/// <seealso cref="">comirva.audio.feature.AudioFeature#GetDistance(comirva.audio.feature.AudioFeature)</seealso>
+		public override double GetDistance(AudioFeature f, AudioFeature.DistanceType t)
+		{
+			if(!(f is MandelEllis))
+			{
+				new Exception("Can only handle AudioFeatures of type Mandel Ellis, not of: "+f);
+				return -1;
+			}
+			MandelEllis other = (MandelEllis)f;
+			
+			DistanceMeasure distanceMeasure = DistanceMeasure.Euclidean;
+			switch (t) {
+				case AudioFeature.DistanceType.Dtw_Euclidean:
+					distanceMeasure = DistanceMeasure.Euclidean;
+					break;
+				case AudioFeature.DistanceType.Dtw_SquaredEuclidean:
+					distanceMeasure = DistanceMeasure.SquaredEuclidean;
+					break;
+				case AudioFeature.DistanceType.Dtw_Manhattan:
+					distanceMeasure = DistanceMeasure.Manhattan;
+					break;
+				case AudioFeature.DistanceType.Dtw_Maximum:
+					distanceMeasure = DistanceMeasure.Maximum;
+					break;
+				case AudioFeature.DistanceType.KullbackLeiblerDivergence:
+				default:
+					return KullbackLeibler(this.gmmMe, other.gmmMe) + KullbackLeibler(other.gmmMe, this.gmmMe);
+			}
+			Dtw dtw = new Dtw(this.GetArray(), other.GetArray(), distanceMeasure, true, true, null, null, null);
+			return dtw.GetCost();
+		}
+		
+		public double[] GetArray() {
+			
+			Matrix mean = gmmMe.mean;
+			Matrix covarMatrix = gmmMe.covarMatrix;
+			Matrix covarMatrixInv = gmmMe.covarMatrixInv;
+			
+			double[] m = mean.GetColumnPackedCopy();
+			double[] cov = covarMatrix.GetColumnPackedCopy();
+			double[] icov = covarMatrixInv.GetColumnPackedCopy();
+			
+			double[] d = new double[m.Length + cov.Length + icov.Length];
+
+			int start = 0;
+			for (int i = 0; i < m.Length; i++) {
+				d[start + i] = mean[i];
+			}
+
+			start += m.Length;
+			for (int i = 0; i < cov.Length; i++) {
+				d[start + i] = cov[i];
+			}
+
+			start += cov.Length;
+			for (int i = 0; i < icov.Length; i++) {
+				d[start + i] = icov[i];
+			}
+			
+			return d;
+		}
+		
 		/// <summary>
 		/// Calculate the Kullback-Leibler (KL) distance between the two GmmMe. (Also
 		/// known as relative entropy) To make the measure symmetric (ie. to obtain a
@@ -108,19 +172,6 @@ namespace Comirva.Audio.Feature
 
 			/// finally, the whole term:
 			return 0.5f * (trace - 2*dim + (float)tmp1.Times(dist).Get(0, 0));
-		}
-
-		/// <summary>Get Distance</summary>
-		/// <seealso cref="">comirva.audio.feature.AudioFeature#GetDistance(comirva.audio.feature.AudioFeature)</seealso>
-		public override double GetDistance(AudioFeature f)
-		{
-			if(!(f is MandelEllis))
-			{
-				new Exception("Can only handle AudioFeatures of type Mandel Ellis, not of: "+f);
-				return -1;
-			}
-			MandelEllis other = (MandelEllis)f;
-			return KullbackLeibler(this.gmmMe, other.gmmMe) + KullbackLeibler(other.gmmMe, this.gmmMe);
 		}
 
 		/// <summary>
@@ -178,9 +229,22 @@ namespace Comirva.Audio.Feature
 				gmmMe.mean.WriteBinary(stream);
 				gmmMe.covarMatrix.WriteBinary(stream);
 				gmmMe.covarMatrixInv.WriteBinary(stream);
-				
+				stream.Flush();
 				return stream.ToArray();
 			}
+		}
+		
+		public byte[] ToBytesXML() {
+			
+			//XmlWriterSettings settings = new XmlWriterSettings();
+			//settings.Indent = true;
+			StringBuilder builder = new StringBuilder();
+			using (XmlWriter writer = XmlWriter.Create(builder))
+			{
+				WriteXML(writer);
+			}
+			
+			return StringUtils.GetBytes(builder.ToString());
 		}
 
 		public static AudioFeature FromBytesCompressed(byte[] byteArray)
@@ -189,11 +253,21 @@ namespace Comirva.Audio.Feature
 				Matrix mean = Matrix.LoadBinary(stream);
 				Matrix covarMatrix = Matrix.LoadBinary(stream);
 				Matrix covarMatrixInv = Matrix.LoadBinary(stream);
+				stream.Flush();
 				
 				MandelEllis.GmmMe gmmme = new MandelEllis.GmmMe(mean, covarMatrix, covarMatrixInv);
 				var mandelEllis = new MandelEllis(gmmme);
 				return mandelEllis;
 			}
+		}
+		
+		public static AudioFeature FromBytesXML(byte[] buf) {
+			String xmlData = StringUtils.GetString(buf);
+			XmlTextReader xmlTextReader = new XmlTextReader(new StringReader(xmlData));
+			
+			MandelEllis mandelEllis = new MandelEllis();
+			mandelEllis.ReadXML(xmlTextReader);
+			return mandelEllis;
 		}
 		
 		/// <summary>
@@ -202,18 +276,7 @@ namespace Comirva.Audio.Feature
 		/// <returns>byte array</returns>
 		public override byte[] ToBytes()
 		{
-			//XmlWriterSettings settings = new XmlWriterSettings();
-			//settings.Indent = true;
-			/*
-			StringBuilder builder = new StringBuilder();
-			using (XmlWriter writer = XmlWriter.Create(builder))
-			{
-				WriteXML(writer);
-			}
-			
-			return StringUtils.GetBytes(builder.ToString());
-			 */
-			
+			//return ToBytesXML();
 			return ToBytesCompressed();
 		}
 		
@@ -223,15 +286,7 @@ namespace Comirva.Audio.Feature
 		/// <param name="buf">byte array</param>
 		public static AudioFeature FromBytes(byte[] buf)
 		{
-			/*
-			String xmlData = StringUtils.GetString(buf);
-			XmlTextReader xmlTextReader = new XmlTextReader(new StringReader(xmlData));
-			
-			MandelEllis mandelEllis = new MandelEllis();
-			mandelEllis.ReadXML(xmlTextReader);
-			return mandelEllis;
-			 */
-			
+			//return FromBytesXML(buf);
 			return FromBytesCompressed(buf);
 		}
 	}

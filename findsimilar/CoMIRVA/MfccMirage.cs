@@ -109,6 +109,68 @@ namespace Comirva.Audio.Extraction
 			#endif
 		}
 		
+		/// <summary>
+		/// Apply external DCT and Mel Filterbands
+		/// </summary>
+		/// <param name="m"></param>
+		/// <param name="filterWeights"></param>
+		/// <param name="dct"></param>
+		/// <returns></returns>
+		public Matrix Apply(ref Matrix m, ref Matrix filterWeights, ref Matrix dct)
+		{
+			Mirage.DbgTimer t = new Mirage.DbgTimer();
+			t.Start();
+
+			Matrix mel = new Matrix(filterWeights.Rows, m.Columns);
+			
+			// Performance optimization of ...
+			mel = filterWeights.Multiply(m);
+			for (int i = 0; i < mel.Rows; i++) {
+				for (int j = 0; j < mel.Columns; j++) {
+					mel.MatrixData[i][j] = (mel.MatrixData[i][j] < 1.0 ? 0 : (10.0 * Math.Log10(mel.MatrixData[i][j])));
+				}
+			}
+			
+			/*
+			int mc = m.Columns;
+			int mr = m.Rows;
+			int melcolumns = mel.Columns;
+			int fwc = filterWeights.Columns;
+			int fwr = filterWeights.Rows;
+
+			unsafe {
+				fixed (double** md = m.MatrixData, fwd = filterWeights.MatrixData, meld = mel.MatrixData) {
+					for (int i = 0; i < mc; i++) {
+						for (int k = 0; k < fwr; k++) {
+							int idx = k*melcolumns + i;
+							int kfwc = k*fwc;
+
+							for (int j = 0; j < mr; j++) {
+								meld[idx] += fwd[kfwc + j] * md[j*mc + i];
+							}
+
+							meld[idx] = (meld[idx] < 1.0f ?
+							             0 : (float)(10.0 * Math.Log10(meld[idx])));
+						}
+						
+					}
+				}
+			}
+			 */
+			
+			Matrix mfcc = dct.Multiply(mel);
+			
+			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop() + "ms");
+			return mfcc;
+		}
+		
+		/// <summary>
+		/// Apply internal DCT and Mel Filterbands
+		/// </summary>
+		/// <param name="m"></param>
+		/// <param name="filterWeights"></param>
+		/// <param name="dct"></param>
+		/// <returns></returns>
 		public Matrix Apply(ref Matrix m)
 		{
 			Mirage.DbgTimer t = new Mirage.DbgTimer();
@@ -156,5 +218,34 @@ namespace Comirva.Audio.Extraction
 			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop() + "ms");
 			return mfcc;
 		}
+
+		/// <summary>
+		/// Apply internal DCT and Mel Filterbands utilising the Comirva Matrix methods
+		/// </summary>
+		/// <param name="m"></param>
+		/// <param name="filterWeights"></param>
+		/// <param name="dct"></param>
+		/// <returns></returns>
+		public Matrix ApplyComirvaWay(ref Matrix x)
+		{
+			Mirage.DbgTimer t = new Mirage.DbgTimer();
+			t.Start();
+
+			//apply mel filter banks
+			x = filterWeights.Times(x);
+
+			//to db
+			double log10 = 10 * (1 / Math.Log(10)); // log for base 10 and scale by factor 10
+			x.ThrunkAtLowerBoundary(1);
+			x.LogEquals();
+			x.TimesEquals(log10);
+
+			//compute DCT
+			x = dct.Times(x);
+			
+			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop() + "ms");
+			return x;
+		}
+
 	}
 }
