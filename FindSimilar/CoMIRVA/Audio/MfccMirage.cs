@@ -1,30 +1,20 @@
-/*
- * Mirage - High Performance Music Similarity and Automatic Playlist Generator
- * http://hop.at/mirage
- * 
- * Copyright (C) 2007 Dominik Schnitzer <dominik@schnitzer.at>
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA  02110-1301, USA.
- */
-
 using System;
-
 using Comirva.Audio.Util.Maths;
 
-namespace Comirva.Audio.Extraction
+/// <summary>
+/// Mfcc method copied from the Mirage project:
+/// Mirage - High Performance Music Similarity and Automatic Playlist Generator
+/// http://hop.at/mirage
+///
+/// Copyright (C) 2007 Dominik Schnitzer <dominik@schnitzer.at>
+/// Changed and enhanced by Per Ivar Nerseth <perivar@nerseth.com>
+///
+/// This program is free software; you can redistribute it and/or
+/// modify it under the terms of the GNU General Public License
+/// as published by the Free Software Foundation; either version 2
+/// of the License, or (at your option) any later version.
+/// </summary>
+namespace Comirva.Audio
 {
 	public class MfccMirage
 	{
@@ -89,7 +79,7 @@ namespace Comirva.Audio.Extraction
 				}
 			}
 			#if DEBUG
-			filterWeights.DrawMatrixImage("melfilters-mirage-orig.png");
+			filterWeights.DrawMatrixGraph("melfilters-mirage-orig.png");
 			#endif
 			
 			// Compute the DCT
@@ -105,7 +95,7 @@ namespace Comirva.Audio.Extraction
 				}
 			}
 			#if DEBUG
-			dct.DrawMatrixImage("dct-mirage-orig.png");
+			dct.DrawMatrixGraph("dct-mirage-orig.png");
 			#endif
 		}
 		
@@ -139,7 +129,7 @@ namespace Comirva.Audio.Extraction
 			int fwr = filterWeights.Rows;
 
 			unsafe {
-				fixed (double** md = m.MatrixData, fwd = filterWeights.MatrixData, meld = mel.MatrixData) {
+				fixed (float* md = m.d, fwd = filterWeights.d, meld = mel.d) {
 					for (int i = 0; i < mc; i++) {
 						for (int k = 0; k < fwr; k++) {
 							int idx = k*melcolumns + i;
@@ -160,7 +150,7 @@ namespace Comirva.Audio.Extraction
 			
 			Matrix mfcc = dct.Multiply(mel);
 			
-			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop() + "ms");
+			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop().Milliseconds + "ms");
 			return mfcc;
 		}
 		
@@ -215,7 +205,7 @@ namespace Comirva.Audio.Extraction
 			
 			Matrix mfcc = dct.Multiply(mel);
 			
-			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop() + "ms");
+			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop().Milliseconds + "ms");
 			return mfcc;
 		}
 
@@ -232,20 +222,19 @@ namespace Comirva.Audio.Extraction
 			t.Start();
 
 			//apply mel filter banks
-			x = filterWeights.Times(x);
+			x = filterWeights * x;
 
 			//to db
 			double log10 = 10 * (1 / Math.Log(10)); // log for base 10 and scale by factor 10
 			x.ThrunkAtLowerBoundary(1);
 			x.LogEquals();
-			x.TimesEquals(log10);
+			x *= log10;
 
 			//compute DCT
-			x = dct.Times(x);
+			x = dct * x;
 			
-			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop() + "ms");
+			Mirage.Dbg.WriteLine("mfcc Execution Time: " + t.Stop().Milliseconds + "ms");
 			return x;
 		}
-
 	}
 }
