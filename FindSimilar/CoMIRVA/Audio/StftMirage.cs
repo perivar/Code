@@ -1,30 +1,20 @@
-/*
- * Mirage - High Performance Music Similarity and Automatic Playlist Generator
- * http://hop.at/mirage
- * 
- * Copyright (C) 2007 Dominik Schnitzer <dominik@schnitzer.at>
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA  02110-1301, USA.
- */
-
 using System;
-using System.Diagnostics;
 using Comirva.Audio.Util.Maths;
 
-namespace Comirva.Audio.Extraction {
+/// <summary>
+/// Short Term Fourier Transformation method copied from the Mirage project:
+/// Mirage - High Performance Music Similarity and Automatic Playlist Generator
+/// http://hop.at/mirage
+///
+/// Copyright (C) 2007 Dominik Schnitzer <dominik@schnitzer.at>
+/// Changed and enhanced by Per Ivar Nerseth <perivar@nerseth.com>
+///
+/// This program is free software; you can redistribute it and/or
+/// modify it under the terms of the GNU General Public License
+/// as published by the Free Software Foundation; either version 2
+/// of the License, or (at your option) any later version.
+/// </summary>
+namespace Comirva.Audio {
 
 	/// <summary>
 	/// Class to perform a Short Time Fourier Transformation
@@ -33,7 +23,7 @@ namespace Comirva.Audio.Extraction {
 	{
 		int winsize;
 		int hopsize;
-		Mirage.Fft fft;
+		Mirage.Fft fft; // Use the mirage fft class
 		
 		/// <summary>
 		/// Instantiate a new Stft Class
@@ -68,7 +58,7 @@ namespace Comirva.Audio.Extraction {
 				fft.ComputeComirvaMatrix(ref stft, i, audiodata, i*hopsize);
 			}
 			
-			Mirage.Dbg.WriteLine("Stft Execution Time: " + t.Stop() + "ms");
+			Mirage.Dbg.WriteLine("Stft Execution Time: " + t.Stop().Milliseconds + " ms");
 			return stft;
 		}
 	}
