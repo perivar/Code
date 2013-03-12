@@ -1025,6 +1025,7 @@ namespace UCRCSharp
 
 			i = (it)*(EPOCH - m + 1) + ep;
 
+			/*
 			#if DEBUG
 			t2 = DateTime.Now.Ticks;
 			Console.WriteLine();
@@ -1042,6 +1043,7 @@ namespace UCRCSharp
 			Console.WriteLine("Pruned by LB_Keogh2 : {0:P2}", ((double) keogh2/i));
 			Console.WriteLine("DTW Calculation     : {0:P2}", 1 - (((double) kim + keogh + keogh2)/i));
 			#endif
+			 */
 			
 			return Math.Sqrt(bsf);
 		}
