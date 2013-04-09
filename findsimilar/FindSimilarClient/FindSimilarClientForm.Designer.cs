@@ -37,9 +37,13 @@
 			this.tabIdSearch = new System.Windows.Forms.TabPage();
 			this.QueryIdTextBox = new System.Windows.Forms.TextBox();
 			this.QueryIdLabel = new System.Windows.Forms.Label();
+			this.tabStringSearch = new System.Windows.Forms.TabPage();
+			this.QueryStringTextBox = new System.Windows.Forms.TextBox();
+			this.QueryStringLabel = new System.Windows.Forms.Label();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.findSimilarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.DistanceTypeCombo = new System.Windows.Forms.ComboBox();
 			this.GoBtn = new System.Windows.Forms.Button();
@@ -48,6 +52,7 @@
 			this.tabControl1.SuspendLayout();
 			this.tabFileSearch.SuspendLayout();
 			this.tabIdSearch.SuspendLayout();
+			this.tabStringSearch.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -58,6 +63,7 @@
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabFileSearch);
 			this.tabControl1.Controls.Add(this.tabIdSearch);
+			this.tabControl1.Controls.Add(this.tabStringSearch);
 			this.tabControl1.Location = new System.Drawing.Point(12, 29);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -138,6 +144,34 @@
 			this.QueryIdLabel.TabIndex = 2;
 			this.QueryIdLabel.Text = "Type in file-Id to search for:";
 			// 
+			// tabStringSearch
+			// 
+			this.tabStringSearch.Controls.Add(this.QueryStringTextBox);
+			this.tabStringSearch.Controls.Add(this.QueryStringLabel);
+			this.tabStringSearch.Location = new System.Drawing.Point(4, 22);
+			this.tabStringSearch.Name = "tabStringSearch";
+			this.tabStringSearch.Padding = new System.Windows.Forms.Padding(3);
+			this.tabStringSearch.Size = new System.Drawing.Size(668, 29);
+			this.tabStringSearch.TabIndex = 2;
+			this.tabStringSearch.Text = "Find using string";
+			this.tabStringSearch.UseVisualStyleBackColor = true;
+			// 
+			// QueryStringTextBox
+			// 
+			this.QueryStringTextBox.Location = new System.Drawing.Point(150, 5);
+			this.QueryStringTextBox.Name = "QueryStringTextBox";
+			this.QueryStringTextBox.Size = new System.Drawing.Size(108, 20);
+			this.QueryStringTextBox.TabIndex = 5;
+			this.QueryStringTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.QueryStringTextBoxKeyPress);
+			// 
+			// QueryStringLabel
+			// 
+			this.QueryStringLabel.Location = new System.Drawing.Point(7, 8);
+			this.QueryStringLabel.Name = "QueryStringLabel";
+			this.QueryStringLabel.Size = new System.Drawing.Size(137, 23);
+			this.QueryStringLabel.TabIndex = 4;
+			this.QueryStringLabel.Text = "Type in text to search for:";
+			// 
 			// dataGridView1
 			// 
 			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -159,16 +193,24 @@
 			// contextMenuStrip1
 			// 
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.findSimilarToolStripMenuItem});
+									this.findSimilarToolStripMenuItem,
+									this.openFileLocationToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(169, 70);
 			// 
 			// findSimilarToolStripMenuItem
 			// 
 			this.findSimilarToolStripMenuItem.Name = "findSimilarToolStripMenuItem";
-			this.findSimilarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.findSimilarToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
 			this.findSimilarToolStripMenuItem.Text = "Find Similar";
 			this.findSimilarToolStripMenuItem.Click += new System.EventHandler(this.FindSimilarToolStripMenuItemClick);
+			// 
+			// openFileLocationToolStripMenuItem
+			// 
+			this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
+			this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+			this.openFileLocationToolStripMenuItem.Text = "Open file location";
+			this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenFileLocationToolStripMenuItemClick);
 			// 
 			// DistanceTypeCombo
 			// 
@@ -224,8 +266,8 @@
 			this.Controls.Add(this.ResetBtn);
 			this.Controls.Add(this.GoBtn);
 			this.Controls.Add(this.dataGridView1);
-			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.DistanceTypeCombo);
+			this.Controls.Add(this.tabControl1);
 			this.Name = "FindSimilarClientForm";
 			this.Text = "Find Similar Client";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FindSimilarClientFormFormClosing);
@@ -234,10 +276,16 @@
 			this.tabFileSearch.PerformLayout();
 			this.tabIdSearch.ResumeLayout(false);
 			this.tabIdSearch.PerformLayout();
+			this.tabStringSearch.ResumeLayout(false);
+			this.tabStringSearch.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
+		private System.Windows.Forms.Label QueryStringLabel;
+		private System.Windows.Forms.TextBox QueryStringTextBox;
+		private System.Windows.Forms.TabPage tabStringSearch;
 		private System.Windows.Forms.CheckBox autoPlayCheckBox;
 		private System.Windows.Forms.Button ResetBtn;
 		private System.Windows.Forms.Button GoBtn;
