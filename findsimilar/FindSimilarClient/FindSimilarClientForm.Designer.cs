@@ -49,6 +49,7 @@
 			this.GoBtn = new System.Windows.Forms.Button();
 			this.ResetBtn = new System.Windows.Forms.Button();
 			this.autoPlayCheckBox = new System.Windows.Forms.CheckBox();
+			this.IgnoreFileLengthCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabFileSearch.SuspendLayout();
 			this.tabIdSearch.SuspendLayout();
@@ -186,7 +187,6 @@
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.Size = new System.Drawing.Size(676, 269);
 			this.dataGridView1.TabIndex = 3;
-			this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView1CellMouseDown);
 			this.dataGridView1.SelectionChanged += new System.EventHandler(this.DataGridView1SelectionChanged);
 			this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DataGridView1KeyPress);
 			this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DataGridView1MouseDown);
@@ -217,7 +217,7 @@
 			// 
 			this.DistanceTypeCombo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.DistanceTypeCombo.FormattingEnabled = true;
-			this.DistanceTypeCombo.Location = new System.Drawing.Point(538, 87);
+			this.DistanceTypeCombo.Location = new System.Drawing.Point(538, 89);
 			this.DistanceTypeCombo.Name = "DistanceTypeCombo";
 			this.DistanceTypeCombo.Size = new System.Drawing.Size(150, 21);
 			this.DistanceTypeCombo.TabIndex = 4;
@@ -257,12 +257,24 @@
 			this.autoPlayCheckBox.UseVisualStyleBackColor = true;
 			this.autoPlayCheckBox.CheckedChanged += new System.EventHandler(this.AutoPlayCheckBoxCheckedChanged);
 			// 
+			// IgnoreFileLengthCheckBox
+			// 
+			this.IgnoreFileLengthCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.IgnoreFileLengthCheckBox.Location = new System.Drawing.Point(412, 87);
+			this.IgnoreFileLengthCheckBox.Name = "IgnoreFileLengthCheckBox";
+			this.IgnoreFileLengthCheckBox.Size = new System.Drawing.Size(120, 24);
+			this.IgnoreFileLengthCheckBox.TabIndex = 8;
+			this.IgnoreFileLengthCheckBox.Text = "Ignore File Length";
+			this.IgnoreFileLengthCheckBox.UseVisualStyleBackColor = true;
+			this.IgnoreFileLengthCheckBox.CheckedChanged += new System.EventHandler(this.IgnoreFileLengthCheckedChanged);
+			// 
 			// FindSimilarClientForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(700, 395);
 			this.ContextMenuStrip = this.contextMenuStrip1;
+			this.Controls.Add(this.IgnoreFileLengthCheckBox);
 			this.Controls.Add(this.autoPlayCheckBox);
 			this.Controls.Add(this.ResetBtn);
 			this.Controls.Add(this.GoBtn);
@@ -283,6 +295,7 @@
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.CheckBox IgnoreFileLengthCheckBox;
 		private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
 		private System.Windows.Forms.Label QueryStringLabel;
 		private System.Windows.Forms.TextBox QueryStringTextBox;
