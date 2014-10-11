@@ -306,8 +306,12 @@ namespace Nectar2Preset
 		public decimal ExciterPostfilterGain { get; set; }
 		#endregion
 
-		public Nectar2Preset()
+		public string PresetName { get; set; }
+		
+		public Nectar2Preset(string presetName)
 		{
+			PresetName = presetName;
+			
 			// add this to the constructor
 			#region Initialize the attributes
 			GlobalGlobalCompressionMix = 100m;
@@ -525,7 +529,7 @@ namespace Nectar2Preset
 			XmlNode dynamics1ModeNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='Mode']");
 			if (dynamics1ModeNode != null) {
 				// read the dynamics1Mode attribute value
-				Dynamics1Mode = NumberUtils.ParseEnum<DynamicsMode>(dynamics1ModeNode.SelectSingleNode("@Value").Value);
+				Dynamics1Mode = StringUtils.StringToEnum<DynamicsMode>(dynamics1ModeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics1RMSDetectionNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='RMS Detection']");
@@ -573,7 +577,7 @@ namespace Nectar2Preset
 			XmlNode dynamics2ModeNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Mode']");
 			if (dynamics2ModeNode != null) {
 				// read the dynamics2Mode attribute value
-				Dynamics2Mode = NumberUtils.ParseEnum<DynamicsMode>(dynamics2ModeNode.SelectSingleNode("@Value").Value);
+				Dynamics2Mode = StringUtils.StringToEnum<DynamicsMode>(dynamics2ModeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2RMSDetectionNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='RMS Detection']");
@@ -639,7 +643,7 @@ namespace Nectar2Preset
 			XmlNode delayHostTempoSyncRatioNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Host Tempo Sync Ratio']");
 			if (delayHostTempoSyncRatioNode != null) {
 				// read the delayHostTempoSyncRatioNode attribute value
-				DelayHostTempoSyncRatio = NumberUtils.ParseEnum<HostTempoSyncRatio>(delayHostTempoSyncRatioNode.SelectSingleNode("@Value").Value);
+				DelayHostTempoSyncRatio = StringUtils.StringToEnum<HostTempoSyncRatio>(delayHostTempoSyncRatioNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayDelayNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Delay']");
@@ -774,7 +778,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand0ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 0 Shape']");
 			if (equalizerBand0ShapeNode != null) {
 				// read the equalizerBand0Shape attribute value
-				EqualizerBand0Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand0ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand0Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand0ShapeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand1EnableNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 1 Enable']");
@@ -804,7 +808,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand1ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 1 Shape']");
 			if (equalizerBand1ShapeNode != null) {
 				// read the equalizerBand1Shape attribute value
-				EqualizerBand1Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand1ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand1Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand1ShapeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand2EnableNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 2 Enable']");
@@ -834,7 +838,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand2ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 2 Shape']");
 			if (equalizerBand2ShapeNode != null) {
 				// read the equalizerBand2Shape attribute value
-				EqualizerBand2Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand2ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand2Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand2ShapeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand3EnableNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 3 Enable']");
@@ -864,7 +868,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand3ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 3 Shape']");
 			if (equalizerBand3ShapeNode != null) {
 				// read the equalizerBand3Shape attribute value
-				EqualizerBand3Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand3ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand3Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand3ShapeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand4EnableNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 4 Enable']");
@@ -894,7 +898,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand4ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 4 Shape']");
 			if (equalizerBand4ShapeNode != null) {
 				// read the equalizerBand4Shape attribute value
-				EqualizerBand4Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand4ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand4Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand4ShapeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand5EnableNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 5 Enable']");
@@ -924,7 +928,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand5ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 5 Shape']");
 			if (equalizerBand5ShapeNode != null) {
 				// read the equalizerBand5Shape attribute value
-				EqualizerBand5Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand5ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand5Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand5ShapeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand6EnableNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 6 Enable']");
@@ -954,7 +958,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand6ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 6 Shape']");
 			if (equalizerBand6ShapeNode != null) {
 				// read the equalizerBand6Shape attribute value
-				EqualizerBand6Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand6ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand6Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand6ShapeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand7EnableNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 7 Enable']");
@@ -984,7 +988,7 @@ namespace Nectar2Preset
 			XmlNode equalizerBand7ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 7 Shape']");
 			if (equalizerBand7ShapeNode != null) {
 				// read the equalizerBand7Shape attribute value
-				EqualizerBand7Shape = NumberUtils.ParseEnum<EqualizerBandShape>(equalizerBand7ShapeNode.SelectSingleNode("@Value").Value);
+				EqualizerBand7Shape = StringUtils.StringToEnum<EqualizerBandShape>(equalizerBand7ShapeNode.SelectSingleNode("@Value").Value);
 			}
 			#endregion
 
@@ -1045,7 +1049,7 @@ namespace Nectar2Preset
 			XmlNode fxModulationModeNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Modulation Mode']");
 			if (fxModulationModeNode != null) {
 				// read the fxModulationMode attribute value
-				FXModulationMode = NumberUtils.ParseEnum<FXModulationModes>(fxModulationModeNode.SelectSingleNode("@Value").Value);
+				FXModulationMode = StringUtils.StringToEnum<FXModulationModes>(fxModulationModeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxModulationSendNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Modulation Send']");
@@ -1075,7 +1079,7 @@ namespace Nectar2Preset
 			XmlNode fxTimeModeNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Time Mode']");
 			if (fxTimeModeNode != null) {
 				// read the fxTimeMode attribute value
-				FXTimeMode = NumberUtils.ParseEnum<FXTimeModes>(fxTimeModeNode.SelectSingleNode("@Value").Value);
+				FXTimeMode = StringUtils.StringToEnum<FXTimeModes>(fxTimeModeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxTimeSendNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Time Send']");
@@ -1255,49 +1259,49 @@ namespace Nectar2Preset
 			XmlNode harmonyVoiceInterval1Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval 1']");
 			if (harmonyVoiceInterval1Node != null) {
 				// read the harmonyVoiceInterval1 attribute value
-				HarmonyVoiceInterval1 = NumberUtils.ParseEnum<HarmonyVoiceInterval>(harmonyVoiceInterval1Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceInterval1 = StringUtils.StringToEnum<HarmonyVoiceInterval>(harmonyVoiceInterval1Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceInterval2Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval 2']");
 			if (harmonyVoiceInterval2Node != null) {
 				// read the harmonyVoiceInterval2 attribute value
-				HarmonyVoiceInterval2 = NumberUtils.ParseEnum<HarmonyVoiceInterval>(harmonyVoiceInterval2Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceInterval2 = StringUtils.StringToEnum<HarmonyVoiceInterval>(harmonyVoiceInterval2Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceInterval3Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval 3']");
 			if (harmonyVoiceInterval3Node != null) {
 				// read the harmonyVoiceInterval3 attribute value
-				HarmonyVoiceInterval3 = NumberUtils.ParseEnum<HarmonyVoiceInterval>(harmonyVoiceInterval3Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceInterval3 = StringUtils.StringToEnum<HarmonyVoiceInterval>(harmonyVoiceInterval3Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceInterval4Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval 4']");
 			if (harmonyVoiceInterval4Node != null) {
 				// read the harmonyVoiceInterval4 attribute value
-				HarmonyVoiceInterval4 = NumberUtils.ParseEnum<HarmonyVoiceInterval>(harmonyVoiceInterval4Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceInterval4 = StringUtils.StringToEnum<HarmonyVoiceInterval>(harmonyVoiceInterval4Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceIntervalDirection1Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval Direction 1']");
 			if (harmonyVoiceIntervalDirection1Node != null) {
 				// read the harmonyVoiceIntervalDirection1 attribute value
-				HarmonyVoiceIntervalDirection1 = NumberUtils.ParseEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection1Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceIntervalDirection1 = StringUtils.StringToEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection1Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceIntervalDirection2Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval Direction 2']");
 			if (harmonyVoiceIntervalDirection2Node != null) {
 				// read the harmonyVoiceIntervalDirection2 attribute value
-				HarmonyVoiceIntervalDirection2 = NumberUtils.ParseEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection2Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceIntervalDirection2 = StringUtils.StringToEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection2Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceIntervalDirection3Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval Direction 3']");
 			if (harmonyVoiceIntervalDirection3Node != null) {
 				// read the harmonyVoiceIntervalDirection3 attribute value
-				HarmonyVoiceIntervalDirection3 = NumberUtils.ParseEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection3Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceIntervalDirection3 = StringUtils.StringToEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection3Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceIntervalDirection4Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval Direction 4']");
 			if (harmonyVoiceIntervalDirection4Node != null) {
 				// read the harmonyVoiceIntervalDirection4 attribute value
-				HarmonyVoiceIntervalDirection4 = NumberUtils.ParseEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection4Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceIntervalDirection4 = StringUtils.StringToEnum<HarmonyVoiceIntervalDirection>(harmonyVoiceIntervalDirection4Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoicePan1Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Pan 1']");
@@ -1369,7 +1373,7 @@ namespace Nectar2Preset
 			XmlNode pitchVocalRangeNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Vocal Range']");
 			if (pitchVocalRangeNode != null) {
 				// read the pitchVocalRange attribute value
-				PitchVocalRange = NumberUtils.ParseEnum<PitchRange>(pitchVocalRangeNode.SelectSingleNode("@Value").Value);
+				PitchVocalRange = StringUtils.StringToEnum<PitchRange>(pitchVocalRangeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode pitchVoice1TranspositionNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Voice 1 Transposition']");
@@ -1459,7 +1463,7 @@ namespace Nectar2Preset
 			XmlNode exciterModeNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Mode']");
 			if (exciterModeNode != null) {
 				// read the exciterMode attribute value
-				ExciterMode = NumberUtils.ParseEnum<SaturationMode>(exciterModeNode.SelectSingleNode("@Value").Value);
+				ExciterMode = StringUtils.StringToEnum<SaturationMode>(exciterModeNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode exciterPostfilterFreqNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Postfilter Freq']");
@@ -1481,127 +1485,130 @@ namespace Nectar2Preset
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
 
-			sb.Append("Global Global Compression Mix:".PadRight(40)).AppendFormat("{0:0.############################} %\n", GlobalGlobalCompressionMix);
+			sb.AppendFormat("Preset Name: {0}\n", PresetName);
+			sb.AppendLine();
+			
+			sb.Append("Global Global Compression Mix:".PadRight(40)).AppendFormat("{0:0.##} %\n", GlobalGlobalCompressionMix);
 			sb.Append("Global Global Parallel Compression:".PadRight(40)).AppendFormat("{0}\n", GlobalGlobalParallelCompression);
 			sb.AppendLine();
 			
-			sb.Append("Dynamics 1 Threshold:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", Dynamics1Threshold);
+			sb.Append("Dynamics 1 Threshold:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics1Threshold);
 			sb.Append("Dynamics 1 Mode:".PadRight(40)).AppendFormat("{0}\n", Dynamics1Mode);
-			sb.Append("Dynamics 1 Ratio:".PadRight(40)).AppendFormat("{0} : 1\n", Dynamics1Ratio);
-			sb.Append("Dynamics 1 Attack:".PadRight(40)).AppendFormat("{0:0.############################} ms\n", Dynamics1Attack);
-			sb.Append("Dynamics 1 Release:".PadRight(40)).AppendFormat("{0:0.############################} ms\n", Dynamics1Release);
+			sb.Append("Dynamics 1 Ratio:".PadRight(40)).AppendFormat("{0:0.##} : 1\n", Dynamics1Ratio);
+			sb.Append("Dynamics 1 Attack:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics1Attack);
+			sb.Append("Dynamics 1 Release:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics1Release);
 			sb.Append("Dynamics 1 RMS Detection:".PadRight(40)).AppendFormat("{0}\n", Dynamics1RMSDetection);
-			sb.Append("Dynamics 1 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", Dynamics1Gain);
+			sb.Append("Dynamics 1 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics1Gain);
 			sb.Append("Dynamics 2 Bypass:".PadRight(40)).AppendFormat("{0}\n", Dynamics2Bypass);
-			sb.Append("Dynamics 2 Threshold:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", Dynamics2Threshold);
+			sb.Append("Dynamics 2 Threshold:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2Threshold);
 			sb.Append("Dynamics 2 Mode:".PadRight(40)).AppendFormat("{0}\n", Dynamics2Mode);
-			sb.Append("Dynamics 2 Ratio:".PadRight(40)).AppendFormat("{0} : 1\n", Dynamics2Ratio);
-			sb.Append("Dynamics 2 Attack:".PadRight(40)).AppendFormat("{0:0.############################} ms\n", Dynamics2Attack);
-			sb.Append("Dynamics 2 Release:".PadRight(40)).AppendFormat("{0:0.############################} ms\n", Dynamics2Release);
+			sb.Append("Dynamics 2 Ratio:".PadRight(40)).AppendFormat("{0:0.##} : 1\n", Dynamics2Ratio);
+			sb.Append("Dynamics 2 Attack:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics2Attack);
+			sb.Append("Dynamics 2 Release:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics2Release);
 			sb.Append("Dynamics 2 RMS Detection:".PadRight(40)).AppendFormat("{0}\n", Dynamics2RMSDetection);
-			sb.Append("Dynamics 2 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", Dynamics2Gain);
+			sb.Append("Dynamics 2 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2Gain);
 			
 			sb.Append("Dynamics 2 Equalizer Bypass:".PadRight(40)).AppendFormat("{0}\n", Dynamics2EqualizerBypass);
-			sb.Append("Dynamics 2 Equalizer Band 0 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", Dynamics2EqualizerBand0Frequency);
-			sb.Append("Dynamics 2 Equalizer Band 0 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", Dynamics2EqualizerBand0Gain);
-			sb.Append("Dynamics 2 Equalizer Band 1 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", Dynamics2EqualizerBand1Frequency);
-			sb.Append("Dynamics 2 Equalizer Band 1 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", Dynamics2EqualizerBand1Gain);
+			sb.Append("Dynamics 2 Equalizer Band 0 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", Dynamics2EqualizerBand0Frequency);
+			sb.Append("Dynamics 2 Equalizer Band 0 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2EqualizerBand0Gain);
+			sb.Append("Dynamics 2 Equalizer Band 1 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", Dynamics2EqualizerBand1Frequency);
+			sb.Append("Dynamics 2 Equalizer Band 1 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2EqualizerBand1Gain);
 			sb.AppendLine();
 			
 			sb.Append("DeEsser Bypass:".PadRight(40)).AppendFormat("{0}\n", DeEsserBypass);
-			sb.Append("DeEsser Ess Reduction:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", DeEsserEssReduction);
-			sb.Append("DeEsser Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", DeEsserFrequency);
+			sb.Append("DeEsser Ess Reduction:".PadRight(40)).AppendFormat("{0:0.##} dB\n", DeEsserEssReduction);
+			sb.Append("DeEsser Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", DeEsserFrequency);
 			sb.Append("DeEsser Output Ess Only:".PadRight(40)).AppendFormat("{0}\n", DeEsserOutputEssOnly);
 			sb.AppendLine();
 			
 			sb.Append("Delay Bypass:".PadRight(40)).AppendFormat("{0}\n", DelayBypass);
 			sb.Append("Delay Host Tempo Sync:".PadRight(40)).AppendFormat("{0}\n", DelayHostTempoSync);
 			sb.Append("Delay Host Tempo Sync Ratio:".PadRight(40)).AppendFormat("{0}\n", DelayHostTempoSyncRatio);
-			sb.Append("Delay Delay (Not Host Tempo Sync):".PadRight(40)).AppendFormat("{0:0.############################} ms\n", DelayDelay);
-			sb.Append("Delay Feedback Percent:".PadRight(40)).AppendFormat("{0:0.############################} %\n", DelayFeedbackPercent);
-			sb.Append("Delay High Cutoff:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", DelayHighCutoff);
-			sb.Append("Delay Low Cutoff:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", DelayLowCutoff);
+			sb.Append("Delay Delay (Not Host Tempo Sync):".PadRight(40)).AppendFormat("{0:0.##} ms\n", DelayDelay);
+			sb.Append("Delay Feedback Percent:".PadRight(40)).AppendFormat("{0:0.##} %\n", DelayFeedbackPercent);
+			sb.Append("Delay Low Cutoff:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", DelayLowCutoff);
+			sb.Append("Delay High Cutoff:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", DelayHighCutoff);
 			sb.Append("Delay Enable Modulation:".PadRight(40)).AppendFormat("{0}\n", DelayEnableModulation);
-			sb.Append("Delay Modulation Depth:".PadRight(40)).AppendFormat("{0:0.############################}\n", DelayModulationDepth);
-			sb.Append("Delay Modulation Rate:".PadRight(40)).AppendFormat("{0:0.############################}\n", DelayModulationRate);
-			sb.Append("Delay Distortion Mode:".PadRight(40)).AppendFormat("{0:0.############################}\n", DelayDistortionMode);
-			sb.Append("Delay Trash:".PadRight(40)).AppendFormat("{0:0.############################} %\n", DelayTrash);
-			sb.Append("Delay Spread (Width):".PadRight(40)).AppendFormat("{0:0.############################} %\n", DelaySpread);
-			sb.Append("Delay Wet Mix Percent:".PadRight(40)).AppendFormat("{0:0.############################} %\n", DelayWetMixPercent);
-			sb.Append("Delay Dry Mix Percent:".PadRight(40)).AppendFormat("{0:0.############################} %\n", DelayDryMixPercent);
+			sb.Append("Delay Modulation Depth:".PadRight(40)).AppendFormat("{0:0.##}\n", DelayModulationDepth);
+			sb.Append("Delay Modulation Rate:".PadRight(40)).AppendFormat("{0:0.##}\n", DelayModulationRate);
+			sb.Append("Delay Distortion Mode:".PadRight(40)).AppendFormat("{0:0.##}\n", DelayDistortionMode);
+			sb.Append("Delay Trash:".PadRight(40)).AppendFormat("{0:0.##} %\n", DelayTrash);
+			sb.Append("Delay Spread (Width):".PadRight(40)).AppendFormat("{0:0.##} %\n", DelaySpread);
+			sb.Append("Delay Wet Mix Percent:".PadRight(40)).AppendFormat("{0:0.##} %\n", DelayWetMixPercent);
+			sb.Append("Delay Dry Mix Percent:".PadRight(40)).AppendFormat("{0:0.##} %\n", DelayDryMixPercent);
 			sb.AppendLine();
 			
 			sb.Append("Equalizer Band 0 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand0Enable);
 			sb.Append("Equalizer Band 0 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand0Shape);
-			sb.Append("Equalizer Band 0 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand0Frequency);
-			sb.Append("Equalizer Band 0 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand0Gain);
-			sb.Append("Equalizer Band 0 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand0Q);
+			sb.Append("Equalizer Band 0 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand0Frequency);
+			sb.Append("Equalizer Band 0 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand0Gain);
+			sb.Append("Equalizer Band 0 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand0Q);
 			sb.Append("Equalizer Band 1 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand1Enable);
 			sb.Append("Equalizer Band 1 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand1Shape);
-			sb.Append("Equalizer Band 1 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand1Frequency);
-			sb.Append("Equalizer Band 1 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand1Gain);
-			sb.Append("Equalizer Band 1 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand1Q);
+			sb.Append("Equalizer Band 1 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand1Frequency);
+			sb.Append("Equalizer Band 1 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand1Gain);
+			sb.Append("Equalizer Band 1 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand1Q);
 			sb.Append("Equalizer Band 2 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand2Enable);
 			sb.Append("Equalizer Band 2 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand2Shape);
-			sb.Append("Equalizer Band 2 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand2Frequency);
-			sb.Append("Equalizer Band 2 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand2Gain);
-			sb.Append("Equalizer Band 2 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand2Q);
+			sb.Append("Equalizer Band 2 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand2Frequency);
+			sb.Append("Equalizer Band 2 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand2Gain);
+			sb.Append("Equalizer Band 2 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand2Q);
 			sb.Append("Equalizer Band 3 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand3Enable);
 			sb.Append("Equalizer Band 3 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand3Shape);
-			sb.Append("Equalizer Band 3 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand3Frequency);
-			sb.Append("Equalizer Band 3 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand3Gain);
-			sb.Append("Equalizer Band 3 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand3Q);
+			sb.Append("Equalizer Band 3 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand3Frequency);
+			sb.Append("Equalizer Band 3 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand3Gain);
+			sb.Append("Equalizer Band 3 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand3Q);
 			sb.Append("Equalizer Band 4 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand4Enable);
 			sb.Append("Equalizer Band 4 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand4Shape);
-			sb.Append("Equalizer Band 4 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand4Frequency);
-			sb.Append("Equalizer Band 4 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand4Gain);
-			sb.Append("Equalizer Band 4 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand4Q);
+			sb.Append("Equalizer Band 4 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand4Frequency);
+			sb.Append("Equalizer Band 4 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand4Gain);
+			sb.Append("Equalizer Band 4 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand4Q);
 			sb.Append("Equalizer Band 5 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand5Enable);
 			sb.Append("Equalizer Band 5 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand5Shape);
-			sb.Append("Equalizer Band 5 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand5Frequency);
-			sb.Append("Equalizer Band 5 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand5Gain);
-			sb.Append("Equalizer Band 5 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand5Q);
+			sb.Append("Equalizer Band 5 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand5Frequency);
+			sb.Append("Equalizer Band 5 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand5Gain);
+			sb.Append("Equalizer Band 5 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand5Q);
 			sb.Append("Equalizer Band 6 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand6Enable);
 			sb.Append("Equalizer Band 6 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand6Shape);
-			sb.Append("Equalizer Band 6 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand6Frequency);
-			sb.Append("Equalizer Band 6 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand6Gain);
-			sb.Append("Equalizer Band 6 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand6Q);
+			sb.Append("Equalizer Band 6 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand6Frequency);
+			sb.Append("Equalizer Band 6 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand6Gain);
+			sb.Append("Equalizer Band 6 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand6Q);
 			sb.Append("Equalizer Band 7 Enable:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand7Enable);
 			sb.Append("Equalizer Band 7 Shape:".PadRight(40)).AppendFormat("{0}\n", EqualizerBand7Shape);
-			sb.Append("Equalizer Band 7 Frequency:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", EqualizerBand7Frequency);
-			sb.Append("Equalizer Band 7 Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", EqualizerBand7Gain);
-			sb.Append("Equalizer Band 7 Q:".PadRight(40)).AppendFormat("{0:0.############################} Q\n", EqualizerBand7Q);
+			sb.Append("Equalizer Band 7 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", EqualizerBand7Frequency);
+			sb.Append("Equalizer Band 7 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", EqualizerBand7Gain);
+			sb.Append("Equalizer Band 7 Q:".PadRight(40)).AppendFormat("{0:0.##} Q\n", EqualizerBand7Q);
 			sb.AppendLine();
 			
 			sb.Append("FX Bypass:".PadRight(40)).AppendFormat("{0}\n", FXBypass);
-			sb.Append("FX Distortion Send:".PadRight(40)).AppendFormat("{0:0.############################} %\n", FXDistortionSend);
+			sb.Append("FX Distortion Send:".PadRight(40)).AppendFormat("{0:0.##} %\n", FXDistortionSend);
 			sb.Append("FX Downsampling Enable:".PadRight(40)).AppendFormat("{0}\n", FXDownsamplingEnable);
-			sb.Append("FX Downsampling Amount (Decimate):".PadRight(40)).AppendFormat("{0:0.############################}\n", FXDownsamplingAmount);
-			sb.Append("FX Distortion Overdrive:".PadRight(40)).AppendFormat("{0:0.############################}\n", FXDistortionOverdrive);
-			sb.Append("FX Modulation Send:".PadRight(40)).AppendFormat("{0:0.############################} %\n", FXModulationSend);
+			sb.Append("FX Downsampling Amount (Decimate):".PadRight(40)).AppendFormat("{0:0.##}\n", FXDownsamplingAmount);
+			sb.Append("FX Distortion Overdrive:".PadRight(40)).AppendFormat("{0:0.##}\n", FXDistortionOverdrive);
+			sb.Append("FX Modulation Send:".PadRight(40)).AppendFormat("{0:0.##} %\n", FXModulationSend);
 			sb.Append("FX Modulation Mode:".PadRight(40)).AppendFormat("{0}\n", FXModulationMode);
-			sb.Append("FX Modulation Feedback:".PadRight(40)).AppendFormat("{0:0.############################}\n", FXModulationFeedback);
-			sb.Append("FX Modulation Depth:".PadRight(40)).AppendFormat("{0:0.############################}\n", FXModulationDepth);
-			sb.Append("FX Time Send:".PadRight(40)).AppendFormat("{0:0.############################} %\n", FXTimeSend);
+			sb.Append("FX Modulation Feedback:".PadRight(40)).AppendFormat("{0:0.##}\n", FXModulationFeedback);
+			sb.Append("FX Modulation Depth:".PadRight(40)).AppendFormat("{0:0.##}\n", FXModulationDepth);
+			sb.Append("FX Time Send:".PadRight(40)).AppendFormat("{0:0.##} %\n", FXTimeSend);
 			sb.Append("FX Time Mode:".PadRight(40)).AppendFormat("{0}\n", FXTimeMode);
-			sb.Append("FX Time Feedback:".PadRight(40)).AppendFormat("{0:0.############################}\n", FXTimeFeedback);
-			sb.Append("FX Time Depth:".PadRight(40)).AppendFormat("{0:0.############################}\n", FXTimeDepth);
+			sb.Append("FX Time Feedback:".PadRight(40)).AppendFormat("{0:0.##}\n", FXTimeFeedback);
+			sb.Append("FX Time Depth:".PadRight(40)).AppendFormat("{0:0.##}\n", FXTimeDepth);
 			sb.Append("FX Parallel Processing:".PadRight(40)).AppendFormat("{0}\n", FXParallelProcessing);
-			sb.Append("FX Manual Tempo:".PadRight(40)).AppendFormat("{0:0.############################}\n", FXManualTempo);
-			sb.Append("FX Dry Mix:".PadRight(40)).AppendFormat("{0:0.############################} %\n", FXDryMix);
-			sb.Append("FX Wet Mix:".PadRight(40)).AppendFormat("{0:0.############################} %\n", FXWetMix);
+			sb.Append("FX Manual Tempo:".PadRight(40)).AppendFormat("{0:0.##}\n", FXManualTempo);
+			sb.Append("FX Dry Mix:".PadRight(40)).AppendFormat("{0:0.##} %\n", FXDryMix);
+			sb.Append("FX Wet Mix:".PadRight(40)).AppendFormat("{0:0.##} %\n", FXWetMix);
 			sb.AppendLine();
 			
 			sb.Append("Gate Expander Bypass:".PadRight(40)).AppendFormat("{0}\n", GateExpanderBypass);
-			sb.Append("Gate Expander Threshold:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", GateExpanderThreshold);
-			sb.Append("Gate Expander Floor Output Threshold:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", GateExpanderFloorOutputThreshold);
-			sb.Append("Gate Expander Ratio:".PadRight(40)).AppendFormat("{0:0.############################} : 1\n", GateExpanderRatio);
-			sb.Append("Gate Expander Attack:".PadRight(40)).AppendFormat("{0:0.############################} ms\n", GateExpanderAttack);
-			sb.Append("Gate Expander Release:".PadRight(40)).AppendFormat("{0:0.############################} ms\n", GateExpanderRelease);
+			sb.Append("Gate Expander Threshold:".PadRight(40)).AppendFormat("{0:0.##} dB\n", GateExpanderThreshold);
+			sb.Append("Gate Expander Floor Output Threshold:".PadRight(40)).AppendFormat("{0:0.##} dB\n", GateExpanderFloorOutputThreshold);
+			sb.Append("Gate Expander Ratio:".PadRight(40)).AppendFormat("{0:0.##} : 1\n", GateExpanderRatio);
+			sb.Append("Gate Expander Attack:".PadRight(40)).AppendFormat("{0:0.##} ms\n", GateExpanderAttack);
+			sb.Append("Gate Expander Release:".PadRight(40)).AppendFormat("{0:0.##} ms\n", GateExpanderRelease);
 			sb.Append("Gate Expander RMS Detection:".PadRight(40)).AppendFormat("{0}\n", GateExpanderRMSDetection);
-			sb.Append("Gate Expander Band Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", GateExpanderBandGain);
+			sb.Append("Gate Expander Band Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", GateExpanderBandGain);
 			sb.AppendLine();
-						
+			
 			sb.Append("Harmony Bypass:".PadRight(40)).AppendFormat("{0}\n", HarmonyBypass);
 			sb.Append("Harmony Voice Enable 3:".PadRight(40)).AppendFormat("{0}\n", HarmonyVoiceEnable3);
 			sb.Append("Harmony Voice Enable 4:".PadRight(40)).AppendFormat("{0}\n", HarmonyVoiceEnable4);
@@ -1614,56 +1621,56 @@ namespace Nectar2Preset
 			sb.Append("Harmony Voice Interval Direction 3:".PadRight(40)).AppendFormat("{0}\n", HarmonyVoiceIntervalDirection3);
 			sb.Append("Harmony Voice Interval Direction 4:".PadRight(40)).AppendFormat("{0}\n", HarmonyVoiceIntervalDirection4);
 			sb.Append("Harmony Solo Harmony:".PadRight(40)).AppendFormat("{0}\n", HarmonySoloHarmony);
-			sb.Append("Harmony Pitch Variation:".PadRight(40)).AppendFormat("{0:0.############################} %\n", HarmonyPitchVariation);
-			sb.Append("Harmony Time Variation:".PadRight(40)).AppendFormat("{0:0.############################} %\n", HarmonyTimeVariation);
-			sb.Append("Harmony Pitch Correction:".PadRight(40)).AppendFormat("{0:0.############################}\n", HarmonyPitchCorrection);
-			sb.Append("Harmony Gain Spread:".PadRight(40)).AppendFormat("{0:0.############################}\n", HarmonyGainSpread);
-			sb.Append("Harmony Pan Spread:".PadRight(40)).AppendFormat("{0:0.############################}\n", HarmonyPanSpread);
-			sb.Append("Harmony Voice Pan 1:".PadRight(40)).AppendFormat("{0:0.############################} %\n", HarmonyVoicePan1);
-			sb.Append("Harmony Voice Pan 2:".PadRight(40)).AppendFormat("{0:0.############################} %\n", HarmonyVoicePan2);
-			sb.Append("Harmony Voice Pan 3:".PadRight(40)).AppendFormat("{0:0.############################} %\n", HarmonyVoicePan3);
-			sb.Append("Harmony Voice Pan 4:".PadRight(40)).AppendFormat("{0:0.############################} %\n", HarmonyVoicePan4);
-			sb.Append("Harmony Voice Gain 1:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", HarmonyVoiceGain1);
-			sb.Append("Harmony Voice Gain 2:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", HarmonyVoiceGain2);
-			sb.Append("Harmony Voice Gain 3:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", HarmonyVoiceGain3);
-			sb.Append("Harmony Voice Gain 4:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", HarmonyVoiceGain4);
-			sb.Append("Harmony High Shelf Freq:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", HarmonyHighShelfFreq);
-			sb.Append("Harmony High Shelf Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", HarmonyHighShelfGain);
-			sb.Append("Harmony Low Shelf Freq:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", HarmonyLowShelfFreq);
-			sb.Append("Harmony Low Shelf Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", HarmonyLowShelfGain);
+			sb.Append("Harmony Pitch Variation:".PadRight(40)).AppendFormat("{0:0.##} %\n", HarmonyPitchVariation);
+			sb.Append("Harmony Time Variation:".PadRight(40)).AppendFormat("{0:0.##} %\n", HarmonyTimeVariation);
+			sb.Append("Harmony Pitch Correction:".PadRight(40)).AppendFormat("{0:0.##}\n", HarmonyPitchCorrection);
+			sb.Append("Harmony Gain Spread:".PadRight(40)).AppendFormat("{0:0.##}\n", HarmonyGainSpread);
+			sb.Append("Harmony Pan Spread:".PadRight(40)).AppendFormat("{0:0.##}\n", HarmonyPanSpread);
+			sb.Append("Harmony Voice Pan 1:".PadRight(40)).AppendFormat("{0:0.##} %\n", HarmonyVoicePan1);
+			sb.Append("Harmony Voice Pan 2:".PadRight(40)).AppendFormat("{0:0.##} %\n", HarmonyVoicePan2);
+			sb.Append("Harmony Voice Pan 3:".PadRight(40)).AppendFormat("{0:0.##} %\n", HarmonyVoicePan3);
+			sb.Append("Harmony Voice Pan 4:".PadRight(40)).AppendFormat("{0:0.##} %\n", HarmonyVoicePan4);
+			sb.Append("Harmony Voice Gain 1:".PadRight(40)).AppendFormat("{0:0.##} dB\n", HarmonyVoiceGain1);
+			sb.Append("Harmony Voice Gain 2:".PadRight(40)).AppendFormat("{0:0.##} dB\n", HarmonyVoiceGain2);
+			sb.Append("Harmony Voice Gain 3:".PadRight(40)).AppendFormat("{0:0.##} dB\n", HarmonyVoiceGain3);
+			sb.Append("Harmony Voice Gain 4:".PadRight(40)).AppendFormat("{0:0.##} dB\n", HarmonyVoiceGain4);
+			sb.Append("Harmony Low Shelf Freq:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", HarmonyLowShelfFreq);
+			sb.Append("Harmony Low Shelf Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", HarmonyLowShelfGain);
+			sb.Append("Harmony High Shelf Freq:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", HarmonyHighShelfFreq);
+			sb.Append("Harmony High Shelf Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", HarmonyHighShelfGain);
 			sb.AppendLine();
 			
 			sb.Append("Maximizer Bypass:".PadRight(40)).AppendFormat("{0}\n", MaximizerBypass);
-			sb.Append("Maximizer Margin:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", MaximizerMargin);
-			sb.Append("Maximizer Threshold:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", MaximizerThreshold);
+			sb.Append("Maximizer Margin:".PadRight(40)).AppendFormat("{0:0.##} dB\n", MaximizerMargin);
+			sb.Append("Maximizer Threshold:".PadRight(40)).AppendFormat("{0:0.##} dB\n", MaximizerThreshold);
 			sb.AppendLine();
 			
 			sb.Append("Pitch Bypass:".PadRight(40)).AppendFormat("{0}\n", PitchBypass);
 			sb.Append("Pitch Vocal Range:".PadRight(40)).AppendFormat("{0}\n", PitchVocalRange);
-			sb.Append("Pitch Smoothing (Speed):".PadRight(40)).AppendFormat("{0:0.############################} ms\n", PitchSmoothing);
-			sb.Append("Pitch Voice 1 Transposition:".PadRight(40)).AppendFormat("{0:0.############################} s.t.\n", PitchVoice1Transposition);
-			sb.Append("Pitch Formant Shift:".PadRight(40)).AppendFormat("{0:0.############################} s.t.\n", PitchFormantShift);
-			sb.Append("Pitch Formant Scaling:".PadRight(40)).AppendFormat("{0:0.############################} %\n", PitchFormantScaling);
+			sb.Append("Pitch Smoothing (Speed):".PadRight(40)).AppendFormat("{0:0.##} ms\n", PitchSmoothing);
+			sb.Append("Pitch Voice 1 Transposition:".PadRight(40)).AppendFormat("{0:0.##} s.t.\n", PitchVoice1Transposition);
+			sb.Append("Pitch Formant Shift:".PadRight(40)).AppendFormat("{0:0.##} s.t.\n", PitchFormantShift);
+			sb.Append("Pitch Formant Scaling:".PadRight(40)).AppendFormat("{0:0.##} %\n", PitchFormantScaling);
 			sb.AppendLine();
 			
 			sb.Append("Reverb Bypass:".PadRight(40)).AppendFormat("{0}\n", ReverbBypass);
-			sb.Append("Reverb Pre-Delay:".PadRight(40)).AppendFormat("{0:0.############################} ms\n", ReverbPreDelay);
-			sb.Append("Reverb Damping (Decay):".PadRight(40)).AppendFormat("{0:0.############################} s\n", ReverbDamping);
-			sb.Append("Reverb Width:".PadRight(40)).AppendFormat("{0:0.############################} %\n", ReverbWidth);
+			sb.Append("Reverb Pre-Delay:".PadRight(40)).AppendFormat("{0:0.##} ms\n", ReverbPreDelay);
+			sb.Append("Reverb Damping (Decay):".PadRight(40)).AppendFormat("{0:0.##} s\n", ReverbDamping);
+			sb.Append("Reverb Width:".PadRight(40)).AppendFormat("{0:0.##} %\n", ReverbWidth);
 			sb.Append("Reverb Saturation Enable:".PadRight(40)).AppendFormat("{0}\n", ReverbSaturationEnable);
-			sb.Append("Reverb Saturation:".PadRight(40)).AppendFormat("{0:0.############################}\n", ReverbSaturation);
-			sb.Append("Reverb High Cutoff:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", ReverbHighCutoff);
-			sb.Append("Reverb Low Cutoff:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", ReverbLowCutoff);
-			sb.Append("Reverb Wet Mix:".PadRight(40)).AppendFormat("{0:0.############################} %\n", ReverbWetMix);
-			sb.Append("Reverb Dry Mix:".PadRight(40)).AppendFormat("{0:0.############################} %\n", ReverbDryMix);
+			sb.Append("Reverb Saturation:".PadRight(40)).AppendFormat("{0:0.##}\n", ReverbSaturation);
+			sb.Append("Reverb Low Cutoff:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", ReverbLowCutoff);
+			sb.Append("Reverb High Cutoff:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", ReverbHighCutoff);
+			sb.Append("Reverb Wet Mix:".PadRight(40)).AppendFormat("{0:0.##} %\n", ReverbWetMix);
+			sb.Append("Reverb Dry Mix:".PadRight(40)).AppendFormat("{0:0.##} %\n", ReverbDryMix);
 			sb.AppendLine();
 			
 			sb.Append("Saturation Bypass:".PadRight(40)).AppendFormat("{0}\n", ExciterBypass);
 			sb.Append("Saturation Mode:".PadRight(40)).AppendFormat("{0}\n", ExciterMode);
-			sb.Append("Saturation Amount Percent:".PadRight(40)).AppendFormat("{0:0.############################} %\n", ExciterAmountPercent);
-			sb.Append("Saturation Mix Percent:".PadRight(40)).AppendFormat("{0:0.############################} %\n", ExciterMixPercent);
-			sb.Append("Saturation Postfilter Freq:".PadRight(40)).AppendFormat("{0:0.############################} Hz\n", ExciterPostfilterFreq);
-			sb.Append("Saturation Postfilter Gain:".PadRight(40)).AppendFormat("{0:0.############################} dB\n", ExciterPostfilterGain);
+			sb.Append("Saturation Amount Percent:".PadRight(40)).AppendFormat("{0:0.##} %\n", ExciterAmountPercent);
+			sb.Append("Saturation Mix Percent:".PadRight(40)).AppendFormat("{0:0.##} %\n", ExciterMixPercent);
+			sb.Append("Saturation Postfilter Freq:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", ExciterPostfilterFreq);
+			sb.Append("Saturation Postfilter Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", ExciterPostfilterGain);
 			return sb.ToString();
 		}
 		#endregion

@@ -22,18 +22,19 @@ namespace Nectar2Preset
 			XmlDocument xmldoc = new XmlDocument();
 			xmldoc.Load(filePath);
 			
-			//string outputfilenameMethods = @"..\..\ReadWriteMethods.txt";
-			//generateCode(xmldoc, outputfilenameMethods);
-			//return;
-			
-			Nectar2Preset nectar2Preset = new Nectar2Preset();
+			string presetName = StringUtils.GetStringAfterSearchWord(filePath, "Nectar 2\\Presets\\");
+			presetName = presetName.Substring(0, presetName.Length - 4); // remove file suffix
+			Nectar2Preset nectar2Preset = new Nectar2Preset(presetName);
 			nectar2Preset.ReadPreset(xmldoc);
 
 			string outputPresetInfo = @"..\..\PresetInfo.txt";
 			TextWriter tw = new StreamWriter(outputPresetInfo);
 			tw.WriteLine(nectar2Preset);
 			tw.Close();
-			
+
+			// generate code
+			//string outputfilenameMethods = @"..\..\ReadWriteMethods.txt";
+			//generateCode(xmldoc, outputfilenameMethods);
 		}
 
 		private static void generateCode(XmlDocument xmldoc, string outputfilenameMethods) {
