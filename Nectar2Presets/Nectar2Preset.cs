@@ -1499,20 +1499,24 @@ namespace Nectar2Preset
 			sb.Append("Dynamics 1 Release:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics1Release);
 			sb.Append("Dynamics 1 RMS Detection:".PadRight(40)).AppendFormat("{0}\n", Dynamics1RMSDetection);
 			sb.Append("Dynamics 1 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics1Gain);
+			sb.AppendLine();
+
 			sb.Append("Dynamics 2 Bypass:".PadRight(40)).AppendFormat("{0}\n", Dynamics2Bypass);
-			sb.Append("Dynamics 2 Threshold:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2Threshold);
-			sb.Append("Dynamics 2 Mode:".PadRight(40)).AppendFormat("{0}\n", Dynamics2Mode);
-			sb.Append("Dynamics 2 Ratio:".PadRight(40)).AppendFormat("{0:0.##} : 1\n", Dynamics2Ratio);
-			sb.Append("Dynamics 2 Attack:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics2Attack);
-			sb.Append("Dynamics 2 Release:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics2Release);
-			sb.Append("Dynamics 2 RMS Detection:".PadRight(40)).AppendFormat("{0}\n", Dynamics2RMSDetection);
-			sb.Append("Dynamics 2 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2Gain);
-			
-			sb.Append("Dynamics 2 Equalizer Bypass:".PadRight(40)).AppendFormat("{0}\n", Dynamics2EqualizerBypass);
-			sb.Append("Dynamics 2 Equalizer Band 0 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", Dynamics2EqualizerBand0Frequency);
-			sb.Append("Dynamics 2 Equalizer Band 0 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2EqualizerBand0Gain);
-			sb.Append("Dynamics 2 Equalizer Band 1 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", Dynamics2EqualizerBand1Frequency);
-			sb.Append("Dynamics 2 Equalizer Band 1 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2EqualizerBand1Gain);
+			if (!Dynamics2Bypass) {
+				sb.Append("Dynamics 2 Threshold:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2Threshold);
+				sb.Append("Dynamics 2 Mode:".PadRight(40)).AppendFormat("{0}\n", Dynamics2Mode);
+				sb.Append("Dynamics 2 Ratio:".PadRight(40)).AppendFormat("{0:0.##} : 1\n", Dynamics2Ratio);
+				sb.Append("Dynamics 2 Attack:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics2Attack);
+				sb.Append("Dynamics 2 Release:".PadRight(40)).AppendFormat("{0:0.##} ms\n", Dynamics2Release);
+				sb.Append("Dynamics 2 RMS Detection:".PadRight(40)).AppendFormat("{0}\n", Dynamics2RMSDetection);
+				sb.Append("Dynamics 2 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2Gain);
+				
+				sb.Append("Dynamics 2 Equalizer Bypass:".PadRight(40)).AppendFormat("{0}\n", Dynamics2EqualizerBypass);
+				sb.Append("Dynamics 2 Equalizer Band 0 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", Dynamics2EqualizerBand0Frequency);
+				sb.Append("Dynamics 2 Equalizer Band 0 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2EqualizerBand0Gain);
+				sb.Append("Dynamics 2 Equalizer Band 1 Frequency:".PadRight(40)).AppendFormat("{0:0.##} Hz\n", Dynamics2EqualizerBand1Frequency);
+				sb.Append("Dynamics 2 Equalizer Band 1 Gain:".PadRight(40)).AppendFormat("{0:0.##} dB\n", Dynamics2EqualizerBand1Gain);
+			}
 			sb.AppendLine();
 			
 			sb.Append("DeEsser Bypass:".PadRight(40)).AppendFormat("{0}\n", DeEsserBypass);

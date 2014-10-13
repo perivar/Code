@@ -14,29 +14,60 @@ namespace Nectar2Preset
 {
 	class Program
 	{
+		[STAThread]
 		public static void Main(string[] args)
 		{
 			//string filePath = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\TEST.xml";
-			string filePath = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\Pop\Airy Lead (Harmonized).xml";
+			//string filePath = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\Pop\Airy Lead (Harmonized).xml";
 			
-			XmlDocument xmldoc = new XmlDocument();
-			xmldoc.Load(filePath);
+			string nectar2PresetDirString = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\";
+			string outputDirectoryPath =  @"..\..";
 			
-			string presetName = StringUtils.GetStringAfterSearchWord(filePath, "Nectar 2\\Presets\\");
-			presetName = presetName.Substring(0, presetName.Length - 4); // remove file suffix
-			Nectar2Preset nectar2Preset = new Nectar2Preset(presetName);
-			nectar2Preset.ReadPreset(xmldoc);
-
-			string outputPresetInfo = @"..\..\PresetInfo.txt";
-			TextWriter tw = new StreamWriter(outputPresetInfo);
-			tw.WriteLine(nectar2Preset);
-			tw.Close();
+			// process directory
+			DirectoryInfo nectar2PresetDir = new DirectoryInfo(nectar2PresetDirString);
+			IEnumerable<string> presetFiles = IOUtils.GetFiles(nectar2PresetDirString, "\\.xml", SearchOption.AllDirectories);
+			Console.WriteLine("Processing {0} files in directory: '{1}' ...", presetFiles.Count(), nectar2PresetDir.Name);
+			
+			int count = 0;
+			foreach (string presetFile in presetFiles) {
+				Console.WriteLine("Processing {0} '{1}' ...", count++, presetFile);
+				
+				WriteNectar2PresetInfo(presetFile, outputDirectoryPath);
+			}
 
 			// generate code
 			//string outputfilenameMethods = @"..\..\ReadWriteMethods.txt";
 			//generateCode(xmldoc, outputfilenameMethods);
 		}
 
+		private static void WriteNectar2PresetInfo(string inputFilePath, string outputDirectoryPath) {
+
+			XmlDocument presetXml = new XmlDocument();
+			presetXml.Load(inputFilePath);
+			
+			string presetName = StringUtils.GetStringAfterSearchWord(inputFilePath, "Nectar 2\\Presets\\");
+			presetName = presetName.Substring(0, presetName.Length - 4); // remove file suffix
+			
+			/*
+			if (presetName.Equals("Soul & RnB\\Soulful Doubling")) {
+				Console.WriteLine("Found preset");
+			}
+			 */
+			
+			Nectar2Preset nectar2Preset = new Nectar2Preset(presetName);
+			nectar2Preset.ReadPreset(presetXml);
+
+			string presetFileName = StringUtils.MakeValidFileName(presetName);
+			string outputPresetInfoPath = outputDirectoryPath + Path.DirectorySeparatorChar + presetFileName + ".txt";
+			
+			TextWriter tw = new StreamWriter(outputPresetInfoPath);
+			tw.WriteLine(nectar2Preset);
+			tw.Close();
+			
+			presetXml = null;
+		}
+		
+		
 		private static void generateCode(XmlDocument xmldoc, string outputfilenameMethods) {
 			XElement xe = xmldoc.GetXElement();
 

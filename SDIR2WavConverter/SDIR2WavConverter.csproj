@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <ProjectGuid>{75D9AE91-1752-4621-8CEE-BFBF3A66D61C}</ProjectGuid>
+    <ProjectGuid>{9B42BB3B-997A-425F-9A8D-46D987415445}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Nectar2Preset</RootNamespace>
-    <AssemblyName>Nectar2Preset</AssemblyName>
+    <RootNamespace>SDIR2WavConverter</RootNamespace>
+    <AssemblyName>SDIR2WavConverter</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
@@ -48,29 +48,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\IOUtils.cs">
-      <Link>IOUtils.cs</Link>
+    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\BinaryFile.cs">
+      <Link>BinaryFile.cs</Link>
     </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\NumberUtils.cs">
-      <Link>NumberUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\StringUtils.cs">
-      <Link>StringUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\XmlUtils.cs">
-      <Link>XmlUtils.cs</Link>
-    </Compile>
-    <Compile Include="Compressors.cs" />
-    <Compile Include="CompressorsParam.cs" />
-    <Compile Include="Delay.cs" />
-    <Compile Include="DelayParam.cs" />
-    <Compile Include="EQ.cs" />
-    <Compile Include="EQParam.cs" />
-    <Compile Include="Nectar2Preset.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reverb.cs" />
-    <Compile Include="ReverbParam.cs" />
+    <Compile Include="SdirPreset.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
