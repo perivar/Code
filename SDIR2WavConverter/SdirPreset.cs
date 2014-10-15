@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using CommonUtils;
 
@@ -15,7 +16,10 @@ namespace SDIR2WavConverter
 		int bitsPerSample;
 		int sampleRate;
 		byte[] waveformData;
+		
+		public string PresetName { get; set; }
 
+		
 		public List<string> Comments
 		{
 			get{ return this.comments;  }
@@ -58,77 +62,87 @@ namespace SDIR2WavConverter
 		
 		public bool Read(string filePath)
 		{
-			BinaryFile bFile = new BinaryFile(filePath, BinaryFile.ByteOrder.BigEndian);
-			
-			string firstChunkID = bFile.ReadString(4); // chunk ID	= "FORM"
-			int ckSize = bFile.ReadInt32();
-			string formType = bFile.ReadString(4);
-			
-			// read first data chunk
-			string chunkID = bFile.ReadString(4);
-			
-			// if chunkID == "COMT" then CommentsChunk
-			if (chunkID.Equals("COMT")) {
-				long curposTmpComt = bFile.GetPosition();
-				bFile.Seek(curposTmpComt-4);
+			if (File.Exists(filePath)) {
+				string fileName = Path.GetFileNameWithoutExtension(filePath);
+				PresetName = fileName;
 				
-				// CommentsChunk
-				string chunkIDComt = bFile.ReadString(4); // chunk ID	= "COMT"
-				int chunkSizeComt = bFile.ReadInt32();
-				int numComments = bFile.ReadUInt16();
-				long curposTmpComt2 = bFile.GetPosition();
+				BinaryFile bFile = new BinaryFile(filePath, BinaryFile.ByteOrder.BigEndian);
+				
+				string firstChunkID = bFile.ReadString(4); // chunk ID	= "FORM"
+				int ckSize = bFile.ReadInt32();
+				string formType = bFile.ReadString(4);
+				
+				// read first data chunk
+				string chunkID = bFile.ReadString(4);
+				
+				// if chunkID == "COMT" then CommentsChunk
+				if (chunkID.Equals("COMT")) {
+					long curposTmpComt = bFile.GetPosition();
+					bFile.Seek(curposTmpComt-4);
+					
+					// CommentsChunk
+					string chunkIDComt = bFile.ReadString(4); // chunk ID	= "COMT"
+					int chunkSizeComt = bFile.ReadInt32();
+					int numComments = bFile.ReadUInt16();
+					long curposTmpComt2 = bFile.GetPosition();
 
-				//comments = bFile.ReadString(chunkSizeComt-2);
-				for (int i = 0; i < numComments; i++) {
-					int commentTimestamp = (int) bFile.ReadUInt32();
-					string marker = bFile.ReadString(4);
-					int count = (int) bFile.ReadByte();
-					comments.Add(bFile.ReadString(count));
+					//comments = bFile.ReadString(chunkSizeComt-2);
+					for (int i = 0; i < numComments; i++) {
+						int commentTimestamp = (int) bFile.ReadUInt32();
+						string marker = bFile.ReadString(4);
+						int count = (int) bFile.ReadByte();
+						comments.Add(bFile.ReadString(count));
+					}
+					
+					bFile.Seek(curposTmpComt2+chunkSizeComt-2);
 				}
 				
-				bFile.Seek(curposTmpComt2+chunkSizeComt-2);
-			}
-			
-			string chunkID2 = bFile.ReadString(4);
+				string chunkID2 = bFile.ReadString(4);
 
-			// if chunkID2 == "COMM" then CommonChunk
-			if (chunkID2.Equals("COMM")) {
-				long curposTmpComm = bFile.GetPosition();
-				bFile.Seek(curposTmpComm-4);
-				
-				// CommonChunk
-				string chunkIDComm = bFile.ReadString(4); // chunk ID = "COMM"
-				int chunkSizeComm = bFile.ReadInt32();
-				
-				channels = bFile.ReadInt16();
-				numSampleFrames = (int) bFile.ReadUInt32();
-				bitsPerSample = bFile.ReadInt16();
+				// if chunkID2 == "COMM" then CommonChunk
+				if (chunkID2.Equals("COMM")) {
+					long curposTmpComm = bFile.GetPosition();
+					bFile.Seek(curposTmpComm-4);
+					
+					// CommonChunk
+					string chunkIDComm = bFile.ReadString(4); // chunk ID = "COMM"
+					int chunkSizeComm = bFile.ReadInt32();
+					
+					channels = bFile.ReadInt16();
+					numSampleFrames = (int) bFile.ReadUInt32();
+					bitsPerSample = bFile.ReadInt16();
 
-				byte[] sampleRateBytes1 = bFile.ReadBytes(2);
-				sampleRate = bFile.ReadUInt16();
-				byte[] sampleRateBytes2 = bFile.ReadBytes(6);
+					byte[] sampleRateBytes1 = bFile.ReadBytes(2);
+					sampleRate = bFile.ReadUInt16();
+					byte[] sampleRateBytes2 = bFile.ReadBytes(6);
+				}
+				
+				string chunkID3 = bFile.ReadString(4);
+				
+				// if chunkID3 == "SSND" then SoundDataChunk
+				if (chunkID3.Equals("SSND")) {
+					long curposTmpSsnd = bFile.GetPosition();
+					bFile.Seek(curposTmpSsnd-4);
+					
+					// SoundDataChunk
+					string chunkIDSsnd = bFile.ReadString(4); // chunk ID = "SSND"
+					int chunkSizeSsnd = bFile.ReadInt32();
+					
+					int offset = (int) bFile.ReadUInt32();
+					int blocksize = (int) bFile.ReadUInt32();
+					byte[] data = bFile.ReadBytes(offset, chunkSizeSsnd-8, BinaryFile.ByteOrder.LittleEndian);
+					
+					// swap waveform data
+					WaveformData = SwapAiffEndian(data);
+				}
+				
+				bFile.Close();
+				return true;
+				
+			} else {
+				return false;
 			}
 			
-			string chunkID3 = bFile.ReadString(4);
-			
-			// if chunkID3 == "SSND" then SoundDataChunk
-			if (chunkID3.Equals("SSND")) {
-				long curposTmpSsnd = bFile.GetPosition();
-				bFile.Seek(curposTmpSsnd-4);
-				
-				// SoundDataChunk
-				string chunkIDSsnd = bFile.ReadString(4); // chunk ID = "SSND"
-				int chunkSizeSsnd = bFile.ReadInt32();
-				
-				int offset = (int) bFile.ReadUInt32();
-				int blocksize = (int) bFile.ReadUInt32();
-				byte[] data = bFile.ReadBytes(offset, chunkSizeSsnd-8, BinaryFile.ByteOrder.LittleEndian);
-				
-				// swap waveform data
-				WaveformData = SwapAiffEndian(data);
-			}
-			
-			return true;
 		}
 
 		private byte[] SwapAiffEndian (byte[] data) {
@@ -149,5 +163,20 @@ namespace SDIR2WavConverter
 		{
 			throw new NotImplementedException();
 		}
+
+		public static SdirPreset ReadSdirPreset(string filePath) {
+			SdirPreset sdir = new SdirPreset();
+			if (sdir.Read(filePath)) {
+				return sdir;
+			} else {
+				return null;
+			}
+		}
+		
+		public override string ToString()
+		{
+			return string.Format("{3}: Channels={0}, BitsPerSample={1}, SampleRate={2}", channels, bitsPerSample, sampleRate, PresetName);
+		}
+
 	}
 }

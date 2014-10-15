@@ -1,19 +1,20 @@
 ﻿using System;
-
-using CommonUtils.Audio.NAudio;
+using System.Windows.Forms;
 
 namespace SDIR2WavConverter
 {
-	class Program
+	/// <summary>
+	/// Class with program entry point.
+	/// </summary>
+	internal sealed class Program
 	{
-		public static void Main(string[] args)
+		
+		[STAThread]
+		private static void Main(string[] args)
 		{
-			
-			SdirPreset sdir = new SdirPreset();
-			sdir.Read(@"..\..\Resources\0.2s_Closet B.SDIR");
-			
-			string fileName = @"..\..\Resources\0.2s_Closet B.wav";
-			AudioUtilsNAudio.CreateWaveFile(sdir.WaveformData, fileName, new NAudio.Wave.WaveFormat(sdir.SampleRate, sdir.BitsPerSample, sdir.Channels));
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			Application.Run(new MainForm());			
 		}
 		
 	}
