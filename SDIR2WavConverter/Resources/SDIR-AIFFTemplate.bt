@@ -3,10 +3,87 @@
 //
 // File: AIFFTemplate.bt
 // Author: Per Ivar Nerseth
-// Revision: 1.0
+// Revision: 1.1
 // Purpose: Open AIFF files and SDIR files (space designer IR)
 // See also: http://ton.zimt.at/?p=41 for how to open SDIR files
+// See this AIFF FORMAT description for details: http://muratnkonar.com/aiff/
 //--------------------------------------
+
+// extended	80 bit IEEE Standard 754 floating point number (Standard Apple Numeric Environment [SANE] data type Extended). 
+// This would be a 10 byte field.
+// create custom variable for the extended data type
+typedef byte extended[10] <read=extendedRead>;
+
+string extendedRead( extended bytes )
+{
+	string s;   
+	// cast to (unsigned char) or do a (bytes[1] & 0xff)
+    /*    
+	Printf("%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X",
+	(unsigned char) bytes[0], (unsigned char) bytes[1], 
+	(unsigned char) bytes[2], (unsigned char) bytes[3],
+	(unsigned char) bytes[4], (unsigned char) bytes[5], 
+	(unsigned char) bytes[6], (unsigned char) bytes[7], 
+	(unsigned char) bytes[8], (unsigned char) bytes[9]);
+    */
+
+    local double d = ConvertFromIeeeExtended (bytes);
+	SPrintf( s, "%lf", d);
+	return s;
+}
+
+// Taken from http://www.giawa.com/tutorials/src/IEEE.cs
+double UnsignedToFloat(ulong u)
+{
+    return (((double)((long)(u - 2147483647L - 1))) + 2147483648.0);
+}
+
+double ldexp(double x, int exp)
+{
+    return x * Pow(2, exp);
+}
+
+double ConvertFromIeeeExtended(extended bytes)
+{
+	if (sizeof(bytes) != 10) { 
+        Warning("Convertion from IEEE is not 10 bytes!");
+		return 0; 
+	}
+
+	local double f;
+	local int expon;
+	local uint hiMant, loMant;
+
+	// must do a (bytes[1] & 0xff) to not overflow the data type
+	expon = (((bytes[0]& 0xff) & 0x7F) << 8) | (bytes[1]& 0xff);
+	hiMant = (uint)(((bytes[2] & 0xff) << 24) | ((bytes[3] & 0xff) << 16) | ((bytes[4]& 0xff) << 8) | (bytes[5]& 0xff));
+	loMant = (uint)(((bytes[6] & 0xff) << 24) | ((bytes[7] & 0xff) << 16) | ((bytes[8] & 0xff) << 8) | (bytes[9] & 0xff));
+
+	//Printf("expon=%i, hiMant=%u, loMant=%u\n", expon, hiMant, loMant);
+
+	if (expon == 0 && hiMant == 0 && loMant == 0)
+	{
+		f = 0;
+	}
+	else
+	{
+		if (expon == 0x7FFF)    /* Infinity or NaN */
+		{
+            Warning("Convertion from IEEE extended resulted in NaN!");
+			f = 0;
+		}
+		else
+		{
+			expon -= 16383;
+			f = ldexp(UnsignedToFloat(hiMant), expon -= 31);
+			f += ldexp(UnsignedToFloat(loMant), expon -= 32);
+		}
+	}
+
+	if (((bytes[0] & 0xff) & 0x80) == 0x80) return -f;
+	else return f;
+}
+
 
 typedef struct {
 	unsigned long  timeStamp;
@@ -15,14 +92,31 @@ typedef struct {
 	char           text[];
 } Comment;
 
+// pstring	Pascal-style string, a one-byte count followed by that many text bytes. 
+// The total number of bytes in this data type should be even. 
+// A pad byte can be added to the end of the text to accomplish this. 
+// This pad byte is not reflected in the count.
+typedef struct {
+	unsigned long  timeStamp;
+    char           marker[4];
+	unsigned byte count;
+	char           text[count];
+    
+    // Padding so the next chunk starts on an even byte
+    if( count & 1 )
+        uchar padding;
+} CommentPstring;
+
 typedef struct {
     char            chunkID[4];     // chunk ID		
 	long            chunkSize;
 
 	unsigned short  numComments;
     local quad curposTmp = FTell();
+
 	//char            comments[chunkSize-2];
-    Comment         comment[numComments];
+    //Comment         comment[numComments];
+    CommentPstring    comment[numComments];
     FSeek(curposTmp+chunkSize-2);
 } CommentsChunk;
 
@@ -33,9 +127,10 @@ typedef struct {
 	short          numChannels;
 	unsigned long  numSampleFrames;
 	short          sampleSize;
-	byte           sampleRateBytes1[2];
-    unsigned short sampleRate;
-    byte           sampleRateBytes2[6];
+
+    // extended	80 bit IEEE Standard 754 floating point number (Standard Apple Numeric Environment [SANE] data type Extended). 
+    // This would be a 10 byte field.
+    extended        sampleRate;
 } CommonChunk;
 
 typedef struct {
