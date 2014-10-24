@@ -1,0 +1,157 @@
+﻿/*
+ * Created by SharpDevelop.
+ * User: perivar.nerseth
+ * Date: 24.10.2014
+ * Time: 17:58
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+namespace Colors2Cubase
+{
+	partial class UIForm
+	{
+		/// <summary>
+		/// Designer variable used to keep track of non-visual components.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.OpenFileDialog openFileDialog;
+		private System.Windows.Forms.TextBox txtFilePath;
+		private System.Windows.Forms.Button btnBrowse;
+		private System.Windows.Forms.TextBox txtInput;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Button btnChangeCubase;
+		private System.Windows.Forms.PictureBox pictureBox1;
+		
+		/// <summary>
+		/// Disposes resources used by the form.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing) {
+				if (components != null) {
+					components.Dispose();
+				}
+			}
+			base.Dispose(disposing);
+		}
+		
+		/// <summary>
+		/// This method is required for Windows Forms designer support.
+		/// Do not change the method contents inside the source code editor. The Forms designer might
+		/// not be able to load this method if it was changed manually.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.txtFilePath = new System.Windows.Forms.TextBox();
+			this.btnBrowse = new System.Windows.Forms.Button();
+			this.txtInput = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.btnChangeCubase = new System.Windows.Forms.Button();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(12, 44);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(134, 22);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Find Cubase Defaults.xml:";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(12, 9);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(578, 35);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "This tool will modify Cubase\'s configuration file and insert the colors pasted in" +
+	" below instead \r\n(while making a backup of the configuration file)\r\n";
+			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.FileName = "openFileDialog1";
+			// 
+			// txtFilePath
+			// 
+			this.txtFilePath.Location = new System.Drawing.Point(12, 66);
+			this.txtFilePath.Name = "txtFilePath";
+			this.txtFilePath.Size = new System.Drawing.Size(507, 20);
+			this.txtFilePath.TabIndex = 2;
+			// 
+			// btnBrowse
+			// 
+			this.btnBrowse.Location = new System.Drawing.Point(525, 63);
+			this.btnBrowse.Name = "btnBrowse";
+			this.btnBrowse.Size = new System.Drawing.Size(65, 23);
+			this.btnBrowse.TabIndex = 3;
+			this.btnBrowse.Text = "Browse";
+			this.btnBrowse.UseVisualStyleBackColor = true;
+			this.btnBrowse.Click += new System.EventHandler(this.btnBrowseClick);
+			// 
+			// txtInput
+			// 
+			this.txtInput.Location = new System.Drawing.Point(13, 141);
+			this.txtInput.Multiline = true;
+			this.txtInput.Name = "txtInput";
+			this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtInput.Size = new System.Drawing.Size(321, 250);
+			this.txtInput.TabIndex = 4;
+			this.txtInput.TextChanged += new System.EventHandler(this.txtInputTextChanged);
+			this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtInputKeyDown);
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(13, 101);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(577, 37);
+			this.label3.TabIndex = 5;
+			this.label3.Text = "Paste rgb or hex code values here: e.g. IWantHue (http://tools.medialab.sciences-" +
+	"po.fr/iwanthue)\r\nRGB format: 255,255,255\r\nHex code format: #FF00FF";
+			// 
+			// btnChangeCubase
+			// 
+			this.btnChangeCubase.Location = new System.Drawing.Point(213, 397);
+			this.btnChangeCubase.Name = "btnChangeCubase";
+			this.btnChangeCubase.Size = new System.Drawing.Size(171, 23);
+			this.btnChangeCubase.TabIndex = 6;
+			this.btnChangeCubase.Text = "Make Changes to Cubase!";
+			this.btnChangeCubase.UseVisualStyleBackColor = true;
+			this.btnChangeCubase.Click += new System.EventHandler(this.btnChangeCubaseClick);
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Location = new System.Drawing.Point(340, 141);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(250, 250);
+			this.pictureBox1.TabIndex = 7;
+			this.pictureBox1.TabStop = false;
+			// 
+			// UIForm
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(602, 432);
+			this.Controls.Add(this.pictureBox1);
+			this.Controls.Add(this.btnChangeCubase);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.txtInput);
+			this.Controls.Add(this.btnBrowse);
+			this.Controls.Add(this.txtFilePath);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
+			this.Name = "UIForm";
+			this.Text = "Color Palette 2 Cubase";
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
+		}
+	}
+}

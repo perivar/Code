@@ -1,10 +1,25 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Colors2Cubase
 {
-	class Program
+	/// <summary>
+	/// Class with program entry point.
+	/// </summary>
+	internal sealed class Program
 	{
-		public static void Main(string[] args)
+		/// <summary>
+		/// Program entry point.
+		/// </summary>
+		[STAThread]
+		private static void Main(string[] args)
+		{
+			Application.EnableVisualStyles();			
+			Application.SetCompatibleTextRenderingDefault(false);
+			Application.Run(new UIForm());
+		}
+		
+		private static void testMain(string[] args)
 		{
 			// 4294901760 = 255,0,0
 			// 4278255104 = 0,255,0
@@ -15,7 +30,6 @@ namespace Colors2Cubase
 			// 4294901502 = 255,255,255
 			// 4294836478 = 255,0,255
 			
-			// C:\Users\perivar\AppData\Roaming\Steinberg\Cubase 7.5_64\Defaults.xml
 
 			// https://code.google.com/p/tesla-engine/source/browse/trunk/Source/Tesla/Math/Color.cs?r=224
 			Console.WriteLine("Black 0,0,0 = {0}", CubaseColor2Hex(4278190080));
