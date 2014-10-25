@@ -46,6 +46,7 @@ namespace Colors2Cubase
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIForm));
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -114,8 +115,7 @@ namespace Colors2Cubase
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(577, 37);
 			this.label3.TabIndex = 5;
-			this.label3.Text = "Paste rgb or hex code values here: e.g. IWantHue (http://tools.medialab.sciences-" +
-	"po.fr/iwanthue)\r\nRGB format: 255,255,255\r\nHex code format: #FF00FF";
+			this.label3.Text = resources.GetString("label3.Text");
 			// 
 			// btnChangeCubase
 			// 

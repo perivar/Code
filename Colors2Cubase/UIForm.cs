@@ -124,27 +124,35 @@ namespace Colors2Cubase
 				// 	</item>
 				// </list>
 				
-				// first make a backup of the config file
-				//MakeBackupOfFile(fileName);
-				
-				XmlDocument xmlNewDoc = CreateXmlUsingXmlElements();
-				xmlNewDoc.Save("XmlUsingXmlElements.xml");
+				//XmlDocument xmlNewDoc = CreateXmlUsingXmlElements();
+				//xmlNewDoc.Save("XmlUsingXmlElements.xml");
 				
 				XElement replaceWithXml = CreateXmlUsingXElements();
-				replaceWithXml.Save("replaceWith.xml");
+				//replaceWithXml.Save("XmlUsingXElements.xml");
+				
+				// first make a backup of the config file
+				IOUtils.MakeBackupOfFile(fileName);
 				
 				// replace node
 				// http://stackoverflow.com/questions/5820143/how-can-i-update-replace-an-element-of-an-xelement-from-a-string
-				
 				// Replace Xml Node with Raw Xml in .Net http://omegacoder.com/?p=103
+				colorListNode.ReplaceWith(replaceWithXml);
+				
+				// Save XML and disable the UTF-8 BOM bytes at the top of the Xml document (EF BB BF)
+				// which is actually discouraged by the Unicode standard
+				XmlUtils.SaveXDocument(replaceWithXml.Document, fileName, true);
+				
+				MessageBox.Show("Succesfully update the Cubase configuration file!", "Succesful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
 
+		/// <summary>
+		/// A more modern way of building up XML hiearchies using XElement nesting.
+		/// </summary>
+		/// <seealso cref="http://www.intertech.com/Blog/create-an-xml-document-with-linq-to-xml/" />
+		/// <returns>a XElement tree</returns>
 		private XElement CreateXmlUsingXElements() {
 			
-			// http://www.intertech.com/Blog/create-an-xml-document-with-linq-to-xml/
-			
-			// http://stackoverflow.com/questions/2209000/can-i-have-an-incrementing-count-variable-in-linq
 			var counter = 1;
 			XElement xElement = new XElement("list",
 			                                 new XAttribute("name", "Set"),
@@ -165,6 +173,7 @@ namespace Colors2Cubase
 		}
 		
 		/// <summary>
+		/// A more traditional way (read Old) of building up XML hiearchies.
 		/// This meethod uses the "old" style XmlElement CreateElement and SetAttribute Methods
 		/// </summary>
 		/// <returns>XmlDocument</returns>
@@ -201,12 +210,17 @@ namespace Colors2Cubase
 			return xmlDoc;
 		}
 		
+		/// <summary>
+		/// Use LINQ to XML for finding a specific node (with children) in a Xml file
+		/// </summary>
+		/// <param name="fileName">filepath to xml document</param>
+		/// <returns>A XElement with the CubaseColorList xml</returns>
 		private XElement ReadColorListFromCubaseConfig(string fileName) {
 			
 			if (!fileName.Equals("")) {
 				if (File.Exists(fileName)) {
 
-					XDocument xDoc = XDocument.Load(fileName);
+					XDocument xDoc = XDocument.Load(fileName, LoadOptions.PreserveWhitespace);
 					
 					// find  <obj class="UColorSet" name="Event Colors" ID="?????">
 					// return IEnumerable<XElement>
@@ -229,6 +243,7 @@ namespace Colors2Cubase
 						                MessageBoxIcon.Error);
 						return null;
 					}
+					
 					return pEventColorsSetNode.FirstOrDefault();
 					
 				} else {
@@ -238,19 +253,6 @@ namespace Colors2Cubase
 				MessageBox.Show("You must select the Cubase Default.xml config file first", "No file selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			return null;
-		}
-		
-		private void MakeBackupOfFile(string destinationFileName) {
-			if (File.Exists(destinationFileName)) {
-				
-				string destinationBackupFileName = destinationFileName + ".bak";
-				
-				if (File.Exists(destinationBackupFileName)) {
-					// the backup file already exists ?!
-				} else {
-					File.Copy(destinationFileName, destinationBackupFileName);
-				}
-			}
 		}
 		
 		private uint ColorToUint(Color color) {
@@ -317,6 +319,7 @@ namespace Colors2Cubase
 			XElement colorListNode = ReadColorListFromCubaseConfig(fileName);
 			if (colorListNode != null) {
 				txtInput.Text = colorListNode.ToString();
+				MessageBox.Show("Succesfully read the color list from the Cubase configuration file!", "Succesful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
 	}
