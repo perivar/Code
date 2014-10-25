@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
+using System.Windows.Forms.VisualStyles;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -109,53 +110,134 @@ namespace Colors2Cubase
 		void btnChangeCubaseClick(object sender, EventArgs e)
 		{
 			string fileName = txtFilePath.Text;
+			
+			// first check that we are able to find the right node in the
+			// Defaults.xml file
+			XElement colorListNode = ReadColorListFromCubaseConfig(fileName);
+			if (colorListNode != null) {
+				
+				// build up the xml fragment that is required
+				// <list name="Set" type="list">
+				// 	<item>
+				// 		<string name="Name" value="Color 1" wide="true"/>
+				// 		<int name="Color" value="4284797946"/>
+				// 	</item>
+				// </list>
+				
+				// first make a backup of the config file
+				//MakeBackupOfFile(fileName);
+				
+				XmlDocument xmlNewDoc = CreateXmlUsingXmlElements();
+				xmlNewDoc.Save("XmlUsingXmlElements.xml");
+				
+				XElement replaceWithXml = CreateXmlUsingXElements();
+				replaceWithXml.Save("replaceWith.xml");
+				
+				// replace node
+				// http://stackoverflow.com/questions/5820143/how-can-i-update-replace-an-element-of-an-xelement-from-a-string
+				
+				// Replace Xml Node with Raw Xml in .Net http://omegacoder.com/?p=103
+			}
+		}
+
+		private XElement CreateXmlUsingXElements() {
+			
+			// http://www.intertech.com/Blog/create-an-xml-document-with-linq-to-xml/
+			
+			// http://stackoverflow.com/questions/2209000/can-i-have-an-incrementing-count-variable-in-linq
+			var counter = 1;
+			XElement xElement = new XElement("list",
+			                                 new XAttribute("name", "Set"),
+			                                 new XAttribute("type", "list"),
+			                                 from c in colors
+			                                 select new XElement("item",
+			                                                     new XElement("string",
+			                                                                  new XAttribute("name", "Name"),
+			                                                                  new XAttribute("value", String.Format("Color {0}", counter++)),
+			                                                                  new XAttribute("wide", "true")),
+			                                                     new XElement("int",
+			                                                                  new XAttribute("name", "Color"),
+			                                                                  new XAttribute("value", ColorToUint(c)))
+			                                                    )
+			                                );
+
+			return xElement;
+		}
+		
+		/// <summary>
+		/// This meethod uses the "old" style XmlElement CreateElement and SetAttribute Methods
+		/// </summary>
+		/// <returns>XmlDocument</returns>
+		private XmlDocument CreateXmlUsingXmlElements() {
+			
+			// Create the XmlDocument with default content
+			XmlDocument xmlDoc = new XmlDocument();
+			
+			XmlElement listNode = xmlDoc.CreateElement("list");
+			listNode.SetAttribute("name", "Set");
+			listNode.SetAttribute("type", "list");
+			xmlDoc.AppendChild(listNode);
+
+			int colorCount = 1;
+			foreach (var c in colors) {
+				XmlElement itemNode = xmlDoc.CreateElement("item");
+				listNode.AppendChild(itemNode);
+				
+				XmlElement stringNode = xmlDoc.CreateElement("string");
+				stringNode.SetAttribute("name", "Name");
+				stringNode.SetAttribute("value", String.Format("Color {0}", colorCount));
+				stringNode.SetAttribute("wide", "true");
+				
+				XmlElement intNode = xmlDoc.CreateElement("int");
+				intNode.SetAttribute("name", "Color");
+				intNode.SetAttribute("value", "" + ColorToUint(c));
+				
+				itemNode.AppendChild(stringNode);
+				itemNode.AppendChild(intNode);
+				
+				colorCount++;
+			}
+			
+			return xmlDoc;
+		}
+		
+		private XElement ReadColorListFromCubaseConfig(string fileName) {
+			
 			if (!fileName.Equals("")) {
 				if (File.Exists(fileName)) {
-					
-					// build up the xml document that is required
-					// <list name="Set" type="list">
-					// 	<item>
-					// 		<string name="Name" value="Color 1" wide="true"/>
-					// 		<int name="Color" value="4284797946"/>
-					// 	</item>
-					// </list>
-					
-					// Create the XmlDocument with default content
-					XmlDocument xmlDoc = new XmlDocument();
-					
-					XmlElement listNode = xmlDoc.CreateElement("list");
-					listNode.SetAttribute("name", "Set");
-					listNode.SetAttribute("type", "list");
-					xmlDoc.AppendChild(listNode);
 
-					int colorCount = 1;
-					foreach (var c in colors) {
-						XmlElement itemNode = xmlDoc.CreateElement("item");
-						listNode.AppendChild(itemNode);
-						
-						XmlElement stringNode = xmlDoc.CreateElement("string");
-						stringNode.SetAttribute("name", "Name");
-						stringNode.SetAttribute("value", String.Format("Color {0}", colorCount));
-						stringNode.SetAttribute("wide", "true");
-						
-						XmlElement intNode = xmlDoc.CreateElement("int");
-						intNode.SetAttribute("name", "Color");
-						intNode.SetAttribute("value", "" + ColorToUint(c));
-						
-						itemNode.AppendChild(stringNode);
-						itemNode.AppendChild(intNode);
-						
-						colorCount++;
+					XDocument xDoc = XDocument.Load(fileName);
+					
+					// find  <obj class="UColorSet" name="Event Colors" ID="?????">
+					// return IEnumerable<XElement>
+					var pUColorSetNode = from xn in xDoc.Descendants("obj")
+						where (string) xn.Attribute("class") == "UColorSet"
+						&& (string) xn.Attribute("name") == "Event Colors"
+						select xn;
+					
+					// find direct child list node <list name="Set" type="list">
+					// return IEnumerable<XElement>
+					var pEventColorsSetNode = from xn in pUColorSetNode.Elements("list")
+						where (string) xn.Attribute("name") == "Set"
+						&& (string) xn.Attribute("type") == "list"
+						select xn;
+					
+					if (pEventColorsSetNode.Count() == 0) {
+						MessageBox.Show("Failed reading the configuration file. Maybe Cubase has changed the format. Please contact the developer.",
+						                "Failed reading configuration file",
+						                MessageBoxButtons.OK,
+						                MessageBoxIcon.Error);
+						return null;
 					}
+					return pEventColorsSetNode.FirstOrDefault();
 					
-					// first make a backup of the config file
-					MakeBackupOfFile(fileName);
-					
-					xmlDoc.Save("test.xml");
+				} else {
+					MessageBox.Show("Failed reading the selected file", "Error reading file", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			} else {
 				MessageBox.Show("You must select the Cubase Default.xml config file first", "No file selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+			return null;
 		}
 		
 		private void MakeBackupOfFile(string destinationFileName) {
@@ -225,6 +307,16 @@ namespace Colors2Cubase
 			else if (e.Control & e.KeyCode == Keys.Back)
 			{
 				SendKeys.SendWait("^+{LEFT}{BACKSPACE}");
+			}
+		}
+		
+		void BtnReadColorConfigListClick(object sender, EventArgs e)
+		{
+			string fileName = txtFilePath.Text;
+
+			XElement colorListNode = ReadColorListFromCubaseConfig(fileName);
+			if (colorListNode != null) {
+				txtInput.Text = colorListNode.ToString();
 			}
 		}
 	}

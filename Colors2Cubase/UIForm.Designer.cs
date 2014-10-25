@@ -23,6 +23,7 @@ namespace Colors2Cubase
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Button btnChangeCubase;
 		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Button btnReadColorConfigList;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -54,6 +55,7 @@ namespace Colors2Cubase
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnChangeCubase = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.btnReadColorConfigList = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -117,9 +119,9 @@ namespace Colors2Cubase
 			// 
 			// btnChangeCubase
 			// 
-			this.btnChangeCubase.Location = new System.Drawing.Point(213, 397);
+			this.btnChangeCubase.Location = new System.Drawing.Point(340, 397);
 			this.btnChangeCubase.Name = "btnChangeCubase";
-			this.btnChangeCubase.Size = new System.Drawing.Size(171, 23);
+			this.btnChangeCubase.Size = new System.Drawing.Size(154, 23);
 			this.btnChangeCubase.TabIndex = 6;
 			this.btnChangeCubase.Text = "Make Changes to Cubase!";
 			this.btnChangeCubase.UseVisualStyleBackColor = true;
@@ -133,11 +135,22 @@ namespace Colors2Cubase
 			this.pictureBox1.TabIndex = 7;
 			this.pictureBox1.TabStop = false;
 			// 
+			// btnReadColorConfigList
+			// 
+			this.btnReadColorConfigList.Location = new System.Drawing.Point(13, 397);
+			this.btnReadColorConfigList.Name = "btnReadColorConfigList";
+			this.btnReadColorConfigList.Size = new System.Drawing.Size(152, 23);
+			this.btnReadColorConfigList.TabIndex = 8;
+			this.btnReadColorConfigList.Text = "Read colors from config file";
+			this.btnReadColorConfigList.UseVisualStyleBackColor = true;
+			this.btnReadColorConfigList.Click += new System.EventHandler(this.BtnReadColorConfigListClick);
+			// 
 			// UIForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(602, 432);
+			this.Controls.Add(this.btnReadColorConfigList);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.btnChangeCubase);
 			this.Controls.Add(this.label3);
