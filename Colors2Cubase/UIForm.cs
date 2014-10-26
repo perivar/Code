@@ -20,8 +20,9 @@ namespace Colors2Cubase
 	public partial class UIForm : Form
 	{
 
-		static string _version = "1.0.1";
+		static string _version = "1.0.2";
 		List<Color> colors = new List<Color>();
+		List<string> labels = new List<string>();
 
 		public UIForm()
 		{
@@ -68,8 +69,9 @@ namespace Colors2Cubase
 			// parse the text
 			string textToParse= txtInput.Text.Trim();
 			
-			// reset the color list
+			// reset the color and label list
 			colors.Clear();
+			labels.Clear();
 			
 			// match RGB codes in three digit comma separated groups
 			// e.g.
@@ -99,17 +101,6 @@ namespace Colors2Cubase
 				colors.Add(col);
 			}
 			
-			// match Cubase Uint type color xml fragments
-			// e.g.
-			// value="4291172633"
-			string patternUintColorCode = @"value=""(\d{10})""";
-			foreach (Match match in Regex.Matches(textToParse, patternUintColorCode)) {
-				string uintColor = match.Groups[1].Value;
-				uint c = uint.Parse(uintColor);
-				Color col = UintToColor(c);
-				colors.Add(col);
-			}
-
 			// match 8 hexadecimal digits Color code (ARGB)
 			// black color with 100% alpha = 0xff000000 in base 16, and = 4278190080 in base 10
 			// white color with 100% alpha = 0xffffffff in base 16, and = 4294967295 in base 10
@@ -120,7 +111,24 @@ namespace Colors2Cubase
 				Color col = UintToColor(i);
 				colors.Add(col);
 			}
-
+			
+			// match Cubase Uint type color xml fragments
+			// e.g.
+			// <string name="Name" value="Drums" wide="true"/>
+			// <int name="Color" value="4289403976"/>
+			string patternCubaseColorXml = @"string name=""Name"" value=""(.*?)"".*?value=""(\d{10})""";
+			foreach (Match match in Regex.Matches(textToParse,
+			                                      patternCubaseColorXml,
+			                                      RegexOptions.IgnoreCase |
+			                                      RegexOptions.Singleline)) {
+				string label = match.Groups[1].Value;
+				labels.Add(label);
+				string uintColor = match.Groups[2].Value;
+				uint c = uint.Parse(uintColor);
+				Color col = UintToColor(c);
+				colors.Add(col);
+			}
+			
 			DrawColors(colors, pictureBox1.Width, pictureBox1.Height);
 		}
 		
@@ -153,7 +161,7 @@ namespace Colors2Cubase
 				
 				// Save XML and disable the UTF-8 BOM bytes at the top of the Xml document (EF BB BF)
 				// which is actually discouraged by the Unicode standard
-				XmlUtils.SaveXDocument(replaceWithXml.Document, fileName, true);
+				XmlUtils.SaveXDocument(replaceWithXml.Document, fileName, true, true);
 				
 				MessageBox.Show("Succesfully update the Cubase configuration file!", "Succesful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
@@ -174,7 +182,7 @@ namespace Colors2Cubase
 			                                 select new XElement("item",
 			                                                     new XElement("string",
 			                                                                  new XAttribute("name", "Name"),
-			                                                                  new XAttribute("value", String.Format("Color {0}", counter++)),
+			                                                                  new XAttribute("value", (counter < labels.Count + 1 ? labels[counter++ - 1] : String.Format("Color {0}", counter++))),
 			                                                                  new XAttribute("wide", "true")),
 			                                                     new XElement("int",
 			                                                                  new XAttribute("name", "Color"),
