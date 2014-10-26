@@ -121,8 +121,8 @@
     <value>17, 17</value>
   </metadata>
   <data name="label3.Text" xml:space="preserve">
-    <value>Paste rgb or hex code values here: e.g. IWantHue (http://tools.medialab.sciences-po.fr/iwanthue)
-RGB format: 255,255,255 or Hex code format: #FF00FF
-Also understands a format like: value="4284797946"</value>
+    <value>Paste rgb or hex code values here: e.g. Médialab Tools IWantHue or ColorBrewer2
+Support RGB format like: 255,255,255 or HTML hex code formats like: #FF00FF
+Also understands a format like: value="4284797946" and 8 digit hex formats like 0xff000000</value>
   </data>
 </root>

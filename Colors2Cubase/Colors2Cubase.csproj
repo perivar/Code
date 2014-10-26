@@ -57,6 +57,9 @@
     <Compile Include="..\..\AudioVSTToolbox\CommonUtils\MathUtils.cs">
       <Link>MathUtils.cs</Link>
     </Compile>
+    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\StringUtils.cs">
+      <Link>StringUtils.cs</Link>
+    </Compile>
     <Compile Include="..\..\AudioVSTToolbox\CommonUtils\XmlUtils.cs">
       <Link>XmlUtils.cs</Link>
     </Compile>

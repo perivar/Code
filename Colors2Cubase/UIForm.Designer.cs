@@ -24,6 +24,8 @@ namespace Colors2Cubase
 		private System.Windows.Forms.Button btnChangeCubase;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button btnReadColorConfigList;
+		private System.Windows.Forms.Label labelVersion;
+		private System.Windows.Forms.CheckBox chkUseDefaultList;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -57,6 +59,8 @@ namespace Colors2Cubase
 			this.btnChangeCubase = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.btnReadColorConfigList = new System.Windows.Forms.Button();
+			this.labelVersion = new System.Windows.Forms.Label();
+			this.chkUseDefaultList = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -72,10 +76,10 @@ namespace Colors2Cubase
 			// 
 			this.label2.Location = new System.Drawing.Point(12, 9);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(578, 35);
+			this.label2.Size = new System.Drawing.Size(396, 35);
 			this.label2.TabIndex = 1;
-			this.label2.Text = "This tool will modify Cubase\'s configuration file and insert the colors pasted in" +
-	" below instead \r\n(while making a backup of the configuration file)\r\n";
+			this.label2.Text = "This tool will modify Cubase\'s configuration file and insert the colors below ins" +
+	"tead \r\n(while making a backup of the configuration file)\r\n";
 			// 
 			// openFileDialog
 			// 
@@ -119,7 +123,7 @@ namespace Colors2Cubase
 			// 
 			// btnChangeCubase
 			// 
-			this.btnChangeCubase.Location = new System.Drawing.Point(340, 397);
+			this.btnChangeCubase.Location = new System.Drawing.Point(385, 398);
 			this.btnChangeCubase.Name = "btnChangeCubase";
 			this.btnChangeCubase.Size = new System.Drawing.Size(154, 23);
 			this.btnChangeCubase.TabIndex = 6;
@@ -145,11 +149,33 @@ namespace Colors2Cubase
 			this.btnReadColorConfigList.UseVisualStyleBackColor = true;
 			this.btnReadColorConfigList.Click += new System.EventHandler(this.BtnReadColorConfigListClick);
 			// 
+			// labelVersion
+			// 
+			this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.labelVersion.Location = new System.Drawing.Point(428, 9);
+			this.labelVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.labelVersion.Name = "labelVersion";
+			this.labelVersion.Size = new System.Drawing.Size(163, 14);
+			this.labelVersion.TabIndex = 9;
+			this.labelVersion.Text = "Version: ";
+			this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// chkUseDefaultList
+			// 
+			this.chkUseDefaultList.Location = new System.Drawing.Point(193, 398);
+			this.chkUseDefaultList.Name = "chkUseDefaultList";
+			this.chkUseDefaultList.Size = new System.Drawing.Size(173, 24);
+			this.chkUseDefaultList.TabIndex = 10;
+			this.chkUseDefaultList.Text = "Change Cubase Default Colors";
+			this.chkUseDefaultList.UseVisualStyleBackColor = true;
+			// 
 			// UIForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(602, 432);
+			this.Controls.Add(this.chkUseDefaultList);
+			this.Controls.Add(this.labelVersion);
 			this.Controls.Add(this.btnReadColorConfigList);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.btnChangeCubase);

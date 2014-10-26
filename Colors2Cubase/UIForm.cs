@@ -19,6 +19,8 @@ namespace Colors2Cubase
 	/// </summary>
 	public partial class UIForm : Form
 	{
+
+		static string _version = "1.0.1";
 		List<Color> colors = new List<Color>();
 
 		public UIForm()
@@ -27,6 +29,8 @@ namespace Colors2Cubase
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
+			
+			labelVersion.Text = "Version: " + _version;
 		}
 		
 		void btnBrowseClick(object sender, EventArgs e)
@@ -40,7 +44,9 @@ namespace Colors2Cubase
 			if (Directory.Exists(cubaseConfigDir))
 			{
 				var files = IOUtils.GetFilesRecursive(cubaseConfigDir, fileName);
-				if (files.Count() == 1) {
+				if(files == null || !files.Any()) {
+					// No config file found, ignore
+				} else if (files.Count() == 1) {
 					openFileDialog.InitialDirectory = new FileInfo(files.FirstOrDefault()).DirectoryName;
 				} else {
 					// choose the config file that was changes last
@@ -71,7 +77,7 @@ namespace Colors2Cubase
 			// "[112,219,69],"
 			// "[146,72,63]]"
 			// rgb(83,114,110)
-			string patternRGB = @"(\d+),(\d+),(\d+)"; // \G doesn't work?!
+			string patternRGB = @"(\d+),(\d+),(\d+)";
 			foreach (Match match in Regex.Matches(textToParse, patternRGB)) {
 				int r = int.Parse(match.Groups[1].Value);
 				int g = int.Parse(match.Groups[2].Value);
@@ -86,8 +92,8 @@ namespace Colors2Cubase
 			// ["#53726E",
 			// "#80DE41",
 			// #CF5E3D
-			string patternHexCode = @"#(?:[0-9a-fA-F]{3}){1,2}";
-			foreach (Match match in Regex.Matches(textToParse, patternHexCode)) {
+			string patternRGBHtmlHexCode = @"#(?:[0-9a-fA-F]{3}){1,2}";
+			foreach (Match match in Regex.Matches(textToParse, patternRGBHtmlHexCode)) {
 				string htmlColor = match.Groups[0].Value;
 				Color col = ColorTranslator.FromHtml(htmlColor);
 				colors.Add(col);
@@ -104,6 +110,17 @@ namespace Colors2Cubase
 				colors.Add(col);
 			}
 
+			// match 8 hexadecimal digits Color code (ARGB)
+			// black color with 100% alpha = 0xff000000 in base 16, and = 4278190080 in base 10
+			// white color with 100% alpha = 0xffffffff in base 16, and = 4294967295 in base 10
+			string patternARGBHexCode = @"(0x[0-9a-fA-F]{8})";
+			foreach (Match match in Regex.Matches(textToParse, patternARGBHexCode)) {
+				string hexARGB = match.Groups[1].Value;
+				uint i =  StringUtils.HexStringToUint(hexARGB);
+				Color col = UintToColor(i);
+				colors.Add(col);
+			}
+
 			DrawColors(colors, pictureBox1.Width, pictureBox1.Height);
 		}
 		
@@ -113,7 +130,7 @@ namespace Colors2Cubase
 			
 			// first check that we are able to find the right node in the
 			// Defaults.xml file
-			XElement colorListNode = ReadColorListFromCubaseConfig(fileName);
+			XElement colorListNode = ReadColorListFromCubaseConfig(fileName, chkUseDefaultList.Checked);
 			if (colorListNode != null) {
 				
 				// build up the xml fragment that is required
@@ -124,11 +141,7 @@ namespace Colors2Cubase
 				// 	</item>
 				// </list>
 				
-				//XmlDocument xmlNewDoc = CreateXmlUsingXmlElements();
-				//xmlNewDoc.Save("XmlUsingXmlElements.xml");
-				
-				XElement replaceWithXml = CreateXmlUsingXElements();
-				//replaceWithXml.Save("XmlUsingXElements.xml");
+				XElement replaceWithXml = CreateXmlUsingXElements(chkUseDefaultList.Checked);
 				
 				// first make a backup of the config file
 				IOUtils.MakeBackupOfFile(fileName);
@@ -151,11 +164,11 @@ namespace Colors2Cubase
 		/// </summary>
 		/// <seealso cref="http://www.intertech.com/Blog/create-an-xml-document-with-linq-to-xml/" />
 		/// <returns>a XElement tree</returns>
-		private XElement CreateXmlUsingXElements() {
+		private XElement CreateXmlUsingXElements(bool defaultColorList=false) {
 			
 			var counter = 1;
 			XElement xElement = new XElement("list",
-			                                 new XAttribute("name", "Set"),
+			                                 new XAttribute("name", (defaultColorList ? "DefSet" : "Set")),
 			                                 new XAttribute("type", "list"),
 			                                 from c in colors
 			                                 select new XElement("item",
@@ -214,8 +227,9 @@ namespace Colors2Cubase
 		/// Use LINQ to XML for finding a specific node (with children) in a Xml file
 		/// </summary>
 		/// <param name="fileName">filepath to xml document</param>
+		/// <param name="defaultColorList">whether to use the default color list or the user changeable list</param>
 		/// <returns>A XElement with the CubaseColorList xml</returns>
-		private XElement ReadColorListFromCubaseConfig(string fileName) {
+		private XElement ReadColorListFromCubaseConfig(string fileName, bool defaultColorList=false) {
 			
 			if (!fileName.Equals("")) {
 				if (File.Exists(fileName)) {
@@ -229,14 +243,24 @@ namespace Colors2Cubase
 						&& (string) xn.Attribute("name") == "Event Colors"
 						select xn;
 					
-					// find direct child list node <list name="Set" type="list">
-					// return IEnumerable<XElement>
-					var pEventColorsSetNode = from xn in pUColorSetNode.Elements("list")
-						where (string) xn.Attribute("name") == "Set"
-						&& (string) xn.Attribute("type") == "list"
-						select xn;
-					
-					if (pEventColorsSetNode.Count() == 0) {
+					IEnumerable<XElement> pEventColorsSetNode = null;
+					if (defaultColorList) {
+						// find direct child list node <list name="DefSet" type="list">
+						// return IEnumerable<XElement>
+						pEventColorsSetNode = from xn in pUColorSetNode.Elements("list")
+							where (string) xn.Attribute("name") == "DefSet"
+							&& (string) xn.Attribute("type") == "list"
+							select xn;
+					} else {
+						// find direct child list node <list name="Set" type="list">
+						// return IEnumerable<XElement>
+						pEventColorsSetNode = from xn in pUColorSetNode.Elements("list")
+							where (string) xn.Attribute("name") == "Set"
+							&& (string) xn.Attribute("type") == "list"
+							select xn;
+					}
+
+					if (pEventColorsSetNode == null || !pEventColorsSetNode.Any()) {
 						MessageBox.Show("Failed reading the configuration file. Maybe Cubase has changed the format. Please contact the developer.",
 						                "Failed reading configuration file",
 						                MessageBoxButtons.OK,
@@ -255,14 +279,26 @@ namespace Colors2Cubase
 			return null;
 		}
 		
+		/// <summary>
+		/// Convert from Color to Cubase long Colors format (base 16 uint)
+		/// </summary>
+		/// <param name="color">Color</param>
+		/// <returns>a 10 digit color number. E.g. 4278190080 is black</returns>
+		/// <description>
+		/// black color with 100% alpha = 0xff000000 in base 16, and = 4278190080 in base 10
+		/// white color with 100% alpha = 0xffffffff in base 16, and = 4294967295 in base 10
+		/// </description>
 		private uint ColorToUint(Color color) {
-			// 4278190080 in base 16 is FF000000
 			// ((R<<16) | (G<<8) | (B))
-			//uint colorValue = ((uint) color.R) | ((uint) (color.G << 8)) | ((uint) (color.B << 16)) | 0xFF000000;
 			uint colorValue = ((uint) color.B) | ((uint) (color.G << 8)) | ((uint) (color.R << 16)) | 0xFF000000;
 			return colorValue;
 		}
 
+		/// <summary>
+		/// Convert from 10 digit Cubase long Color format to Color
+		/// </summary>
+		/// <param name="colorValue">a 10 digit color format</param>
+		/// <returns>Color</returns>
 		private Color UintToColor(uint colorValue) {
 			return ColorUtils.UIntToColor(colorValue);
 		}
@@ -316,7 +352,7 @@ namespace Colors2Cubase
 		{
 			string fileName = txtFilePath.Text;
 
-			XElement colorListNode = ReadColorListFromCubaseConfig(fileName);
+			XElement colorListNode = ReadColorListFromCubaseConfig(fileName, chkUseDefaultList.Checked);
 			if (colorListNode != null) {
 				txtInput.Text = colorListNode.ToString();
 				MessageBox.Show("Succesfully read the color list from the Cubase configuration file!", "Succesful", MessageBoxButtons.OK, MessageBoxIcon.Information);
