@@ -161,7 +161,13 @@ namespace Colors2Cubase
 				
 				// Save XML and disable the UTF-8 BOM bytes at the top of the Xml document (EF BB BF)
 				// which is actually discouraged by the Unicode standard
-				XmlUtils.SaveXDocument(replaceWithXml.Document, fileName, true, true);
+				// TODO: if the XDocument is loaded with LoadOptions.PreserveWhitespace then
+				// no matter what options are used here, the replaceWithXml node is concatinated on one line without newlines or spaces
+				// If however the XDocument is loaded without any LoadOptions then
+				// disableFormatting produces an xml where most of the document has no newlines or spaces,
+				// meaning that disableFormatting must be false for this to work
+				// Thus the solution is to load the XDocument without any LoadOptions and make sure that disableFormatting is false
+				XmlUtils.SaveXDocument(replaceWithXml.Document, fileName, true, false);
 				
 				MessageBox.Show("Succesfully update the Cubase configuration file!", "Succesful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
@@ -242,7 +248,9 @@ namespace Colors2Cubase
 			if (!fileName.Equals("")) {
 				if (File.Exists(fileName)) {
 
-					XDocument xDoc = XDocument.Load(fileName, LoadOptions.PreserveWhitespace);
+					// Loading using preserveWhitespace produces an xml file where replaced noe is on one line
+					//XDocument xDoc = XDocument.Load(fileName, LoadOptions.PreserveWhitespace);
+					XDocument xDoc = XDocument.Load(fileName);
 					
 					// find  <obj class="UColorSet" name="Event Colors" ID="?????">
 					// return IEnumerable<XElement>
