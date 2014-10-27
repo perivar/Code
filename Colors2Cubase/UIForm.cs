@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
@@ -89,14 +90,16 @@ namespace Colors2Cubase
 				}
 			}
 
-			// match HTML type RGB codes (called Hex codes, such as #FFCC66)
+			// match HTML type RGB codes (called Hex codes, such as #FFCC66) with optionally a label behind
 			// e.g.
 			// ["#53726E",
 			// "#80DE41",
 			// #CF5E3D
-			string patternRGBHtmlHexCode = @"#(?:[0-9a-fA-F]{3}){1,2}";
+			string patternRGBHtmlHexCode = @"(#(?:[0-9a-fA-F]{3}){1,2})([0-9A-Za-z,.\s""\?\/\!\\\-]+)?";
 			foreach (Match match in Regex.Matches(textToParse, patternRGBHtmlHexCode)) {
-				string htmlColor = match.Groups[0].Value;
+				string htmlColor = match.Groups[1].Value;
+				string label = match.Groups[2].Value.Trim();
+				labels.Add(label);
 				Color col = ColorTranslator.FromHtml(htmlColor);
 				colors.Add(col);
 			}
@@ -188,7 +191,7 @@ namespace Colors2Cubase
 			                                 select new XElement("item",
 			                                                     new XElement("string",
 			                                                                  new XAttribute("name", "Name"),
-			                                                                  new XAttribute("value", (counter < labels.Count + 1 ? labels[counter++ - 1] : String.Format("Color {0}", counter++))),
+			                                                                  new XAttribute("value", ( (counter < labels.Count + 1) && !labels[counter - 1].Equals("") ? labels[counter++ - 1] : String.Format("Color {0}", counter++))),
 			                                                                  new XAttribute("wide", "true")),
 			                                                     new XElement("int",
 			                                                                  new XAttribute("name", "Color"),
@@ -374,5 +377,27 @@ namespace Colors2Cubase
 				MessageBox.Show("Succesfully read the color list from the Cubase configuration file!", "Succesful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
+		
+		void BtnConvertToHtmlHexClick(object sender, EventArgs e)
+		{
+			if (!txtInput.Text.Equals("")) {
+				StringBuilder sb = new StringBuilder();
+				int counter = 0;
+				foreach (Color colorValue in colors) {
+					string htmlHexColor = String.Format("#{0:X2}{1:X2}{2:X2}",
+					                                    colorValue.R,
+					                                    colorValue.G,
+					                                    colorValue.B);
+					sb.AppendFormat("{0}  {1}", htmlHexColor,
+					                ( counter < labels.Count ? labels[counter] : "" ));
+					sb.Append(Environment.NewLine);
+					counter++;
+				}
+				txtInput.Text = sb.ToString();
+			}
+			
+		}
 	}
 }
+
+

@@ -26,6 +26,7 @@ namespace Colors2Cubase
 		private System.Windows.Forms.Button btnReadColorConfigList;
 		private System.Windows.Forms.Label labelVersion;
 		private System.Windows.Forms.CheckBox chkUseDefaultList;
+		private System.Windows.Forms.Button btnConvertToHtmlHex;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -61,6 +62,7 @@ namespace Colors2Cubase
 			this.btnReadColorConfigList = new System.Windows.Forms.Button();
 			this.labelVersion = new System.Windows.Forms.Label();
 			this.chkUseDefaultList = new System.Windows.Forms.CheckBox();
+			this.btnConvertToHtmlHex = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -104,6 +106,7 @@ namespace Colors2Cubase
 			// 
 			// txtInput
 			// 
+			this.txtInput.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtInput.Location = new System.Drawing.Point(13, 141);
 			this.txtInput.Multiline = true;
 			this.txtInput.Name = "txtInput";
@@ -123,9 +126,9 @@ namespace Colors2Cubase
 			// 
 			// btnChangeCubase
 			// 
-			this.btnChangeCubase.Location = new System.Drawing.Point(385, 398);
+			this.btnChangeCubase.Location = new System.Drawing.Point(449, 397);
 			this.btnChangeCubase.Name = "btnChangeCubase";
-			this.btnChangeCubase.Size = new System.Drawing.Size(154, 23);
+			this.btnChangeCubase.Size = new System.Drawing.Size(142, 23);
 			this.btnChangeCubase.TabIndex = 6;
 			this.btnChangeCubase.Text = "Make Changes to Cubase!";
 			this.btnChangeCubase.UseVisualStyleBackColor = true;
@@ -143,7 +146,7 @@ namespace Colors2Cubase
 			// 
 			this.btnReadColorConfigList.Location = new System.Drawing.Point(13, 397);
 			this.btnReadColorConfigList.Name = "btnReadColorConfigList";
-			this.btnReadColorConfigList.Size = new System.Drawing.Size(152, 23);
+			this.btnReadColorConfigList.Size = new System.Drawing.Size(146, 23);
 			this.btnReadColorConfigList.TabIndex = 8;
 			this.btnReadColorConfigList.Text = "Read colors from config file";
 			this.btnReadColorConfigList.UseVisualStyleBackColor = true;
@@ -162,18 +165,29 @@ namespace Colors2Cubase
 			// 
 			// chkUseDefaultList
 			// 
-			this.chkUseDefaultList.Location = new System.Drawing.Point(193, 398);
+			this.chkUseDefaultList.Location = new System.Drawing.Point(270, 397);
 			this.chkUseDefaultList.Name = "chkUseDefaultList";
 			this.chkUseDefaultList.Size = new System.Drawing.Size(173, 24);
 			this.chkUseDefaultList.TabIndex = 10;
 			this.chkUseDefaultList.Text = "Change Cubase Default Colors";
 			this.chkUseDefaultList.UseVisualStyleBackColor = true;
 			// 
+			// btnConvertToHtmlHex
+			// 
+			this.btnConvertToHtmlHex.Location = new System.Drawing.Point(165, 397);
+			this.btnConvertToHtmlHex.Name = "btnConvertToHtmlHex";
+			this.btnConvertToHtmlHex.Size = new System.Drawing.Size(75, 23);
+			this.btnConvertToHtmlHex.TabIndex = 11;
+			this.btnConvertToHtmlHex.Text = "To html hex";
+			this.btnConvertToHtmlHex.UseVisualStyleBackColor = true;
+			this.btnConvertToHtmlHex.Click += new System.EventHandler(this.BtnConvertToHtmlHexClick);
+			// 
 			// UIForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(602, 432);
+			this.Controls.Add(this.btnConvertToHtmlHex);
 			this.Controls.Add(this.chkUseDefaultList);
 			this.Controls.Add(this.labelVersion);
 			this.Controls.Add(this.btnReadColorConfigList);
