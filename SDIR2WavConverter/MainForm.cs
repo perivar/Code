@@ -15,7 +15,7 @@ namespace SDIR2WavConverter
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		static string _version = "1.0.0";
+		const string _version = "1.0.1";
 		
 		public MainForm()
 		{
@@ -43,7 +43,7 @@ namespace SDIR2WavConverter
 				if (IOUtils.IsDirectory(inputFilePath)) {
 					// directory
 					IEnumerable<string> filesInDir = IOUtils.GetFiles(inputFilePath, "\\.sdir", SearchOption.AllDirectories);
-					if (filesInDir.Count() == 0) {
+					if (!filesInDir.Any()) {
 						textBox1.AppendText(String.Format("No SDIR files found in directory {0}\n", inputFilePath));
 					} else {
 						foreach (string fileInDir in filesInDir) {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+
 using CommonUtils;
 
 namespace SDIR2WavConverter
@@ -112,9 +113,10 @@ namespace SDIR2WavConverter
 					numSampleFrames = (int) bFile.ReadUInt32();
 					bitsPerSample = bFile.ReadInt16();
 
-					byte[] sampleRateBytes1 = bFile.ReadBytes(2);
-					sampleRate = bFile.ReadUInt16();
-					byte[] sampleRateBytes2 = bFile.ReadBytes(6);
+					// read IEEE 80-bit extended double precision
+					byte[] sampleRateBytes = bFile.ReadBytes(0, 10, BinaryFile.ByteOrder.LittleEndian);
+					double sampleRateDouble = NAudio.Utils.IEEE.ConvertFromIeeeExtended(sampleRateBytes);
+					sampleRate = (int) sampleRateDouble;
 				}
 				
 				string chunkID3 = bFile.ReadString(4);
