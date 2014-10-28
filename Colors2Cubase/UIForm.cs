@@ -25,12 +25,39 @@ namespace Colors2Cubase
 		List<Color> colors = new List<Color>();
 		List<string> labels = new List<string>();
 
+		/// <summary>
+		///  Return the pixel color at a specific screen coordinate
+		/// </summary>
+		/// <param name="position">a screen coordinate</param>
+		/// <returns>the pixel color</returns>
+		public static Color GetPixel(Point position)
+		{
+			using (var bitmap = new Bitmap(1, 1))
+			{
+				using (var graphics = Graphics.FromImage(bitmap))
+				{
+					graphics.CopyFromScreen(position, new Point(0, 0), new Size(1, 1));
+				}
+				return bitmap.GetPixel(0, 0);
+			}
+		}
+		
 		public UIForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
+			
+			// Set up the delays for the ToolTip.
+			toolTip1.AutoPopDelay = 5000;
+			toolTip1.InitialDelay = 1000;
+			toolTip1.ReshowDelay = 500;
+			// Force the ToolTip text to be displayed whether or not the form is active.
+			toolTip1.ShowAlways = true;
+
+			// Set up the ToolTip text for the Button and Checkbox.
+			toolTip1.SetToolTip(this.btnColorPicker, "Sample the color under the cursor.\nMake sure this button is selected and click the Spacebar\nto sample the color under the mouse cursor,\nor click the Ctrl-S key");
 			
 			labelVersion.Text = "Version: " + _version;
 		}
@@ -393,10 +420,40 @@ namespace Colors2Cubase
 					sb.Append(Environment.NewLine);
 					counter++;
 				}
+				
 				txtInput.Text = sb.ToString();
 			}
-			
+
 		}
+		
+		void BtnColorPickerClick(object sender, EventArgs e)
+		{
+			SampleColorUnderCursor();
+		}
+		
+		private void SampleColorUnderCursor() {
+			Color pixelColor = GetPixel(Cursor.Position);
+			string pixelHtmlHexColor = String.Format("#{0:X2}{1:X2}{2:X2}",
+			                                         pixelColor.R,
+			                                         pixelColor.G,
+			                                         pixelColor.B);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.Append(txtInput.Text);
+			
+			sb.AppendFormat("{0}  Cursor Pixel Color", pixelHtmlHexColor);
+			sb.Append(Environment.NewLine);
+			txtInput.Text = sb.ToString();
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+			if (keyData == (Keys.Control | Keys.S)) {
+				SampleColorUnderCursor();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
+		
 	}
 }
 
