@@ -21,7 +21,7 @@ namespace Colors2Cubase
 	public partial class UIForm : Form
 	{
 
-		static string _version = "1.0.2";
+		static string _version = "1.0.3";
 		List<Color> colors = new List<Color>();
 		List<string> labels = new List<string>();
 
