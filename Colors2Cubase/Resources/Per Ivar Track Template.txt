@@ -1,0 +1,28 @@
+#99FFFF  Piano
+#33FFFF  Keyboards
+#00CCCC  Pads
+#A9EEA7  Strings
+#5ADE56  Strings Violins 1
+#207103  Strings Violins 2 / Effects
+#D2B4E9  Strings Violas
+#9042C4  Strings Cellos
+#512B87  Strings Basses
+#FA7F82  Drums High Freq
+#D2445A  Drums
+#E11129  Drums Low Freq
+#E3A65F  Mel Percussion
+#A46A44  Percussion
+#5F2D0C  Bass
+#FFE900  Vocals Lead
+#FFBB00  Vocals Backing
+#FF9900  Vocals
+#FF77EC  Guitars Acoustic
+#FF3DE5  Guitars Electric
+#C100C1  Guitars
+#66B2FF  Group / Woodwinds
+#0080FF  Choir
+#004C99  Synths / Brass
+#B3B3B3  Other
+#575454  Ghost Kick
+#151313  Masterbus
+#FFFFFF  Music
