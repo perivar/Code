@@ -49,6 +49,7 @@ namespace Colors2Cubase
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIForm));
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -63,6 +64,8 @@ namespace Colors2Cubase
 			this.labelVersion = new System.Windows.Forms.Label();
 			this.chkUseDefaultList = new System.Windows.Forms.CheckBox();
 			this.btnConvertToHtmlHex = new System.Windows.Forms.Button();
+			this.btnColorPicker = new System.Windows.Forms.Button();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -81,7 +84,7 @@ namespace Colors2Cubase
 			this.label2.Size = new System.Drawing.Size(396, 35);
 			this.label2.TabIndex = 1;
 			this.label2.Text = "This tool will modify Cubase\'s configuration file and insert the colors below ins" +
-	"tead \r\n(while making a backup of the configuration file)\r\n";
+			"tead \r\n(while making a backup of the configuration file)\r\n";
 			// 
 			// openFileDialog
 			// 
@@ -182,11 +185,23 @@ namespace Colors2Cubase
 			this.btnConvertToHtmlHex.UseVisualStyleBackColor = true;
 			this.btnConvertToHtmlHex.Click += new System.EventHandler(this.BtnConvertToHtmlHexClick);
 			// 
+			// btnColorPicker
+			// 
+			this.btnColorPicker.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.btnColorPicker.Image = ((System.Drawing.Image)(resources.GetObject("btnColorPicker.Image")));
+			this.btnColorPicker.Location = new System.Drawing.Point(552, 101);
+			this.btnColorPicker.Name = "btnColorPicker";
+			this.btnColorPicker.Size = new System.Drawing.Size(38, 37);
+			this.btnColorPicker.TabIndex = 12;
+			this.btnColorPicker.UseVisualStyleBackColor = false;
+			this.btnColorPicker.Click += new System.EventHandler(this.BtnColorPickerClick);
+			// 
 			// UIForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(602, 432);
+			this.Controls.Add(this.btnColorPicker);
 			this.Controls.Add(this.btnConvertToHtmlHex);
 			this.Controls.Add(this.chkUseDefaultList);
 			this.Controls.Add(this.labelVersion);
@@ -204,7 +219,8 @@ namespace Colors2Cubase
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-
 		}
+		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.Button btnColorPicker;
 	}
 }

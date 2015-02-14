@@ -125,4 +125,19 @@
 Support RGB format like: 255,255,255 or 8 digit hex formats like 0xFF000000 
 Also understands the Cubase xml format and HTML hex code formats like: #FF00FF (with optional labels)</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnColorPicker.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACw4AAAsOAUC+4UEAAAAGYktHRAAAAAAAAPlDu38AAAAHdElNRQfbAxsMMAisEqun
+        AAABFElEQVQ4T2N4/egSRRirIDbMwMrpzcAlcBaOWVkLwOLoCnFhsCYZm7MMjtOPM+imngLxweLoCrFh
+        BmZue7ABIM0KbmdgrgDLoStGxjCFYE0g21VDTsPFiDKAgVEWrBhkM5JGMGbmdgCrQdcEw2DNgtLZ//79
+        /4KikYM7BkUdMgcuKKUkBtb8///PFSf/pzG4bLKAGYChFl2AhY1BAkWz6zZzEJ+TgUOUKANgmhkSX5oz
+        OC/whWlGVwfDqByov8GBBsJANjMrgziyGnSMykHTDPIOsjw2jGDo5IUzGFXfYdDJLge5BFkRPoxgGFf3
+        gm0G0pICDJzIivBhBANke8KZZhCNrIAQRjAMq1vAhgBpZAX48SUGAD7GHOOc0siZAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>144, 17</value>
+  </metadata>
 </root>
