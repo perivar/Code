@@ -27,9 +27,11 @@ namespace PhoneticCompareApp
 			Console.WriteLine();
 			Console.WriteLine("Usage: PhoneticCompareApp.exe <input csv file> <output csv file>");
 			Console.WriteLine("Choose an input csv file and an output csv file and this utility");
-			Console.WriteLine("will perform a DoubleMetaphone encoding on the inputted content");
+			Console.WriteLine("will perform a DoubleMetaphone encoding on the first column.");
+			Console.WriteLine("The resulting csv file will contain two columns:");
+			Console.WriteLine("One with the encoded name and one with the original name.");
 			Console.WriteLine();
-			Console.WriteLine("or specify the following to run a test:");
+			Console.WriteLine("or specify the following to run an internal test:");
 			Console.WriteLine("PhoneticCompareApp.exe -test");
 		}
 		

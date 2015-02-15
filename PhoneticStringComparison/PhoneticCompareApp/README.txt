@@ -8,12 +8,21 @@ Using the Compare Console Application
 -------------------------------------
 The CompareApp is a Win32 Console Application.
 
+Usage: PhoneticCompareApp.exe <input csv file> <output csv file>
+
+Choose an input csv file and an output csv file and this utility
+will perform a DoubleMetaphone encoding on the first column.
+
+The resulting csv file will contain two columns:
+One with the encoded name and one with the original name.
+
+or specify the following to run an internal test:
+PhoneticCompareApp.exe -test
+
+
 PhoneticCompareApp.exe <input file path> <output file path>
 e.g.
 PhoneticCompareApp.exe "fornavn_redusert.csv" "fornavn_redusert_fixed.csv"
-
-or to run the internal test names
-PhoneticCompareApp.exe -test
 
 
 Using the Phonetic String Compare Library
