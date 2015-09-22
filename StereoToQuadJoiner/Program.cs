@@ -2,9 +2,6 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-using NAudio;
-using NAudio.Wave;
-
 using CommonUtils.Audio.NAudio;
 using CommonUtils.GUI;
 using CommonUtils;

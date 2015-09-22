@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonUtils">
+      <HintPath>..\NativeLibraries\CommonUtils.dll</HintPath>
+    </Reference>
     <Reference Include="NAudio">
       <HintPath>..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\NAudio.dll</HintPath>
     </Reference>
@@ -48,12 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\AudioUtilsNAudio.cs">
-      <Link>AudioUtilsNAudio.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\BinaryFile.cs">
-      <Link>BinaryFile.cs</Link>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonUtils">
+      <HintPath>..\NativeLibraries\CommonUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -53,18 +56,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\Audio\NAudio\AudioUtilsNAudio.cs">
-      <Link>AudioUtilsNAudio.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\BinaryFile.cs">
-      <Link>BinaryFile.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\IOUtils.cs">
-      <Link>IOUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\MathUtils.cs">
-      <Link>MathUtils.cs</Link>
-    </Compile>
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>

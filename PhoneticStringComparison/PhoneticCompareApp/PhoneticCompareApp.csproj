@@ -49,6 +49,9 @@
     <StartArguments>"fornavn_redusert.csv" "fornavn_redusert_fixed.csv"</StartArguments>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonUtils">
+      <HintPath>..\..\NativeLibraries\CommonUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -66,9 +69,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\AudioVSTToolbox\CommonUtils\CSVWriter.cs">
-      <Link>CSVWriter.cs</Link>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
