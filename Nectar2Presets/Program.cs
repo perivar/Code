@@ -21,10 +21,10 @@ namespace Nectar2Preset
 			//string filePath = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\Pop\Airy Lead (Harmonized).xml";
 			
 			string nectar2PresetDirString = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\";
-			string outputDirectoryPath =  @"..\..";
+			string outputDirectoryPath =  @"..\Output";
 			
 			// process directory
-			DirectoryInfo nectar2PresetDir = new DirectoryInfo(nectar2PresetDirString);
+			var nectar2PresetDir = new DirectoryInfo(nectar2PresetDirString);
 			IEnumerable<string> presetFiles = IOUtils.GetFiles(nectar2PresetDirString, "\\.xml", SearchOption.AllDirectories);
 			Console.WriteLine("Processing {0} files in directory: '{1}' ...", presetFiles.Count(), nectar2PresetDir.Name);
 			
@@ -42,7 +42,7 @@ namespace Nectar2Preset
 
 		private static void WriteNectar2PresetInfo(string inputFilePath, string outputDirectoryPath) {
 
-			XmlDocument presetXml = new XmlDocument();
+			var presetXml = new XmlDocument();
 			presetXml.Load(inputFilePath);
 			
 			string presetName = StringUtils.GetStringAfterSearchWord(inputFilePath, "Nectar 2\\Presets\\");
@@ -54,7 +54,7 @@ namespace Nectar2Preset
 			}
 			 */
 			
-			Nectar2Preset nectar2Preset = new Nectar2Preset(presetName);
+			var nectar2Preset = new Nectar2Preset(presetName);
 			nectar2Preset.ReadPreset(presetXml);
 
 			string presetFileName = StringUtils.MakeValidFileName(presetName);
@@ -72,10 +72,10 @@ namespace Nectar2Preset
 			XElement xe = xmldoc.GetXElement();
 
 			// variables to hold the generated code
-			StringBuilder defineAttributes = new StringBuilder();
-			StringBuilder initAttributes = new StringBuilder();
-			StringBuilder readMethod = new StringBuilder();
-			StringBuilder toStringMethod = new StringBuilder();
+			var defineAttributes = new StringBuilder();
+			var initAttributes = new StringBuilder();
+			var readMethod = new StringBuilder();
+			var toStringMethod = new StringBuilder();
 			
 			// check if we are parsing a preset file with the right version
 			string presetVersion = xmldoc.SelectSingleNode("/Nectar/@PresetVer").Value;
@@ -176,7 +176,7 @@ namespace Nectar2Preset
 			// Ratio
 			// Release
 			// Threshold
-			Compressors comp = new Compressors();
+			var comp = new Compressors();
 			var xComp = (from a in xe.Element("Compressors").Elements("Param")
 			             //where a.Attribute("ElementID").Value.Equals("Dynamics 1")
 			             select new CompressorsParam
@@ -188,7 +188,7 @@ namespace Nectar2Preset
 			comp.CompressorsParam = xComp;
 			
 			// Delay
-			Delay del = new Delay();
+			var del = new Delay();
 			var xDel = (from a in xe.Element("Delay").Elements("Param")
 			            select new DelayParam
 			            {
@@ -199,7 +199,7 @@ namespace Nectar2Preset
 			del.DelayParam = xDel;
 			
 			// Reverb
-			Reverb rev = new Reverb();
+			var rev = new Reverb();
 			var xReverb = (from a in xe.Element("Reverb").Elements("Param")
 			               select new ReverbParam
 			               {
@@ -210,7 +210,7 @@ namespace Nectar2Preset
 			rev.ReverbParam = xReverb;
 			
 			// EQ
-			EQ eq = new EQ();
+			var eq = new EQ();
 			// Band 2 Enable
 			// Band 2 Frequency
 			// Band 2 Gain

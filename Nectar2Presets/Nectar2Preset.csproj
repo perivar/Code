@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonUtils">
+      <HintPath>..\NativeLibraries\CommonUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -48,18 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\IOUtils.cs">
-      <Link>IOUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\NumberUtils.cs">
-      <Link>NumberUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\StringUtils.cs">
-      <Link>StringUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AudioVSTToolbox\CommonUtils\XmlUtils.cs">
-      <Link>XmlUtils.cs</Link>
-    </Compile>
     <Compile Include="Compressors.cs" />
     <Compile Include="CompressorsParam.cs" />
     <Compile Include="Delay.cs" />
