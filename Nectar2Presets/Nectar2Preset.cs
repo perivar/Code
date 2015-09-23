@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Text;
-using System.Globalization;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using System.Xml.Linq;
 
 using CommonUtils;
 
@@ -517,13 +513,13 @@ namespace Nectar2Preset
 			XmlNode dynamics1AttackNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='Attack']");
 			if (dynamics1AttackNode != null) {
 				// read the dynamics1Attack attribute value
-				Dynamics1Attack = NumberUtils.DecimalTryParseOrZero(dynamics1AttackNode.SelectSingleNode("@Value").Value);
+				Dynamics1Attack = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics1AttackNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics1GainNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='Gain']");
 			if (dynamics1GainNode != null) {
 				// read the dynamics1Gain attribute value
-				Dynamics1Gain = NumberUtils.DecimalTryParseOrZero(dynamics1GainNode.SelectSingleNode("@Value").Value);
+				Dynamics1Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics1GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics1ModeNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='Mode']");
@@ -541,25 +537,25 @@ namespace Nectar2Preset
 			XmlNode dynamics1RatioNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='Ratio']");
 			if (dynamics1RatioNode != null) {
 				// read the dynamics1Ratio attribute value
-				Dynamics1Ratio = NumberUtils.DecimalTryParseOrZero(dynamics1RatioNode.SelectSingleNode("@Value").Value);
+				Dynamics1Ratio = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics1RatioNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics1ReleaseNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='Release']");
 			if (dynamics1ReleaseNode != null) {
 				// read the dynamics1Release attribute value
-				Dynamics1Release = NumberUtils.DecimalTryParseOrZero(dynamics1ReleaseNode.SelectSingleNode("@Value").Value);
+				Dynamics1Release = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics1ReleaseNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics1ThresholdNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 1' and @ParamID='Threshold']");
 			if (dynamics1ThresholdNode != null) {
 				// read the dynamics1Threshold attribute value
-				Dynamics1Threshold = NumberUtils.DecimalTryParseOrZero(dynamics1ThresholdNode.SelectSingleNode("@Value").Value);
+				Dynamics1Threshold = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics1ThresholdNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2AttackNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Attack']");
 			if (dynamics2AttackNode != null) {
 				// read the dynamics2Attack attribute value
-				Dynamics2Attack = NumberUtils.DecimalTryParseOrZero(dynamics2AttackNode.SelectSingleNode("@Value").Value);
+				Dynamics2Attack = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2AttackNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2BypassNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Bypass']");
@@ -571,7 +567,7 @@ namespace Nectar2Preset
 			XmlNode dynamics2GainNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Gain']");
 			if (dynamics2GainNode != null) {
 				// read the dynamics2Gain attribute value
-				Dynamics2Gain = NumberUtils.DecimalTryParseOrZero(dynamics2GainNode.SelectSingleNode("@Value").Value);
+				Dynamics2Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2ModeNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Mode']");
@@ -589,19 +585,19 @@ namespace Nectar2Preset
 			XmlNode dynamics2RatioNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Ratio']");
 			if (dynamics2RatioNode != null) {
 				// read the dynamics2Ratio attribute value
-				Dynamics2Ratio = NumberUtils.DecimalTryParseOrZero(dynamics2RatioNode.SelectSingleNode("@Value").Value);
+				Dynamics2Ratio = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2RatioNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2ReleaseNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Release']");
 			if (dynamics2ReleaseNode != null) {
 				// read the dynamics2Release attribute value
-				Dynamics2Release = NumberUtils.DecimalTryParseOrZero(dynamics2ReleaseNode.SelectSingleNode("@Value").Value);
+				Dynamics2Release = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2ReleaseNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2ThresholdNode = xmldoc.SelectSingleNode("/Nectar/Compressors/Param[@ElementID='Dynamics 2' and @ParamID='Threshold']");
 			if (dynamics2ThresholdNode != null) {
 				// read the dynamics2Threshold attribute value
-				Dynamics2Threshold = NumberUtils.DecimalTryParseOrZero(dynamics2ThresholdNode.SelectSingleNode("@Value").Value);
+				Dynamics2Threshold = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2ThresholdNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode deesserBypassNode = xmldoc.SelectSingleNode("/Nectar/DeEsser/Param[@ElementID='DeEsser' and @ParamID='Bypass']");
@@ -613,13 +609,13 @@ namespace Nectar2Preset
 			XmlNode deesserEssReductionNode = xmldoc.SelectSingleNode("/Nectar/DeEsser/Param[@ElementID='DeEsser' and @ParamID='Ess Reduction']");
 			if (deesserEssReductionNode != null) {
 				// read the deesserEssReduction attribute value
-				DeEsserEssReduction = NumberUtils.DecimalTryParseOrZero(deesserEssReductionNode.SelectSingleNode("@Value").Value);
+				DeEsserEssReduction = NumberUtils.DecimalTryParseDecimalPointOrZero(deesserEssReductionNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode deesserFrequencyNode = xmldoc.SelectSingleNode("/Nectar/DeEsser/Param[@ElementID='DeEsser' and @ParamID='Frequency']");
 			if (deesserFrequencyNode != null) {
 				// read the deesserFrequency attribute value
-				DeEsserFrequency = NumberUtils.DecimalTryParseOrZero(deesserFrequencyNode.SelectSingleNode("@Value").Value);
+				DeEsserFrequency = NumberUtils.DecimalTryParseDecimalPointOrZero(deesserFrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode deesserOutputEssOnlyNode = xmldoc.SelectSingleNode("/Nectar/DeEsser/Param[@ElementID='DeEsser' and @ParamID='Output Ess Only']");
@@ -649,7 +645,7 @@ namespace Nectar2Preset
 			XmlNode delayDelayNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Delay']");
 			if (delayDelayNode != null) {
 				// read the delayDelay attribute value
-				DelayDelay = NumberUtils.DecimalTryParseOrZero(delayDelayNode.SelectSingleNode("@Value").Value);
+				DelayDelay = NumberUtils.DecimalTryParseDecimalPointOrZero(delayDelayNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayDistortionModeNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Distortion Mode']");
@@ -661,7 +657,7 @@ namespace Nectar2Preset
 			XmlNode delayDryMixPercentNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Dry Mix Percent']");
 			if (delayDryMixPercentNode != null) {
 				// read the delayDryMixPercent attribute value
-				DelayDryMixPercent = NumberUtils.DecimalTryParseOrZero(delayDryMixPercentNode.SelectSingleNode("@Value").Value);
+				DelayDryMixPercent = NumberUtils.DecimalTryParseDecimalPointOrZero(delayDryMixPercentNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayEnableModulationNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Enable Modulation']");
@@ -673,49 +669,49 @@ namespace Nectar2Preset
 			XmlNode delayFeedbackPercentNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Feedback Percent']");
 			if (delayFeedbackPercentNode != null) {
 				// read the delayFeedbackPercent attribute value
-				DelayFeedbackPercent = NumberUtils.DecimalTryParseOrZero(delayFeedbackPercentNode.SelectSingleNode("@Value").Value);
+				DelayFeedbackPercent = NumberUtils.DecimalTryParseDecimalPointOrZero(delayFeedbackPercentNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayHighCutoffNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='High Cutoff']");
 			if (delayHighCutoffNode != null) {
 				// read the delayHighCutoff attribute value
-				DelayHighCutoff = NumberUtils.DecimalTryParseOrZero(delayHighCutoffNode.SelectSingleNode("@Value").Value);
+				DelayHighCutoff = NumberUtils.DecimalTryParseDecimalPointOrZero(delayHighCutoffNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayLowCutoffNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Low Cutoff']");
 			if (delayLowCutoffNode != null) {
 				// read the delayLowCutoff attribute value
-				DelayLowCutoff = NumberUtils.DecimalTryParseOrZero(delayLowCutoffNode.SelectSingleNode("@Value").Value);
+				DelayLowCutoff = NumberUtils.DecimalTryParseDecimalPointOrZero(delayLowCutoffNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayModulationDepthNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Modulation Depth']");
 			if (delayModulationDepthNode != null) {
 				// read the delayModulationDepth attribute value
-				DelayModulationDepth = NumberUtils.DecimalTryParseOrZero(delayModulationDepthNode.SelectSingleNode("@Value").Value);
+				DelayModulationDepth = NumberUtils.DecimalTryParseDecimalPointOrZero(delayModulationDepthNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayModulationRateNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Modulation Rate']");
 			if (delayModulationRateNode != null) {
 				// read the delayModulationRate attribute value
-				DelayModulationRate = NumberUtils.DecimalTryParseOrZero(delayModulationRateNode.SelectSingleNode("@Value").Value);
+				DelayModulationRate = NumberUtils.DecimalTryParseDecimalPointOrZero(delayModulationRateNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delaySpreadNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Spread']");
 			if (delaySpreadNode != null) {
 				// read the delaySpread attribute value
-				DelaySpread = NumberUtils.DecimalTryParseOrZero(delaySpreadNode.SelectSingleNode("@Value").Value);
+				DelaySpread = NumberUtils.DecimalTryParseDecimalPointOrZero(delaySpreadNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayTrashNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Trash']");
 			if (delayTrashNode != null) {
 				// read the delayTrash attribute value
-				DelayTrash = NumberUtils.DecimalTryParseOrZero(delayTrashNode.SelectSingleNode("@Value").Value);
+				DelayTrash = NumberUtils.DecimalTryParseDecimalPointOrZero(delayTrashNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode delayWetMixPercentNode = xmldoc.SelectSingleNode("/Nectar/Delay/Param[@ElementID='Delay' and @ParamID='Wet Mix Percent']");
 			if (delayWetMixPercentNode != null) {
 				// read the delayWetMixPercent attribute value
-				DelayWetMixPercent = NumberUtils.DecimalTryParseOrZero(delayWetMixPercentNode.SelectSingleNode("@Value").Value);
+				DelayWetMixPercent = NumberUtils.DecimalTryParseDecimalPointOrZero(delayWetMixPercentNode.SelectSingleNode("@Value").Value);
 			}
 
 
@@ -723,25 +719,25 @@ namespace Nectar2Preset
 			XmlNode dynamics2EqualizerBand0FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Dynamics 2 Equalizer' and @ParamID='Band 0 Frequency']");
 			if (dynamics2EqualizerBand0FrequencyNode != null) {
 				// read the dynamics2EqualizerBand0FrequencyNode attribute value
-				Dynamics2EqualizerBand0Frequency = NumberUtils.DecimalTryParseOrZero(dynamics2EqualizerBand0FrequencyNode.SelectSingleNode("@Value").Value);
+				Dynamics2EqualizerBand0Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2EqualizerBand0FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2EqualizerBand0GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Dynamics 2 Equalizer' and @ParamID='Band 0 Gain']");
 			if (dynamics2EqualizerBand0GainNode != null) {
 				// read the dynamics2EqualizerBand0GainNode attribute value
-				Dynamics2EqualizerBand0Gain = NumberUtils.DecimalTryParseOrZero(dynamics2EqualizerBand0GainNode.SelectSingleNode("@Value").Value);
+				Dynamics2EqualizerBand0Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2EqualizerBand0GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2EqualizerBand1FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Dynamics 2 Equalizer' and @ParamID='Band 1 Frequency']");
 			if (dynamics2EqualizerBand1FrequencyNode != null) {
 				// read the dynamics2EqualizerBand1FrequencyNode attribute value
-				Dynamics2EqualizerBand1Frequency = NumberUtils.DecimalTryParseOrZero(dynamics2EqualizerBand1FrequencyNode.SelectSingleNode("@Value").Value);
+				Dynamics2EqualizerBand1Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2EqualizerBand1FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode dynamics2EqualizerBand1GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Dynamics 2 Equalizer' and @ParamID='Band 1 Gain']");
 			if (dynamics2EqualizerBand1GainNode != null) {
 				// read the dynamics2EqualizerBand1GainNode attribute value
-				Dynamics2EqualizerBand1Gain = NumberUtils.DecimalTryParseOrZero(dynamics2EqualizerBand1GainNode.SelectSingleNode("@Value").Value);
+				Dynamics2EqualizerBand1Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(dynamics2EqualizerBand1GainNode.SelectSingleNode("@Value").Value);
 			}
 			
 			XmlNode dynamics2EqualizerBypassNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Dynamics 2 Equalizer' and @ParamID='Bypass']");
@@ -760,19 +756,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand0FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 0 Frequency']");
 			if (equalizerBand0FrequencyNode != null) {
 				// read the equalizerBand0Frequency attribute value
-				EqualizerBand0Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand0FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand0Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand0FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand0GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 0 Gain']");
 			if (equalizerBand0GainNode != null) {
 				// read the equalizerBand0Gain attribute value
-				EqualizerBand0Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand0GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand0Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand0GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand0QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 0 Q']");
 			if (equalizerBand0QNode != null) {
 				// read the equalizerBand0Q attribute value
-				EqualizerBand0Q = NumberUtils.DecimalTryParseOrZero(equalizerBand0QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand0Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand0QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand0ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 0 Shape']");
@@ -790,19 +786,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand1FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 1 Frequency']");
 			if (equalizerBand1FrequencyNode != null) {
 				// read the equalizerBand1Frequency attribute value
-				EqualizerBand1Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand1FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand1Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand1FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand1GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 1 Gain']");
 			if (equalizerBand1GainNode != null) {
 				// read the equalizerBand1Gain attribute value
-				EqualizerBand1Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand1GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand1Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand1GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand1QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 1 Q']");
 			if (equalizerBand1QNode != null) {
 				// read the equalizerBand1Q attribute value
-				EqualizerBand1Q = NumberUtils.DecimalTryParseOrZero(equalizerBand1QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand1Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand1QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand1ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 1 Shape']");
@@ -820,19 +816,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand2FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 2 Frequency']");
 			if (equalizerBand2FrequencyNode != null) {
 				// read the equalizerBand2Frequency attribute value
-				EqualizerBand2Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand2FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand2Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand2FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand2GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 2 Gain']");
 			if (equalizerBand2GainNode != null) {
 				// read the equalizerBand2Gain attribute value
-				EqualizerBand2Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand2GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand2Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand2GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand2QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 2 Q']");
 			if (equalizerBand2QNode != null) {
 				// read the equalizerBand2Q attribute value
-				EqualizerBand2Q = NumberUtils.DecimalTryParseOrZero(equalizerBand2QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand2Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand2QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand2ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 2 Shape']");
@@ -850,19 +846,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand3FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 3 Frequency']");
 			if (equalizerBand3FrequencyNode != null) {
 				// read the equalizerBand3Frequency attribute value
-				EqualizerBand3Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand3FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand3Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand3FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand3GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 3 Gain']");
 			if (equalizerBand3GainNode != null) {
 				// read the equalizerBand3Gain attribute value
-				EqualizerBand3Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand3GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand3Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand3GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand3QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 3 Q']");
 			if (equalizerBand3QNode != null) {
 				// read the equalizerBand3Q attribute value
-				EqualizerBand3Q = NumberUtils.DecimalTryParseOrZero(equalizerBand3QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand3Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand3QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand3ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 3 Shape']");
@@ -880,19 +876,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand4FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 4 Frequency']");
 			if (equalizerBand4FrequencyNode != null) {
 				// read the equalizerBand4Frequency attribute value
-				EqualizerBand4Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand4FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand4Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand4FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand4GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 4 Gain']");
 			if (equalizerBand4GainNode != null) {
 				// read the equalizerBand4Gain attribute value
-				EqualizerBand4Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand4GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand4Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand4GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand4QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 4 Q']");
 			if (equalizerBand4QNode != null) {
 				// read the equalizerBand4Q attribute value
-				EqualizerBand4Q = NumberUtils.DecimalTryParseOrZero(equalizerBand4QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand4Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand4QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand4ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 4 Shape']");
@@ -910,19 +906,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand5FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 5 Frequency']");
 			if (equalizerBand5FrequencyNode != null) {
 				// read the equalizerBand5Frequency attribute value
-				EqualizerBand5Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand5FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand5Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand5FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand5GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 5 Gain']");
 			if (equalizerBand5GainNode != null) {
 				// read the equalizerBand5Gain attribute value
-				EqualizerBand5Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand5GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand5Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand5GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand5QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 5 Q']");
 			if (equalizerBand5QNode != null) {
 				// read the equalizerBand5Q attribute value
-				EqualizerBand5Q = NumberUtils.DecimalTryParseOrZero(equalizerBand5QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand5Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand5QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand5ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 5 Shape']");
@@ -940,19 +936,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand6FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 6 Frequency']");
 			if (equalizerBand6FrequencyNode != null) {
 				// read the equalizerBand6Frequency attribute value
-				EqualizerBand6Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand6FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand6Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand6FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand6GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 6 Gain']");
 			if (equalizerBand6GainNode != null) {
 				// read the equalizerBand6Gain attribute value
-				EqualizerBand6Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand6GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand6Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand6GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand6QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 6 Q']");
 			if (equalizerBand6QNode != null) {
 				// read the equalizerBand6Q attribute value
-				EqualizerBand6Q = NumberUtils.DecimalTryParseOrZero(equalizerBand6QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand6Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand6QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand6ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 6 Shape']");
@@ -970,19 +966,19 @@ namespace Nectar2Preset
 			XmlNode equalizerBand7FrequencyNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 7 Frequency']");
 			if (equalizerBand7FrequencyNode != null) {
 				// read the equalizerBand7Frequency attribute value
-				EqualizerBand7Frequency = NumberUtils.DecimalTryParseOrZero(equalizerBand7FrequencyNode.SelectSingleNode("@Value").Value);
+				EqualizerBand7Frequency = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand7FrequencyNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand7GainNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 7 Gain']");
 			if (equalizerBand7GainNode != null) {
 				// read the equalizerBand7Gain attribute value
-				EqualizerBand7Gain = NumberUtils.DecimalTryParseOrZero(equalizerBand7GainNode.SelectSingleNode("@Value").Value);
+				EqualizerBand7Gain = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand7GainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand7QNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 7 Q']");
 			if (equalizerBand7QNode != null) {
 				// read the equalizerBand7Q attribute value
-				EqualizerBand7Q = NumberUtils.DecimalTryParseOrZero(equalizerBand7QNode.SelectSingleNode("@Value").Value);
+				EqualizerBand7Q = NumberUtils.DecimalTryParseDecimalPointOrZero(equalizerBand7QNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode equalizerBand7ShapeNode = xmldoc.SelectSingleNode("/Nectar/EQ/Param[@ElementID='Equalizer' and @ParamID='Band 7 Shape']");
@@ -1001,19 +997,19 @@ namespace Nectar2Preset
 			XmlNode fxDistortionOverdriveNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Distortion Overdrive']");
 			if (fxDistortionOverdriveNode != null) {
 				// read the fxDistortionOverdrive attribute value
-				FXDistortionOverdrive = NumberUtils.DecimalTryParseOrZero(fxDistortionOverdriveNode.SelectSingleNode("@Value").Value);
+				FXDistortionOverdrive = NumberUtils.DecimalTryParseDecimalPointOrZero(fxDistortionOverdriveNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxDistortionSendNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Distortion Send']");
 			if (fxDistortionSendNode != null) {
 				// read the fxDistortionSend attribute value
-				FXDistortionSend = NumberUtils.DecimalTryParseOrZero(fxDistortionSendNode.SelectSingleNode("@Value").Value);
+				FXDistortionSend = NumberUtils.DecimalTryParseDecimalPointOrZero(fxDistortionSendNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxDownsamplingAmountNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Downsampling Amount']");
 			if (fxDownsamplingAmountNode != null) {
 				// read the fxDownsamplingAmount attribute value
-				FXDownsamplingAmount = NumberUtils.DecimalTryParseOrZero(fxDownsamplingAmountNode.SelectSingleNode("@Value").Value);
+				FXDownsamplingAmount = NumberUtils.DecimalTryParseDecimalPointOrZero(fxDownsamplingAmountNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxDownsamplingEnableNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Downsampling Enable']");
@@ -1025,25 +1021,25 @@ namespace Nectar2Preset
 			XmlNode fxDryMixNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Dry Mix']");
 			if (fxDryMixNode != null) {
 				// read the fxDryMix attribute value
-				FXDryMix = NumberUtils.DecimalTryParseOrZero(fxDryMixNode.SelectSingleNode("@Value").Value);
+				FXDryMix = NumberUtils.DecimalTryParseDecimalPointOrZero(fxDryMixNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxManualTempoNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Manual Tempo']");
 			if (fxManualTempoNode != null) {
 				// read the fxManualTempo attribute value
-				FXManualTempo = NumberUtils.DecimalTryParseOrZero(fxManualTempoNode.SelectSingleNode("@Value").Value);
+				FXManualTempo = NumberUtils.DecimalTryParseDecimalPointOrZero(fxManualTempoNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxModulationDepthNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Modulation Depth']");
 			if (fxModulationDepthNode != null) {
 				// read the fxModulationDepth attribute value
-				FXModulationDepth = NumberUtils.DecimalTryParseOrZero(fxModulationDepthNode.SelectSingleNode("@Value").Value);
+				FXModulationDepth = NumberUtils.DecimalTryParseDecimalPointOrZero(fxModulationDepthNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxModulationFeedbackNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Modulation Feedback']");
 			if (fxModulationFeedbackNode != null) {
 				// read the fxModulationFeedback attribute value
-				FXModulationFeedback = NumberUtils.DecimalTryParseOrZero(fxModulationFeedbackNode.SelectSingleNode("@Value").Value);
+				FXModulationFeedback = NumberUtils.DecimalTryParseDecimalPointOrZero(fxModulationFeedbackNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxModulationModeNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Modulation Mode']");
@@ -1055,7 +1051,7 @@ namespace Nectar2Preset
 			XmlNode fxModulationSendNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Modulation Send']");
 			if (fxModulationSendNode != null) {
 				// read the fxModulationSend attribute value
-				FXModulationSend = NumberUtils.DecimalTryParseOrZero(fxModulationSendNode.SelectSingleNode("@Value").Value);
+				FXModulationSend = NumberUtils.DecimalTryParseDecimalPointOrZero(fxModulationSendNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxParallelProcessingNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Parallel Processing']");
@@ -1067,13 +1063,13 @@ namespace Nectar2Preset
 			XmlNode fxTimeDepthNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Time Depth']");
 			if (fxTimeDepthNode != null) {
 				// read the fxTimeDepth attribute value
-				FXTimeDepth = NumberUtils.DecimalTryParseOrZero(fxTimeDepthNode.SelectSingleNode("@Value").Value);
+				FXTimeDepth = NumberUtils.DecimalTryParseDecimalPointOrZero(fxTimeDepthNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxTimeFeedbackNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Time Feedback']");
 			if (fxTimeFeedbackNode != null) {
 				// read the fxTimeFeedback attribute value
-				FXTimeFeedback = NumberUtils.DecimalTryParseOrZero(fxTimeFeedbackNode.SelectSingleNode("@Value").Value);
+				FXTimeFeedback = NumberUtils.DecimalTryParseDecimalPointOrZero(fxTimeFeedbackNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxTimeModeNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Time Mode']");
@@ -1085,25 +1081,25 @@ namespace Nectar2Preset
 			XmlNode fxTimeSendNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Time Send']");
 			if (fxTimeSendNode != null) {
 				// read the fxTimeSend attribute value
-				FXTimeSend = NumberUtils.DecimalTryParseOrZero(fxTimeSendNode.SelectSingleNode("@Value").Value);
+				FXTimeSend = NumberUtils.DecimalTryParseDecimalPointOrZero(fxTimeSendNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode fxWetMixNode = xmldoc.SelectSingleNode("/Nectar/FX/Param[@ElementID='FX' and @ParamID='Wet Mix']");
 			if (fxWetMixNode != null) {
 				// read the fxWetMix attribute value
-				FXWetMix = NumberUtils.DecimalTryParseOrZero(fxWetMixNode.SelectSingleNode("@Value").Value);
+				FXWetMix = NumberUtils.DecimalTryParseDecimalPointOrZero(fxWetMixNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode gateExpanderAttackNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='Attack']");
 			if (gateExpanderAttackNode != null) {
 				// read the gateExpanderAttack attribute value
-				GateExpanderAttack = NumberUtils.DecimalTryParseOrZero(gateExpanderAttackNode.SelectSingleNode("@Value").Value);
+				GateExpanderAttack = NumberUtils.DecimalTryParseDecimalPointOrZero(gateExpanderAttackNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode gateExpanderBandGainNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='Band Gain']");
 			if (gateExpanderBandGainNode != null) {
 				// read the gateExpanderBandGain attribute value
-				GateExpanderBandGain = NumberUtils.DecimalTryParseOrZero(gateExpanderBandGainNode.SelectSingleNode("@Value").Value);
+				GateExpanderBandGain = NumberUtils.DecimalTryParseDecimalPointOrZero(gateExpanderBandGainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode gateExpanderBypassNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='Bypass']");
@@ -1115,7 +1111,7 @@ namespace Nectar2Preset
 			XmlNode gateExpanderFloorOutputThresholdNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='Floor Output Threshold']");
 			if (gateExpanderFloorOutputThresholdNode != null) {
 				// read the gateExpanderFloorOutputThreshold attribute value
-				GateExpanderFloorOutputThreshold = NumberUtils.DecimalTryParseOrZero(gateExpanderFloorOutputThresholdNode.SelectSingleNode("@Value").Value);
+				GateExpanderFloorOutputThreshold = NumberUtils.DecimalTryParseDecimalPointOrZero(gateExpanderFloorOutputThresholdNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode gateExpanderRMSDetectionNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='RMS Detection']");
@@ -1127,25 +1123,25 @@ namespace Nectar2Preset
 			XmlNode gateExpanderRatioNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='Ratio']");
 			if (gateExpanderRatioNode != null) {
 				// read the gateExpanderRatio attribute value
-				GateExpanderRatio = NumberUtils.DecimalTryParseOrZero(gateExpanderRatioNode.SelectSingleNode("@Value").Value);
+				GateExpanderRatio = NumberUtils.DecimalTryParseDecimalPointOrZero(gateExpanderRatioNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode gateExpanderReleaseNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='Release']");
 			if (gateExpanderReleaseNode != null) {
 				// read the gateExpanderRelease attribute value
-				GateExpanderRelease = NumberUtils.DecimalTryParseOrZero(gateExpanderReleaseNode.SelectSingleNode("@Value").Value);
+				GateExpanderRelease = NumberUtils.DecimalTryParseDecimalPointOrZero(gateExpanderReleaseNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode gateExpanderThresholdNode = xmldoc.SelectSingleNode("/Nectar/Gate/Param[@ElementID='Gate Expander' and @ParamID='Threshold']");
 			if (gateExpanderThresholdNode != null) {
 				// read the gateExpanderThreshold attribute value
-				GateExpanderThreshold = NumberUtils.DecimalTryParseOrZero(gateExpanderThresholdNode.SelectSingleNode("@Value").Value);
+				GateExpanderThreshold = NumberUtils.DecimalTryParseDecimalPointOrZero(gateExpanderThresholdNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode globalGlobalCompressionMixNode = xmldoc.SelectSingleNode("/Nectar/Global/Param[@ElementID='Global' and @ParamID='Global Compression Mix']");
 			if (globalGlobalCompressionMixNode != null) {
 				// read the globalGlobalCompressionMix attribute value
-				GlobalGlobalCompressionMix = NumberUtils.DecimalTryParseOrZero(globalGlobalCompressionMixNode.SelectSingleNode("@Value").Value);
+				GlobalGlobalCompressionMix = NumberUtils.DecimalTryParseDecimalPointOrZero(globalGlobalCompressionMixNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode globalGlobalParallelCompressionNode = xmldoc.SelectSingleNode("/Nectar/Global/Param[@ElementID='Global' and @ParamID='Global Parallel Compression']");
@@ -1163,49 +1159,49 @@ namespace Nectar2Preset
 			XmlNode harmonyGainSpreadNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Gain Spread']");
 			if (harmonyGainSpreadNode != null) {
 				// read the harmonyGainSpread attribute value
-				HarmonyGainSpread = NumberUtils.DecimalTryParseOrZero(harmonyGainSpreadNode.SelectSingleNode("@Value").Value);
+				HarmonyGainSpread = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyGainSpreadNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyHighShelfFreqNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='High Shelf Freq']");
 			if (harmonyHighShelfFreqNode != null) {
 				// read the harmonyHighShelfFreq attribute value
-				HarmonyHighShelfFreq = NumberUtils.DecimalTryParseOrZero(harmonyHighShelfFreqNode.SelectSingleNode("@Value").Value);
+				HarmonyHighShelfFreq = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyHighShelfFreqNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyHighShelfGainNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='High Shelf Gain']");
 			if (harmonyHighShelfGainNode != null) {
 				// read the harmonyHighShelfGain attribute value
-				HarmonyHighShelfGain = NumberUtils.DecimalTryParseOrZero(harmonyHighShelfGainNode.SelectSingleNode("@Value").Value);
+				HarmonyHighShelfGain = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyHighShelfGainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyLowShelfFreqNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Low Shelf Freq']");
 			if (harmonyLowShelfFreqNode != null) {
 				// read the harmonyLowShelfFreq attribute value
-				HarmonyLowShelfFreq = NumberUtils.DecimalTryParseOrZero(harmonyLowShelfFreqNode.SelectSingleNode("@Value").Value);
+				HarmonyLowShelfFreq = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyLowShelfFreqNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyLowShelfGainNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Low Shelf Gain']");
 			if (harmonyLowShelfGainNode != null) {
 				// read the harmonyLowShelfGain attribute value
-				HarmonyLowShelfGain = NumberUtils.DecimalTryParseOrZero(harmonyLowShelfGainNode.SelectSingleNode("@Value").Value);
+				HarmonyLowShelfGain = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyLowShelfGainNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyPanSpreadNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Pan Spread']");
 			if (harmonyPanSpreadNode != null) {
 				// read the harmonyPanSpread attribute value
-				HarmonyPanSpread = NumberUtils.DecimalTryParseOrZero(harmonyPanSpreadNode.SelectSingleNode("@Value").Value);
+				HarmonyPanSpread = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyPanSpreadNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyPitchCorrectionNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Pitch Correction']");
 			if (harmonyPitchCorrectionNode != null) {
 				// read the harmonyPitchCorrection attribute value
-				HarmonyPitchCorrection = NumberUtils.DecimalTryParseOrZero(harmonyPitchCorrectionNode.SelectSingleNode("@Value").Value);
+				HarmonyPitchCorrection = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyPitchCorrectionNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyPitchVariationNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Pitch Variation']");
 			if (harmonyPitchVariationNode != null) {
 				// read the harmonyPitchVariation attribute value
-				HarmonyPitchVariation = NumberUtils.DecimalTryParseOrZero(harmonyPitchVariationNode.SelectSingleNode("@Value").Value);
+				HarmonyPitchVariation = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyPitchVariationNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonySoloHarmonyNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Solo Harmony']");
@@ -1217,7 +1213,7 @@ namespace Nectar2Preset
 			XmlNode harmonyTimeVariationNode = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Time Variation']");
 			if (harmonyTimeVariationNode != null) {
 				// read the harmonyTimeVariation attribute value
-				HarmonyTimeVariation = NumberUtils.DecimalTryParseOrZero(harmonyTimeVariationNode.SelectSingleNode("@Value").Value);
+				HarmonyTimeVariation = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyTimeVariationNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceEnable3Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Enable 3']");
@@ -1235,25 +1231,25 @@ namespace Nectar2Preset
 			XmlNode harmonyVoiceGain1Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Gain 1']");
 			if (harmonyVoiceGain1Node != null) {
 				// read the harmonyVoiceGain1 attribute value
-				HarmonyVoiceGain1 = NumberUtils.DecimalTryParseOrZero(harmonyVoiceGain1Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceGain1 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoiceGain1Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceGain2Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Gain 2']");
 			if (harmonyVoiceGain2Node != null) {
 				// read the harmonyVoiceGain2 attribute value
-				HarmonyVoiceGain2 = NumberUtils.DecimalTryParseOrZero(harmonyVoiceGain2Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceGain2 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoiceGain2Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceGain3Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Gain 3']");
 			if (harmonyVoiceGain3Node != null) {
 				// read the harmonyVoiceGain3 attribute value
-				HarmonyVoiceGain3 = NumberUtils.DecimalTryParseOrZero(harmonyVoiceGain3Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceGain3 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoiceGain3Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceGain4Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Gain 4']");
 			if (harmonyVoiceGain4Node != null) {
 				// read the harmonyVoiceGain4 attribute value
-				HarmonyVoiceGain4 = NumberUtils.DecimalTryParseOrZero(harmonyVoiceGain4Node.SelectSingleNode("@Value").Value);
+				HarmonyVoiceGain4 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoiceGain4Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoiceInterval1Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Interval 1']");
@@ -1307,25 +1303,25 @@ namespace Nectar2Preset
 			XmlNode harmonyVoicePan1Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Pan 1']");
 			if (harmonyVoicePan1Node != null) {
 				// read the harmonyVoicePan1 attribute value
-				HarmonyVoicePan1 = NumberUtils.DecimalTryParseOrZero(harmonyVoicePan1Node.SelectSingleNode("@Value").Value);
+				HarmonyVoicePan1 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoicePan1Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoicePan2Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Pan 2']");
 			if (harmonyVoicePan2Node != null) {
 				// read the harmonyVoicePan2 attribute value
-				HarmonyVoicePan2 = NumberUtils.DecimalTryParseOrZero(harmonyVoicePan2Node.SelectSingleNode("@Value").Value);
+				HarmonyVoicePan2 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoicePan2Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoicePan3Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Pan 3']");
 			if (harmonyVoicePan3Node != null) {
 				// read the harmonyVoicePan3 attribute value
-				HarmonyVoicePan3 = NumberUtils.DecimalTryParseOrZero(harmonyVoicePan3Node.SelectSingleNode("@Value").Value);
+				HarmonyVoicePan3 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoicePan3Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode harmonyVoicePan4Node = xmldoc.SelectSingleNode("/Nectar/Harmony/Param[@ElementID='Harmony' and @ParamID='Voice Pan 4']");
 			if (harmonyVoicePan4Node != null) {
 				// read the harmonyVoicePan4 attribute value
-				HarmonyVoicePan4 = NumberUtils.DecimalTryParseOrZero(harmonyVoicePan4Node.SelectSingleNode("@Value").Value);
+				HarmonyVoicePan4 = NumberUtils.DecimalTryParseDecimalPointOrZero(harmonyVoicePan4Node.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode maximizerBypassNode = xmldoc.SelectSingleNode("/Nectar/Limiter/Param[@ElementID='Maximizer' and @ParamID='Bypass']");
@@ -1337,13 +1333,13 @@ namespace Nectar2Preset
 			XmlNode maximizerMarginNode = xmldoc.SelectSingleNode("/Nectar/Limiter/Param[@ElementID='Maximizer' and @ParamID='Margin']");
 			if (maximizerMarginNode != null) {
 				// read the maximizerMargin attribute value
-				MaximizerMargin = NumberUtils.DecimalTryParseOrZero(maximizerMarginNode.SelectSingleNode("@Value").Value);
+				MaximizerMargin = NumberUtils.DecimalTryParseDecimalPointOrZero(maximizerMarginNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode maximizerThresholdNode = xmldoc.SelectSingleNode("/Nectar/Limiter/Param[@ElementID='Maximizer' and @ParamID='Threshold']");
 			if (maximizerThresholdNode != null) {
 				// read the maximizerThreshold attribute value
-				MaximizerThreshold = NumberUtils.DecimalTryParseOrZero(maximizerThresholdNode.SelectSingleNode("@Value").Value);
+				MaximizerThreshold = NumberUtils.DecimalTryParseDecimalPointOrZero(maximizerThresholdNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode pitchBypassNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Bypass']");
@@ -1355,19 +1351,19 @@ namespace Nectar2Preset
 			XmlNode pitchFormantScalingNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Formant Scaling']");
 			if (pitchFormantScalingNode != null) {
 				// read the pitchFormantScaling attribute value
-				PitchFormantScaling = NumberUtils.DecimalTryParseOrZero(pitchFormantScalingNode.SelectSingleNode("@Value").Value);
+				PitchFormantScaling = NumberUtils.DecimalTryParseDecimalPointOrZero(pitchFormantScalingNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode pitchFormantShiftNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Formant Shift']");
 			if (pitchFormantShiftNode != null) {
 				// read the pitchFormantShift attribute value
-				PitchFormantShift = NumberUtils.DecimalTryParseOrZero(pitchFormantShiftNode.SelectSingleNode("@Value").Value);
+				PitchFormantShift = NumberUtils.DecimalTryParseDecimalPointOrZero(pitchFormantShiftNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode pitchSmoothingNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Smoothing']");
 			if (pitchSmoothingNode != null) {
 				// read the pitchSmoothing attribute value
-				PitchSmoothing = NumberUtils.DecimalTryParseOrZero(pitchSmoothingNode.SelectSingleNode("@Value").Value);
+				PitchSmoothing = NumberUtils.DecimalTryParseDecimalPointOrZero(pitchSmoothingNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode pitchVocalRangeNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Vocal Range']");
@@ -1379,7 +1375,7 @@ namespace Nectar2Preset
 			XmlNode pitchVoice1TranspositionNode = xmldoc.SelectSingleNode("/Nectar/Pitch/Param[@ElementID='Pitch' and @ParamID='Voice 1 Transposition']");
 			if (pitchVoice1TranspositionNode != null) {
 				// read the pitchVoice1Transposition attribute value
-				PitchVoice1Transposition = NumberUtils.DecimalTryParseOrZero(pitchVoice1TranspositionNode.SelectSingleNode("@Value").Value);
+				PitchVoice1Transposition = NumberUtils.DecimalTryParseDecimalPointOrZero(pitchVoice1TranspositionNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbBypassNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Bypass']");
@@ -1391,37 +1387,37 @@ namespace Nectar2Preset
 			XmlNode reverbDampingNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Damping']");
 			if (reverbDampingNode != null) {
 				// read the reverbDamping attribute value
-				ReverbDamping = NumberUtils.DecimalTryParseOrZero(reverbDampingNode.SelectSingleNode("@Value").Value);
+				ReverbDamping = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbDampingNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbDryMixNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Dry Mix']");
 			if (reverbDryMixNode != null) {
 				// read the reverbDryMix attribute value
-				ReverbDryMix = NumberUtils.DecimalTryParseOrZero(reverbDryMixNode.SelectSingleNode("@Value").Value);
+				ReverbDryMix = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbDryMixNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbHighCutoffNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='High Cutoff']");
 			if (reverbHighCutoffNode != null) {
 				// read the reverbHighCutoff attribute value
-				ReverbHighCutoff = NumberUtils.DecimalTryParseOrZero(reverbHighCutoffNode.SelectSingleNode("@Value").Value);
+				ReverbHighCutoff = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbHighCutoffNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbLowCutoffNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Low Cutoff']");
 			if (reverbLowCutoffNode != null) {
 				// read the reverbLowCutoff attribute value
-				ReverbLowCutoff = NumberUtils.DecimalTryParseOrZero(reverbLowCutoffNode.SelectSingleNode("@Value").Value);
+				ReverbLowCutoff = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbLowCutoffNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbPreDelayNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='PreDelay']");
 			if (reverbPreDelayNode != null) {
 				// read the reverbPreDelay attribute value
-				ReverbPreDelay = NumberUtils.DecimalTryParseOrZero(reverbPreDelayNode.SelectSingleNode("@Value").Value);
+				ReverbPreDelay = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbPreDelayNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbSaturationNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Saturation']");
 			if (reverbSaturationNode != null) {
 				// read the reverbSaturation attribute value
-				ReverbSaturation = NumberUtils.DecimalTryParseOrZero(reverbSaturationNode.SelectSingleNode("@Value").Value);
+				ReverbSaturation = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbSaturationNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbSaturationEnableNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Saturation Enable']");
@@ -1433,19 +1429,19 @@ namespace Nectar2Preset
 			XmlNode reverbWetMixNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Wet Mix']");
 			if (reverbWetMixNode != null) {
 				// read the reverbWetMix attribute value
-				ReverbWetMix = NumberUtils.DecimalTryParseOrZero(reverbWetMixNode.SelectSingleNode("@Value").Value);
+				ReverbWetMix = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbWetMixNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode reverbWidthNode = xmldoc.SelectSingleNode("/Nectar/Reverb/Param[@ElementID='Reverb' and @ParamID='Width']");
 			if (reverbWidthNode != null) {
 				// read the reverbWidth attribute value
-				ReverbWidth = NumberUtils.DecimalTryParseOrZero(reverbWidthNode.SelectSingleNode("@Value").Value);
+				ReverbWidth = NumberUtils.DecimalTryParseDecimalPointOrZero(reverbWidthNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode exciterAmountPercentNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Amount Percent']");
 			if (exciterAmountPercentNode != null) {
 				// read the exciterAmountPercent attribute value
-				ExciterAmountPercent = NumberUtils.DecimalTryParseOrZero(exciterAmountPercentNode.SelectSingleNode("@Value").Value);
+				ExciterAmountPercent = NumberUtils.DecimalTryParseDecimalPointOrZero(exciterAmountPercentNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode exciterBypassNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Bypass']");
@@ -1457,7 +1453,7 @@ namespace Nectar2Preset
 			XmlNode exciterMixPercentNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Mix Percent']");
 			if (exciterMixPercentNode != null) {
 				// read the exciterMixPercent attribute value
-				ExciterMixPercent = NumberUtils.DecimalTryParseOrZero(exciterMixPercentNode.SelectSingleNode("@Value").Value);
+				ExciterMixPercent = NumberUtils.DecimalTryParseDecimalPointOrZero(exciterMixPercentNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode exciterModeNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Mode']");
@@ -1469,13 +1465,13 @@ namespace Nectar2Preset
 			XmlNode exciterPostfilterFreqNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Postfilter Freq']");
 			if (exciterPostfilterFreqNode != null) {
 				// read the exciterPostfilterFreq attribute value
-				ExciterPostfilterFreq = NumberUtils.DecimalTryParseOrZero(exciterPostfilterFreqNode.SelectSingleNode("@Value").Value);
+				ExciterPostfilterFreq = NumberUtils.DecimalTryParseDecimalPointOrZero(exciterPostfilterFreqNode.SelectSingleNode("@Value").Value);
 			}
 
 			XmlNode exciterPostfilterGainNode = xmldoc.SelectSingleNode("/Nectar/Saturation/Param[@ElementID='Exciter' and @ParamID='Postfilter Gain']");
 			if (exciterPostfilterGainNode != null) {
 				// read the exciterPostfilterGain attribute value
-				ExciterPostfilterGain = NumberUtils.DecimalTryParseOrZero(exciterPostfilterGainNode.SelectSingleNode("@Value").Value);
+				ExciterPostfilterGain = NumberUtils.DecimalTryParseDecimalPointOrZero(exciterPostfilterGainNode.SelectSingleNode("@Value").Value);
 			}
 
 		}
@@ -1483,7 +1479,7 @@ namespace Nectar2Preset
 
 		#region toString Method
 		public override string ToString() {
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 
 			sb.AppendFormat("Preset Name: {0}\n", PresetName);
 			sb.AppendLine();

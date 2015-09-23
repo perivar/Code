@@ -21,7 +21,7 @@ namespace Nectar2Preset
 			//string filePath = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\Pop\Airy Lead (Harmonized).xml";
 			
 			string nectar2PresetDirString = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\";
-			string outputDirectoryPath =  @"..\Output";
+			string outputDirectoryPath =  @"..\..\Output";
 			
 			// process directory
 			var nectar2PresetDir = new DirectoryInfo(nectar2PresetDirString);
