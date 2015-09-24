@@ -14,32 +14,77 @@ namespace Nectar2Preset
 {
 	class Program
 	{
+		const string _version = "0.1";
+		
 		[STAThread]
 		public static void Main(string[] args)
 		{
 			//string filePath = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\TEST.xml";
 			//string filePath = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\Pop\Airy Lead (Harmonized).xml";
+			//string presetInputFileOrDirectory = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\";
+			//string presetOutputFileDirectoryPath =  @"..\..\Output";
 			
-			string nectar2PresetDirString = @"C:\Users\perivar.nerseth\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets\";
-			string outputDirectoryPath =  @"..\..\Output";
+			// Command line parsing
+			bool doDebug = false;
+			string presetInputFileOrDirectory = "";
+			string presetOutputFileDirectoryPath = "";
+			string codeOutputFilePath = "";
+			
+			var CommandLine = new Arguments(args);
+			if(CommandLine["in"] != null) {
+				presetInputFileOrDirectory = CommandLine["in"];
+			}
+			if(CommandLine["out"] != null) {
+				presetOutputFileDirectoryPath = CommandLine["out"];
+			}
+			if(CommandLine["codefile"] != null) {
+				codeOutputFilePath = CommandLine["codefile"];
+			}
+			if(CommandLine["debug"] != null) {
+				doDebug = true;
+			}
+			if (presetInputFileOrDirectory == "" || presetOutputFileDirectoryPath == "") {
+				PrintUsage();
+				Console.ReadKey();
+				return;
+			}
 			
 			// process directory
-			var nectar2PresetDir = new DirectoryInfo(nectar2PresetDirString);
-			IEnumerable<string> presetFiles = IOUtils.GetFiles(nectar2PresetDirString, "\\.xml", SearchOption.AllDirectories);
+			var nectar2PresetDir = new DirectoryInfo(presetInputFileOrDirectory);
+			IEnumerable<string> presetFiles = IOUtils.GetFiles(presetInputFileOrDirectory, "\\.xml", SearchOption.AllDirectories);
 			Console.WriteLine("Processing {0} files in directory: '{1}' ...", presetFiles.Count(), nectar2PresetDir.Name);
 			
 			int count = 0;
 			foreach (string presetFile in presetFiles) {
 				Console.WriteLine("Processing {0} '{1}' ...", count++, presetFile);
 				
-				WriteNectar2PresetInfo(presetFile, outputDirectoryPath);
+				WriteNectar2PresetInfo(presetFile, presetOutputFileDirectoryPath);
 			}
 
 			// generate code
-			//string outputfilenameMethods = @"..\..\ReadWriteMethods.txt";
-			//generateCode(xmldoc, outputfilenameMethods);
+			if (codeOutputFilePath != "") {
+				var presetXml = new XmlDocument();
+				presetXml.Load(presetInputFileOrDirectory);
+				generateCode(presetXml, codeOutputFilePath);
+			}
 		}
 
+		public static void PrintUsage() {
+			Console.WriteLine("iZotope Nectar 2 Preset Dumper. Version {0}.", _version);
+			Console.WriteLine("Copyright (C) 2010-2015 Per Ivar Nerseth.");
+			Console.WriteLine();
+			Console.WriteLine("Usage: Nectar2Preset.exe <Arguments>");
+			Console.WriteLine();
+			Console.WriteLine("Mandatory Arguments:");
+			Console.WriteLine("\t-in=<path to a preset file or a directory to convert from>");
+			Console.WriteLine("\t-out=<path to the directory to convert to>");
+			Console.WriteLine();
+			Console.WriteLine("Optional Arguments:");
+			Console.WriteLine("\t-codefile=<path to a file to generate c# read & write methods>");
+			//Console.WriteLine("\t-debug <Output debug information to the log file>");
+			Console.WriteLine();
+		}
+		
 		private static void WriteNectar2PresetInfo(string inputFilePath, string outputDirectoryPath) {
 
 			var presetXml = new XmlDocument();
