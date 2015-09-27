@@ -23,7 +23,7 @@
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <StartAction>Project</StartAction>
-    <StartArguments>-in="G:\SkyDrive\Audio\Presets\Izotope\Nectar 2\Presets" -out="..\..\Output"</StartArguments>
+    <StartArguments>-in="G:\OneDrive\Audio\Presets\Izotope\Nectar 2\Presets" -out="..\..\Output"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
